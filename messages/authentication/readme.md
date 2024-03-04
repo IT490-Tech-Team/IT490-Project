@@ -6,6 +6,8 @@ This is the latest progress we've made with the authentication. So far we've got
 
 ## website folder
 
+This folder is the equivalent of apache /var/www/html
+
 - index.html → place holder for the homepage.
 - _register_ folder → http://localhost/register
   - index.html → registration page
@@ -21,10 +23,16 @@ This is the latest progress we've made with the authentication. So far we've got
 
 
 ## server folder
+This folder should run inside of the database machine
 
 - get_host_info.inc → *dependencies*
 - host.ini → *dependencies*
 - path.inc → *dependencies*
 - RabbitMQ.ini → **config**
 - RabbitMQLib.inc → *dependencies*
-- RabbitMQServer.php →
+- RabbitMQServer.php → what recieves the client request from the website
+
+## RabbitMQServer.php
+
+- Currently it's set up with 3 message types
+  - login, register, and validate_session, each has their own function
