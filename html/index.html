@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="button" onclick="loginUser()">Login</button>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+    <div id="textResponse">
+        Awaiting response
+    </div>
+
+    <script>
+        function HandleResponse(response) {
+	<!--console.log("Response received:", response);-->
+  
+  
+          <!-- Update the textResponse div with the response message-->
+            document.getElementById("textResponse").innerHTML = "Response: " + response + "<p>";
+        }
+
+        function SendRequest(type, data) {
+            var request = new XMLHttpRequest();
+            request.open("POST", type + ".php", true);
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    <!-- Call HandleResponse with the response text-->
+                   	console.log("handle response");
+			 HandleResponse(this.responseText);
+                	console.log("after handling response");
+			}
+            };
+		console.log("request send data: ", data);
+            request.send(data);
+        }
+
+        function loginUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var data = "type=login&username=" + username + "&password=" + password;
+           console.log("Sending login request with data:", data);
+		 SendRequest("login", data);
+        }
+
+        function registerUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var data = "type=register&username=" + username +  "&password=" + password;
+            console.log("Sending registration request with data:", data); 
+		SendRequest("register", data);
+        }
+    </script>
+</body>
+</html>
+
+<!--
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="button" onclick="loginUser()">Login</button>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+    <div id="textResponse">
+        Awaiting response
+    </div>
+
+    <script>
+        function HandleResponse(response) {
+            var text = JSON.parse(response);
+            document.getElementById("textResponse").innerHTML = "Response: " + text + "<p>";
+        }
+
+        function SendRequest(type, data) {
+            var request = new XMLHttpRequest();
+            request.open("POST", type + ".php", true);
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    HandleResponse(this.responseText);
+                }
+            };
+            request.send(data);
+        }
+
+        function loginUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var data = "type=login&uname=" + username + "&pword=" + password;
+            SendRequest("login", data);
+        }
+
+        function registerUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var data = "type=register&uname=" + username +  "&pword=" + password;
+            SendRequest("register", data);
+        }
+    </script>
+</body>
+</html>
+
+-->
+
+
+
+<!--
+<html>
+<script>
+
+function HandleLoginResponse(response)
+{
+	var text = JSON.parse(response);
+//	document.getElementById("textResponse").innerHTML = response+"<p>";	
+	document.getElementById("textResponse").innerHTML = "response: "+text+"<p>";
+}
+
+function SendLoginRequest(username,password)
+{
+	var request = new XMLHttpRequest();
+	request.open("POST","login.php",true);
+	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	request.onreadystatechange= function ()
+	{
+		
+		if ((this.readyState == 4)&&(this.status == 200))
+		{
+			HandleLoginResponse(this.responseText);
+		}		
+	}
+	request.send("type=login&uname="+username+"&pword="+password);
+}
+</script>
+
+<h1>login page</h1>
+<body>
+<div id="textResponse">
+awaiting response
+</div>
+<script>
+
+
+
+
+
+
+
+//SendLoginRequest("kehoed","12345");
+</script>
+</body>-->
+</html>
