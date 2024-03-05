@@ -1,8 +1,8 @@
 <?php
 
-require_once('./RabbitMQClient/path.inc');
-require_once('./RabbitMQClient/get_host_info.inc');
-require_once('./RabbitMQClient/rabbitMQLib.inc');
+require_once('../utils/RabbitMQClient/path.inc');
+require_once('../utils/RabbitMQClient/get_host_info.inc');
+require_once('../utils/RabbitMQClient/rabbitMQLib.inc');
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     echo json_encode("Request must be POST");
