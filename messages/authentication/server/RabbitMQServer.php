@@ -5,13 +5,48 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
 function doRegister($username,$password){
-  return true;
+	//error handling for connecting to mysql database
+	try {	
+		//will probably have to change this, depending on database location
+		$conn = new mysqli('localhost', 'tester', '12345', 'userdb'); 
+	} catch (Exception $e) {
+		$response = "Error";
+		echo json_encode($response);
+		exit(0);
+	}
+	
+	$sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+	if ($conn->query($sql) === TRUE) { 
+		return true; 
+	} else { 
+		return false; 
+	}               
 }
+
 function doLogin($username,$password)
 {
     // lookup username in databas
     // check password
-    return true;
+	try {   
+                //will probably have to change this, depending on database location
+                $conn = new mysqli('localhost', 'tester', '12345', 'userdb'); 
+        } catch (Exception $e) {
+                $response = "Error";
+                echo json_encode($response);
+                exit(0);
+        }
+  	
+	$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+        $result = $conn->query($sql);
+
+        // Check if a row was returned (i.e., user exists and password is correct)
+        if ($result->num_rows > 0) {
+           // $response = "Login successful";
+       	   return true;
+	 } else {
+            $response = "Invalid username or password";
+           return false; 
+	} 
     //return false if not valid
 }
 
