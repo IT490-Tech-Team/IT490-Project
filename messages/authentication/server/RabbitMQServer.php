@@ -15,6 +15,15 @@ function doRegister($username,$password){
 		exit(0);
 	}
 	
+	//check if username already exists
+	$check_sql = "SELECT COUNT(*) as count FROM users WHERE username = '$username'";
+   	$result = $conn->query($check_sql);
+    	$row = $result->fetch_assoc();
+    	if ($row['count'] > 0) {
+        	// username already exists, return false
+        	return false;
+    	}
+	
 	$sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
 	if ($conn->query($sql) === TRUE) { 
 		return true; 
