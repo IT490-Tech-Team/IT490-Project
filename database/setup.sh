@@ -13,9 +13,9 @@ apt update
 apt install -y mysql-server
 
 # Log in to MySQL as root
-sudo mysql -u root <<EOF
+sudo mysql -u root -p <<EOF
     # Execute SQL commands from user-database.sql
-    source /path/to/user-database.sql;
+    source ./user-database.sql;
 EOF
 
 echo "MySQL setup completed successfully."
