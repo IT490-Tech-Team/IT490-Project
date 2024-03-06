@@ -24,8 +24,8 @@ The repository is organized into folders corresponding to each VM:
 
 | Title                          | Overview                                            | Link                                   |
 | ------------------------------ | --------------------------------------------------- | -------------------------------------- |
-| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/tailscale.md)                |
-| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/tailscale-machine-rename.md) |
+| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/docs/tailscale.md)                |
+| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/docs/tailscale-machine-rename.md) |
 
 
 ## Tailscale Setup
