@@ -33,7 +33,6 @@ const sendValidateRequest = (sessionId) => {
 }
 
 const handleResponse = (response) => {
-    console.log("MAYDAY")
     console.log(response)
     switch (response.returnCode) {
         case "500":

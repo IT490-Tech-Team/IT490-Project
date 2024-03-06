@@ -1,12 +1,13 @@
 let form = document.getElementById("registration")
 
 const sendRegisterRequest = (user, password) => {
-    fetch("./register.php", {
+    fetch("/utils/authenticate/main.php", {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
+            type: "register",
             username: user,
             password: password
         })
@@ -23,7 +24,6 @@ const sendRegisterRequest = (user, password) => {
 }
 
 const handleResponse = (response) => {
-    console.log("MAYDAY")
     console.log(response)
     switch (response.returnCode) {
         case "500":

@@ -1,12 +1,13 @@
 let form = document.getElementById("login")
 
 const sendLoginRequest = (user, password) => {
-    fetch("./login.php", {
+    fetch("/utils/authenticate/main.php", {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
+            type: "login",
             username: user,
             password: password
         })
@@ -23,7 +24,6 @@ const sendLoginRequest = (user, password) => {
 }
 
 const handleResponse = (response) => {
-    console.log("MAYDAY")
     console.log(response)
     switch (response.returnCode) {
         case "500":
