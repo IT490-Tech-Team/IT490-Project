@@ -28,11 +28,16 @@ const handleResponse = (response) => {
     switch (response.returnCode) {
         case "500":
         case "400":
-            console.log("try again")
+            alert("Try Again.")
             break;
     
         default:
             createSessionCookie(response)
+            let result = confirm("Login Successful, would you like to go to the website?");
+
+            if (result){
+                location.assign("/")
+            }
             console.log("ready to use the website")
             break;
     }

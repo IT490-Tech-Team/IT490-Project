@@ -37,10 +37,12 @@ const handleResponse = (response) => {
     switch (response.returnCode) {
         case "500":
         case "400":
+            document.querySelector("#welcome-banner").innerHTML = "Hello, new user!"
             console.log("try again")
             break;
     
         default:
+            document.querySelector("#welcome-banner").innerHTML = "Welcome back, user!"
             console.log("ready to use the website")
             break;
     }
@@ -49,4 +51,3 @@ const handleResponse = (response) => {
 const sessionId = getSessionIdCookie();
 
 sendValidateRequest(sessionId)
-console.log(sessionId); 

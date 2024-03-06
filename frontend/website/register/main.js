@@ -28,11 +28,16 @@ const handleResponse = (response) => {
     switch (response.returnCode) {
         case "500":
         case "400":
-            console.log("try again")
+            alert("Try Again.")
             break;
     
         default:
-            console.log("ready to log in")
+            let result = confirm("Registration Successful, would you like to login?");
+            
+            if (result){
+                location.assign("/login")
+            }
+
             break;
     }
 }
