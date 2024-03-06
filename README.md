@@ -15,9 +15,9 @@ The repository is organized into folders corresponding to each VM:
 | Component    | Description                                                                | README                         |
 | ------------ | -------------------------------------------------------------------------- | ------------------------------ |
 | **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./database/README.md) |
-| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./dmz/README.md)      |
+| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./DMZ/README.md)      |
 | **Frontend** | Contains files and folders related to the frontend service.                | [README](./frontend/README.md) |
-| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./rabbigmq/README.md) |
+| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./RabbitMQ/README.md) |
 
 ## Tailscale Setup
 
