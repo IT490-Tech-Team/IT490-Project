@@ -6,6 +6,14 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+# Function to check if rabbitmqadmin is installed
+check_rabbitmqadmin() {
+    if ! command -v rabbitmqadmin &> /dev/null; then
+        echo "ERROR: rabbitmqadmin is not installed. Please install it first."
+        exit 1
+    fi
+}
+
 # Function to check for "Access refused" message in output
 check_access_refused() {
     if [[ $1 =~ ^\*\*\*\ Access\ refused: ]]; then
@@ -13,6 +21,9 @@ check_access_refused() {
         exit 1
     fi
 }
+
+# Check if rabbitmqadmin is installed
+check_rabbitmqadmin
 
 # RabbitMQ admin credentials
 read -p "Enter RabbitMQ admin username: " RABBITMQ_ADMIN_USER
