@@ -19,6 +19,15 @@ The repository is organized into folders corresponding to each VM:
 | **Frontend** | Contains files and folders related to the frontend service.                | [README](./frontend/README.md) |
 | **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./RabbitMQ/README.md) |
 
+
+## Guides
+
+| Title                          | Overview                                            | Link                                   |
+| ------------------------------ | --------------------------------------------------- | -------------------------------------- |
+| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/tailscale.md)                |
+| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/tailscale-machine-rename.md) |
+
+
 ## Tailscale Setup
 
 The project is not intended for public access, so the **Tech Team** has opted to use Tailscale, a personal VPN built on top of WireGuard.

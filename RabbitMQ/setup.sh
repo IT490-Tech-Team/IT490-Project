@@ -19,4 +19,8 @@ echo "Installing RabbitMQ management tool..."
 wget https://github.com/rabbitmq/rabbitmq-management/releases/download/v3.9.9/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
 chmod +x /usr/local/bin/rabbitmqadmin
 
+# Copy rabbitmq.config to the correct system folder
+echo "Copying rabbitmq.config file..."
+cp ./rabbitmq.config /etc/rabbitmq/
+
 echo "Setup completed successfully."
