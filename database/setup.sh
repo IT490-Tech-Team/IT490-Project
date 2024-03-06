@@ -12,6 +12,9 @@ apt update
 # Install MySQL Server
 apt install -y mysql-server
 
+# Install PHP CLI, PHP MySQL extension, and PHP AMQP extension
+apt install -y php-cli php-mysql php-amqp
+
 # Log in to MySQL as root
 sudo mysql -u root -p <<EOF
     # Execute SQL commands from user-database.sql

@@ -16,7 +16,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 # Install RabbitMQ management tool
 echo "Installing RabbitMQ management tool..."
-wget wget http://localhost:15672/cli/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
+wget http://localhost:15672/cli/rabbitmqadmin -O /usr/local/bin/rabbitmqadmin
 chmod +x /usr/local/bin/rabbitmqadmin
 
 # Copy rabbitmq.config to the correct system folder
