@@ -6,7 +6,7 @@ This repo holds the source code for **Tech Team's** System Integration project. 
 
 The Online Bookshelf service allows users to easily find and save books tailored to their interests. Users can search for books, read reviews, leave their own reviews, and access personal bookshelves. Recommendations are provided based on user interests and reading history.
 
-For more details, refer to [proposal.md](proposal.md).
+For more details, refer to [proposal.md](./.docs/proposal.md).
 
 ## Project Structure
 
@@ -22,10 +22,13 @@ The repository is organized into folders corresponding to each VM:
 
 ## Guides
 
+Ready to configure your VM? Follow these guides to set up Tailscale and perform machine renaming. Remember to customize the machine name according to your needs!
+
 | Title                          | Overview                                            | Link                                   |
 | ------------------------------ | --------------------------------------------------- | -------------------------------------- |
-| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/docs/tailscale.md)                |
-| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/docs/tailscale-machine-rename.md) |
+| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/.docs/tailscale.md)                |
+| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/.docs/tailscale-machine-rename.md) |
+
 
 
 ## Tailscale Setup
