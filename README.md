@@ -12,12 +12,12 @@ For more details, refer to [proposal.md](proposal.md).
 
 The repository is organized into folders corresponding to each VM:
 
-| Component    | Description                                                                | README                               |
-| ------------ | -------------------------------------------------------------------------- | ------------------------------------ |
-| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./Database/README.md)       |
-| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./DMZ/README.md)            |
-| **Frontend** | Contains files and folders related to the frontend service.                | [README](./Frontend/README.md)       |
-| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./RabbitMQServer/README.md) |
+| Component    | Description                                                                | README                         |
+| ------------ | -------------------------------------------------------------------------- | ------------------------------ |
+| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./database/README.md) |
+| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./dmz/README.md)      |
+| **Frontend** | Contains files and folders related to the frontend service.                | [README](./frontend/README.md) |
+| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./rabbigmq/README.md) |
 
 ## Tailscale Setup
 
@@ -36,6 +36,7 @@ Planned uses:
 
 ### Example Tailscale Domains
 
-| Machine name | IP            | Domain name                  |
-| ------------ | ------------- | ---------------------------- |
-| apache       | 100.64.125.94 | apache.beetal-pancake.ts.net |
+| Machine name | IP             | Domain name                    |
+| ------------ | -------------- | ------------------------------ |
+| apache       | 100.64.125.94  | apache.beetal-pancake.ts.net   |
+| database     | 100.109.171.19 | database.beetal-pancake.ts.net |
