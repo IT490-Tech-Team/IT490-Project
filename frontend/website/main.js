@@ -1,14 +1,24 @@
-let form = document.getElementById("registration")
 
-const sendRegisterRequest = (user, password) => {
-    fetch("./register.php", {
+function getSessionIdCookie() {
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+        const [name, value] = cookie.split('=');
+        if (name === 'sessionId') {
+            return value;
+        }
+    }
+    return null;
+}
+
+const sendValidateRequest = (sessionId) => {
+    fetch("/utils/authenticate/main.php", {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            username: user,
-            password: password
+            type: "validate_session",
+            sessionId: sessionId
         })
     })
     .then((response) => {
@@ -32,18 +42,12 @@ const handleResponse = (response) => {
             break;
     
         default:
-            console.log("ready to log in")
+            console.log("ready to use the website")
             break;
     }
 }
 
+const sessionId = getSessionIdCookie();
 
-
-form.addEventListener("submit", (event) => {
-	event.preventDefault()
-
-	const username = document.getElementById("username").value
-	const password = document.getElementById("password").value
-
-	sendRegisterRequest(username, password)
-})
+sendValidateRequest(sessionId)
+console.log(sessionId); 
