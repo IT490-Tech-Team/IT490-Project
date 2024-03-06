@@ -12,17 +12,10 @@ apt update
 # Install MySQL Server
 apt install -y mysql-server
 
-# Run MySQL security script
-mysql_secure_installation
+# Log in to MySQL as root
+sudo mysql -u root <<EOF
+    # Execute SQL commands from user-database.sql
+    source /path/to/user-database.sql;
+EOF
 
-# Install phpMyAdmin
-apt install -y phpmyadmin
-
-# Enable PHP mcrypt and mbstring extensions
-phpenmod mcrypt
-phpenmod mbstring
-
-# Restart Apache
-systemctl restart apache2
-
-echo "Setup completed successfully."
+echo "MySQL setup completed successfully."
