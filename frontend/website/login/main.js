@@ -1,22 +1,60 @@
 let form = document.getElementById("login")
 
 const sendLoginRequest = (user, password) => {
-    fetch("./login.php", {
+    fetch("/utils/authenticate/main.php", {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
+            type: "login",
             username: user,
             password: password
         })
     })
     .then((response) => {
-        response.text().then((response2) => { console.log("HI", response2)})
+        response.text().then((response_text) => {
+            const response = JSON.parse(response_text)
+            handleResponse(response)
+        })
     })
     .catch(err => {
         console.log("ERROR?", err)
     })
+}
+
+const handleResponse = (response) => {
+    console.log(response)
+    switch (response.returnCode) {
+        case "500":
+        case "400":
+            alert("Try Again.")
+            break;
+    
+        default:
+            createSessionCookie(response)
+            let result = confirm("Login Successful, would you like to go to the website?");
+
+            if (result){
+                location.assign("/")
+            }
+            console.log("ready to use the website")
+            break;
+    }
+}
+
+function createSessionCookie(response) {
+    // Extract sessionId and expired_at from the response
+    var sessionId = response.sessionId;
+    var expiredAt = new Date(response.expired_at);
+  
+    // Convert the expiredAt date to UTC string format
+    var expires = expiredAt.toUTCString();
+  
+    // Set the cookie with name "sessionId" and value sessionId
+    document.cookie = `sessionId=${sessionId};expires=${expires};path=/`;
+  
+    console.log("Session cookie created successfully!");
 }
 
 form.addEventListener("submit", (event) => {
