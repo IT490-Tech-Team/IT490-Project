@@ -14,10 +14,10 @@ The repository is organized into folders corresponding to each VM:
 
 | Component    | Description                                                                | README                         |
 | ------------ | -------------------------------------------------------------------------- | ------------------------------ |
-| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](.VMs/database/README.md) |
-| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](.VMs/dmz/README.md)      |
-| **Frontend** | Contains files and folders related to the frontend service.                | [README](.VMs/frontend/README.md) |
-| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](.VMs/rabbitmq/README.md) |
+| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./VMs/database/README.md) |
+| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./VMs/dmz/README.md)      |
+| **Frontend** | Contains files and folders related to the frontend service.                | [README](./VMs/frontend/README.md) |
+| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./VMs/rabbitmq/README.md) |
 
 
 ## Guides
