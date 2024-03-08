@@ -14,10 +14,10 @@ The repository is organized into folders corresponding to each VM:
 
 | Component    | Description                                                                | README                         |
 | ------------ | -------------------------------------------------------------------------- | ------------------------------ |
-| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./database/README.md) |
-| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./DMZ/README.md)      |
-| **Frontend** | Contains files and folders related to the frontend service.                | [README](./frontend/README.md) |
-| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./RabbitMQ/README.md) |
+| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./VMs/database/README.md) |
+| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./VMs/DMZ/README.md)      |
+| **Frontend** | Contains files and folders related to the frontend service.                | [README](./VMs/frontend/README.md) |
+| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./VMs/RabbitMQ/README.md) |
 
 
 ## Guides
@@ -26,8 +26,8 @@ Ready to configure your VM? Follow these guides to set up Tailscale and perform 
 
 | Title                          | Overview                                            | Link                                   |
 | ------------------------------ | --------------------------------------------------- | -------------------------------------- |
-| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/.docs/tailscale.md)                |
-| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/.docs/tailscale-machine-rename.md) |
+| Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/docs/tailscale.md)                |
+| Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/docs/tailscale-machine-rename.md) |
 
 
 
