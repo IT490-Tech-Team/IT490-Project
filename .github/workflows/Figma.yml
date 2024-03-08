@@ -1,0 +1,67 @@
+name: From Figma
+
+on:
+  workflow_dispatch:
+    inputs:
+      fileKey:
+        description: Figma file key
+        type: string
+        required: true
+      page:
+        description: Stringified selected page (id, name)
+        type: string
+        default: '{}'
+        required: true
+      selection:
+        description: Stringified array of the selected nodes (id, name)
+        type: string
+        default: '[]'
+        required: true
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Transform Inputs 🧬
+        id: transformInputs
+        uses: ./.github/actions/transform-inputs
+        with:
+          fileKey: ${{ github.event.inputs.fileKey }}
+          page: ${{ github.event.inputs.page }}
+          selection: ${{ github.event.inputs.selection }}
+
+      - name: Figma Export PDFs 🦾
+        id: figmaExportPdfs
+        uses: ./
+        with:
+          accessToken: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          fileKey: ${{ steps.transformInputs.outputs.fileKey }}
+          ids: ${{ steps.transformInputs.outputs.ids }}
+
+      - name: Log ℹ️
+        run: |
+          echo "Results"
+          echo "pdfs: $pdfs"
+          echo "outDir: $outDir"
+        env:
+          pdfs: ${{ steps.figmaExportPdfs.outputs.pdfs }}
+          outDir: ${{ steps.figmaExportPdfs.outputs.outDir }}
+
+      - name: Configure Git 🛠️
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+      - name: Add Files to Repository 📂
+        run: |
+          git add ${{ steps.figmaExportPdfs.outputs.outDir }}
+          git commit -m "Add exported Figma files"
+      
+      - name: Push Changes to Repository 🚀
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
