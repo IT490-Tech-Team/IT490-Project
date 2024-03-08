@@ -3,7 +3,7 @@ name: My Workflow
 on:
   push:
     branches:
-      - main
+      - restructure
 
 jobs:
   build:
