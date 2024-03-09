@@ -57,13 +57,17 @@
 
                 results.forEach(function(result) {
                     var listItem = document.createElement('li');
-                    // Adjust based on the selected search criteria
                     if (searchType === 'title') {
-                        listItem.textContent = "Title: " + result.title;
+                        // Make book titles clickable links
+                        var link = document.createElement('a');
+                        link.href = 'book_details.php?id=' + result.id; // Assuming 'id' is the primary key of your books table
+                        link.textContent = result.title;
+                        listItem.appendChild(link);
                     } else if (searchType === 'author') {
-                        listItem.textContent = "Title: " + result.title; // Display the book title when searching by author
+                       
+			 listItem.textContent = "Title: " + result.title;
                     } else if (searchType === 'subject' && result.subject_facet) {
-                        listItem.textContent = "Subject: " + result.subject_facet;
+                        listItem.textContent = "Title: " + result.title; // Display the book title when searching by subject facet
                     }
                     resultList.appendChild(listItem);
                 });
