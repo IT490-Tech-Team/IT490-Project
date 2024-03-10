@@ -35,7 +35,7 @@ RABBITMQ_ADMIN_HOST="localhost"
 RABBITMQ_ADMIN_PORT="15672"
 
 # RabbitMQ user credentials
-RABBITMQ_USER="auth"
+RABBITMQ_USER="bookQuest"
 RABBITMQ_PASS="8bkJ3r4dWSU1lkL6HQT7"
 
 # Virtual host

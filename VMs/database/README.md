@@ -1,19 +1,19 @@
 # Database
 
-* **`RabbitMQServer/`** ➜ Folder containing everything necessary for the databse to handle RabbitMQ messages (login, register, validate_session).
+* **`RabbitMQServer/`** ➜ Folder containing everything necessary for the database to handle RabbitMQ messages (login, register, validate_session).
   * *`rabbitMQ.ini`* ➜ configuration file with variables for the RabbitMQ connection
-  * *`rabbitMQServer.php`* ➜ RAbbitMQ reciever which currently does login, registration, and validate_session
-* *`users.sql`* ➜ SQL file for initializing the usersdb, users table.
-* *`books.sql`* ➜ SQL file for initializing the booksdb, and all tables related.
-* *`credentials.sql`* ➜ SQL file for initializing the mysql user, and permissions.
-  * this user will be used by the RabbitMQServer.php to log into and query the database.  
+  * *`rabbitMQServer.php`* ➜ RabbitMQ receiver which currently handles login, registration, and session validation.
+* **`sql/`** ➜ Folder containing SQL files for initializing the databases and tables:
+  * *`users.sql`* ➜ SQL file for initializing the `usersdb` and `users` table.
+  * *`books.sql`* ➜ SQL file for initializing the `booksdb` and related tables.
+  * *`credentials.sql`* ➜ SQL file for initializing the MySQL user and permissions. This user will be used by `RabbitMQServer.php` to log in and query the database.
 
 ## Guide
 
-1. run *`setup.sh`*
-2. **(Optional)** run *`phpmyadmin.sh`*
+1. Run *`setup.sh`*.
+2. **(Optional)** Run *`phpmyadmin.sh`*.
 
-## Running the RabbitMQ reciever
+## Running the RabbitMQ Receiver
 
-1. Go into the RabbitMQServer folder from your terminal.
-2. run command `sudo ./RabbitMQServer.php`
+1. Navigate to the RabbitMQServer folder from your terminal.
+2. Run the command `sudo ./RabbitMQServer.php`.
