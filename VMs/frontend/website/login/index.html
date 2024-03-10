@@ -4,20 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../base.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/common/styles/base.css">
+    <link rel="stylesheet" href="/common/styles/style.css">
+    <script src="/common/javascript/navbar.js"></script>
 </head>
 <body>
     <nav>
-        <div id="logo"><a href="/">Online Bookshelf</a></div>
-        <div id="links"></div>
-        <div id="auth">
-            <a href="/login/">Login</a>
-            <a href="/register/">Register</a>
-        </div>
     </nav>
     <h2>User Login</h2>
-    <form id="login" action="./login.php" method="post">
+    <form id="login" data-auth="login">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br><br>
         
@@ -27,6 +22,6 @@
         <input type="submit" value="Login">
     </form>
 
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
 </body>
 </html>

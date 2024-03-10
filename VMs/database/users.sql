@@ -19,9 +19,3 @@ CREATE TABLE IF NOT EXISTS sessions (
     expired_at TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP + INTERVAL 7 DAY),
     FOREIGN KEY (userId) REFERENCES users(id)
 );
-
--- Create user 'guest' if it doesn't already exist, with password '3394dzwHi0HJimrA13JO' and grant access only from localhost
-CREATE USER IF NOT EXISTS 'guest'@'localhost' IDENTIFIED BY '3394dzwHi0HJimrA13JO';
-
--- Grant SELECT and INSERT permissions to user 'guest' on table 'users' in database 'userdb'
-GRANT SELECT, INSERT, DELETE ON userdb.* TO 'guest'@'localhost';

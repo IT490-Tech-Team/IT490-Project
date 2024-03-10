@@ -1,68 +1,27 @@
+import { setCookies } from "/common/javascript/helpers.js";
+import { authenticate } from "/common/javascript/authenticate.js"
+import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
+
 let form = document.getElementById("login")
-
-const sendLoginRequest = (user, password) => {
-    fetch("/utils/authenticate/main.php", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            type: "login",
-            username: user,
-            password: password
-        })
-    })
-    .then((response) => {
-        response.text().then((response_text) => {
-            const response = JSON.parse(response_text)
-            handleResponse(response)
-        })
-    })
-    .catch(err => {
-        console.log("ERROR?", err)
-    })
-}
-
-const handleResponse = (response) => {
-    console.log(response)
-    switch (response.returnCode) {
-        case "500":
-        case "400":
-            alert("Try Again.")
-            break;
-    
-        default:
-            createSessionCookie(response)
-            let result = confirm("Login Successful, would you like to go to the website?");
-
-            if (result){
-                location.assign("/")
-            }
-            console.log("ready to use the website")
-            break;
-    }
-}
-
-function createSessionCookie(response) {
-    // Extract sessionId and expired_at from the response
-    var sessionId = response.sessionId;
-    var expiredAt = new Date(response.expired_at);
-  
-    // Convert the expiredAt date to UTC string format
-    var expires = expiredAt.toUTCString();
-  
-    // Set the cookie with name "sessionId" and value sessionId
-    document.cookie = `sessionId=${sessionId};expires=${expires};path=/`;
-  
-    console.log("Session cookie created successfully!");
-}
 
 form.addEventListener("submit", (event) => {
 	event.preventDefault()
 
-	const username = document.getElementById("username").value
-	const password = document.getElementById("password").value
+    const data = Object.fromEntries(new FormData(form))
+    data.type = event.target.getAttribute("data-auth")
 
-	sendLoginRequest(username, password)
+    authenticate(data)
+    .then(data => {
+        setCookies(SESSION_ID_COOKIE_NAME, data.sessionId, data.expired_at)
+        let result = confirm("Login Successful, would you like to go to the website?");
+
+        if (result){
+            location.assign("/")
+        }
+    })
+    .catch(error => {
+        console.log("ERROR??",error.message.split(":"))
+        alert("Try Again.")
+    })
 })
 

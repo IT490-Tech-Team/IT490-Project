@@ -5,8 +5,11 @@ require_once('../RabbitMQClient/get_host_info.inc');
 require_once('../RabbitMQClient/rabbitMQLib.inc');
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST"){
-    http_response_code(400); // Bad Request
-    echo json_encode(array("error" => "Request must be POST"));
+    $response = array(
+        "returnCode" => '400',
+        "message" => "Bad Request: Request must be POST"
+    );
+    echo json_encode($response);
     exit;
 }
 
@@ -16,8 +19,11 @@ $request['type'] = $type;
 
 if ($type === "login" || $type === "register") {
     if (!(isset($_POST["username"])) || !(isset($_POST["password"]))){
-        http_response_code(400); // Bad Request
-        echo json_encode(array("error" => "Username or password not set"));
+        $response = array(
+            "returnCode" => '400',
+            "message" => "Bad Request: Username or password not set"
+        );
+        echo json_encode($response);
         exit;
     }
 
@@ -25,8 +31,11 @@ if ($type === "login" || $type === "register") {
     $password = $_POST['password'];
 
     if (empty($username) || empty($password)) {
-        http_response_code(400); // Bad Request
-        echo json_encode(array("error" => "All fields are required."));
+        $response = array(
+            "returnCode" => '400',
+            "message" => "Bad Request: All fields are required."
+        );
+        echo json_encode($response);
         exit;
     }
 
@@ -34,16 +43,22 @@ if ($type === "login" || $type === "register") {
     $request['password'] = $password;
 } elseif ($type === "validate_session") {
     if (!(isset($_POST["sessionId"]))){
-        http_response_code(400); // Bad Request
-        echo json_encode(array("error" => "SessionId not set"));
+        $response = array(
+            "returnCode" => '400',
+            "message" => "Bad Request: SessionId not set"
+        );
+        echo json_encode($response);
         exit;
     }
 
     $sessionId = $_POST['sessionId'];
 
     if (empty($sessionId)) {
-        http_response_code(400); // Bad Request
-        echo json_encode(array("error" => "SessionId is required."));
+        $response = array(
+            "returnCode" => '400',
+            "message" => "Bad Request: SessionId is required."
+        );
+        echo json_encode($response);
         exit;
     }
 
@@ -54,6 +69,7 @@ $client = new rabbitMQClient("RabbitMQ.ini","server");
 $response = $client->send_request($request);
 
 echo json_encode($response);
+
 
 exit(0);
 
