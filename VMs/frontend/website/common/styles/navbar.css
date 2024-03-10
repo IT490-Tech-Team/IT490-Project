@@ -29,8 +29,3 @@ a:hover {
     text-decoration: underline;
 }
 
-input {
-    border-width: 1px;
-    border-color: black;
-    border-style: solid;
-}

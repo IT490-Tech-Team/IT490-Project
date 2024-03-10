@@ -36,13 +36,13 @@ cp -r ./website/* "$target_dir"
 if [ $? -eq 0 ]; then
     echo "Files copied successfully."
 
-    # Copy file ./bookshelf.conf to /etc/apache2/sites-available
-    cp ./bookshelf.conf /etc/apache2/sites-available
+    # Copy file ./bookquest.conf to /etc/apache2/sites-available
+    cp ./bookquest.conf /etc/apache2/sites-available
 
     # Check if the symbolic link exists
-    if [ ! -e "/etc/apache2/sites-enabled/bookshelf.conf" ]; then
+    if [ ! -e "/etc/apache2/sites-enabled/bookquest.conf" ]; then
         # Create symbolic link to enable the site
-        ln -s /etc/apache2/sites-available/bookshelf.conf /etc/apache2/sites-enabled/
+        ln -s /etc/apache2/sites-available/bookquest.conf /etc/apache2/sites-enabled/
         
         echo "Symbolic link created."
     else

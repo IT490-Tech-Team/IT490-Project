@@ -10,10 +10,10 @@ For more details, refer to [proposal.md](./.docs/proposal.md).
 
 ## Project Structure
 
-The repository is organized into folders corresponding to each VM:
+The repository is organized into folders corresponding to each VM. Please make sure to read each machine's README to fully understand the contents of each.
 
-| Component    | Description                                                                | README                         |
-| ------------ | -------------------------------------------------------------------------- | ------------------------------ |
+| Component    | Description                                                                | README                             |
+| ------------ | -------------------------------------------------------------------------- | ---------------------------------- |
 | **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./VMs/database/README.md) |
 | **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./VMs/DMZ/README.md)      |
 | **Frontend** | Contains files and folders related to the frontend service.                | [README](./VMs/frontend/README.md) |
@@ -24,12 +24,10 @@ The repository is organized into folders corresponding to each VM:
 
 Ready to configure your VM? Follow these guides to set up Tailscale and perform machine renaming. Remember to customize the machine name according to your needs!
 
-| Title                          | Overview                                            | Link                                   |
-| ------------------------------ | --------------------------------------------------- | -------------------------------------- |
+| Title                          | Overview                                            | Link                                        |
+| ------------------------------ | --------------------------------------------------- | ------------------------------------------- |
 | Tailscale Installation Guide   | Install and set up Tailscale for secure networking. | [README](/docs/tailscale.md)                |
 | Tailscale Machine Rename Guide | Guide for renaming machines in Tailscale.           | [README](/docs/tailscale-machine-rename.md) |
-
-
 
 ## Tailscale Setup
 
