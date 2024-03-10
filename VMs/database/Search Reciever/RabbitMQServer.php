@@ -19,7 +19,7 @@ function requestProcessor($request)
     return array("returnCode" => '0', 'message' => "");
 }
 
-$server = new rabbitMQServer("RabbitMQ.ini", "server");
+$server = new rabbitMQServer("RabbitMQ.ini", "development");
 
 echo "testRabbitMQServer BEGIN" . PHP_EOL;
 $server->process_requests('requestProcessor');

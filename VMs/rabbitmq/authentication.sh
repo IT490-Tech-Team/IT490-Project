@@ -25,7 +25,7 @@ check_access_refused() {
 # Check if rabbitmqadmin is installed
 check_rabbitmqadmin
 
-# RabbitMQ admin credentials
+# RabbitMQ admin authentication
 read -p "Enter RabbitMQ admin username (default: 'guest'): " RABBITMQ_ADMIN_USER
 read -s -p "Enter RabbitMQ admin password (default: 'guest'): " RABBITMQ_ADMIN_PASS
 echo
@@ -34,19 +34,19 @@ echo
 RABBITMQ_ADMIN_HOST="localhost"
 RABBITMQ_ADMIN_PORT="15672"
 
-# RabbitMQ user credentials
+# RabbitMQ user authentication
 RABBITMQ_USER="bookQuest"
 RABBITMQ_PASS="8bkJ3r4dWSU1lkL6HQT7"
 
 # Virtual host
-VHOST="BookQuest"
+VHOST="bookQuest"
 
 # Exchange name and type
-EXCHANGE_NAME="credentialsExchange"
+EXCHANGE_NAME="authenticationExchange"
 EXCHANGE_TYPE="topic"
 
 # Queue name
-QUEUE_NAME="credentialsQueue"
+QUEUE_NAME="authenticationQueue"
 
 # Create virtual host
 output=$(rabbitmqadmin --host=$RABBITMQ_ADMIN_HOST --port=$RABBITMQ_ADMIN_PORT --username=$RABBITMQ_ADMIN_USER --password=$RABBITMQ_ADMIN_PASS declare vhost name="$VHOST" 2>&1)

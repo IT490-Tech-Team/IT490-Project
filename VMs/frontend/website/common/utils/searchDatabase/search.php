@@ -32,7 +32,7 @@ elseif ($type === "dmz_search") {
 
 $request['type'] = $type;
 
-$client = new rabbitMQClient("RabbitMQ.ini","server");
+$client = new rabbitMQClient("RabbitMQ.ini","development");
 $response = $client->send_request($request);
 
 echo json_encode($response);

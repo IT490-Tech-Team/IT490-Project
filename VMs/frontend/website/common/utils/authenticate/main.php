@@ -65,7 +65,7 @@ if ($type === "login" || $type === "register") {
     $request['sessionId'] = $sessionId;
 }
 
-$client = new rabbitMQClient("RabbitMQ.ini","server");
+$client = new rabbitMQClient("RabbitMQ.ini","development");
 $response = $client->send_request($request);
 
 echo json_encode($response);

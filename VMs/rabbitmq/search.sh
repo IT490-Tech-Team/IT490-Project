@@ -39,7 +39,7 @@ RABBITMQ_USER="bookQuest"
 RABBITMQ_PASS="8bkJ3r4dWSU1lkL6HQT7"
 
 # Virtual host
-VHOST="BookQuest"
+VHOST="bookQuest"
 
 # Exchange names and type
 SEARCH_EXCHANGE_NAME="searchExchange"
