@@ -20,12 +20,17 @@ $genre = $_POST["genre"];
 $language = $_POST["language"];
 $year = $_POST["year"];
 
-if ($type === "database") {
+if ($type === "database_search") {
 
 }
-elseif ($type === "dmz") {
+elseif ($type === "database_add") {
     $request['title'] = $title;
 }
+elseif ($type === "dmz_search") {
+    $request['title'] = $title;
+}
+
+$request['type'] = $type;
 
 $client = new rabbitMQClient("RabbitMQ.ini","server");
 $response = $client->send_request($request);

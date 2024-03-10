@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS books (
     languages JSON,
     year_published INT,
     description TEXT,
-    isbn VARCHAR(20),
     cover_image_url VARCHAR(255),
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

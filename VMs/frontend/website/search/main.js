@@ -14,7 +14,7 @@ form.addEventListener("submit", (event) => {
     const dataKeys = Object.keys(data)
     if (dataKeys.length == 1 && dataKeys.indexOf("title") > -1){
         const dmzData = data
-        dmzData.type = "dmz"
+        dmzData.type = "dmz_search"
 
         fetch(UTILS_PATH + "/search/search.php", {
             method: "POST",
@@ -24,10 +24,11 @@ form.addEventListener("submit", (event) => {
             body: new URLSearchParams(data)
         })
         .then((response) => response.text())
+        .then((response) => JSON.parse(response))
         .then((response) => {
-            console.log(response)
+            console.log(response.message)
+            const data = JSON.parse(response.message)
         })
     }
-
 })
 

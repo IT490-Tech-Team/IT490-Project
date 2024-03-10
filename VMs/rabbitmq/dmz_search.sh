@@ -42,11 +42,11 @@ RABBITMQ_PASS="8bkJ3r4dWSU1lkL6HQT7"
 VHOST="BookQuest"
 
 # Exchange name and type
-EXCHANGE_NAME="searchExchange"
+EXCHANGE_NAME="dmzSearchExchange"
 EXCHANGE_TYPE="topic"
 
 # Queue name
-QUEUE_NAME="searchQueue"
+QUEUE_NAME="dmzSearchQueue"
 
 # Create virtual host
 output=$(rabbitmqadmin --host=$RABBITMQ_ADMIN_HOST --port=$RABBITMQ_ADMIN_PORT --username=$RABBITMQ_ADMIN_USER --password=$RABBITMQ_ADMIN_PASS declare vhost name="$VHOST" 2>&1)
