@@ -7,16 +7,6 @@ uninstall_mysql() {
     apt autoclean
 }
 
-# Function to install and set up services
-setup_services() {
-    cd ./services/authentication-receiver
-    ./service_setup.sh
-    cd ../../
-    cd ./services/search-db-receiver
-    ./service_setup.sh
-    cd ../../
-}
-
 # Check if script is run with sudo
 if [ "$(id -u)" != "0" ]; then
     echo "Please run this script with sudo."
@@ -48,6 +38,3 @@ sudo mysql -u root -p <<EOF
 EOF
 
 echo "MySQL setup completed successfully."
-
-# Install and set up services
-setup_services
