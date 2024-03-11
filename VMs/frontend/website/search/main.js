@@ -44,7 +44,7 @@ const appendResult = (data) => {
     
     for (const rowContent of rowOrder) {
         const dataKey = dataKeys[rowOrder.indexOf(rowContent)]
-        const rowData = data[dataKey]
+        let rowData = data[dataKey]
         
         const dataElement = document.createElement("td")
 
@@ -53,6 +53,16 @@ const appendResult = (data) => {
             coverElement.src = rowData
 
             dataElement.appendChild(coverElement)
+        }
+        else if (rowContent == "authors" || rowContent == "genres") {
+            console.log(rowData)
+            if (rowData){
+                if (typeof rowData === "string"){
+                    rowData =JSON.parse(rowData)
+                }
+
+                dataElement.textContent = rowData.join(" and ")
+            }
         }
         else {
             dataElement.textContent = rowData
@@ -113,6 +123,8 @@ form.addEventListener("submit", async (event) => {
             booksNotInDb.forEach(book => {
                 appendResult(book)
             })
+
+            console.log("HERE: ", booksNotInDb)
 
             const addToDatabase = await fetchData(
                 "/search-db/search.php",

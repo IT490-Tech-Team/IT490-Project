@@ -7,30 +7,34 @@
     <link rel="stylesheet" href="/common/styles/base.css">
     <link rel="stylesheet" href="/common/styles/navbar.css">
     <script src="/common/javascript/navbar.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav></nav>
-    <form id="search">
-        <input type="text" id="search-title" name="title" placeholder="Title">
-        <input type="submit" value="Search">
-    </form>
-    <table >
-        <thead>
-            <tr>
-                <td>id</td>
-                <td>cover</td>
-                <td>title</td>
-                <td>description</td>
-                <td>authors</td>
-                <td>genres</td>
-                <td>languages</td>
-                <td>year published</td>
-            </tr>
-        </thead>
-        <tbody id="search-results">
+    <div id="content">
+        <form id="search">
+            <input type="text" id="search-title" name="title" placeholder="Title">
+            <input type="submit" value="Search">
+        </form>
+        <table >
+            <thead>
+                <tr>
+                    <td id="id">id</td>
+                    <td id="cover">cover</td>
+                    <td id="title">title</td>
+                    <td id="description">description</td>
+                    <td id="authors">authors</td>
+                    <td id="genres">genres</td>
+                    <td id="languages">languages</td>
+                    <td id="year">year published</td>
+                </tr>
+            </thead>
+            <tbody id="search-results">
+    
+            </tbody>
+        </table>
+    </div>
 
-        </tbody>
-    </table>
     <script src="main.js" type="module"></script>
 </body>
 </html>

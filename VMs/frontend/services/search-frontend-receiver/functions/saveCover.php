@@ -34,7 +34,6 @@ function saveBookCovers($bookCovers)
     }
 
     return array("returnCode" => 200, "message" => $savedBookCovers);
-
 }
 
 ?>

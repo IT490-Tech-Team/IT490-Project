@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=root
 Group=root
-ExecStart=/usr/bin/php /opt/search-frontend-receiver/RabbitMQServer.php
+ExecStart=sudo /usr/bin/php /opt/search-frontend-receiver/RabbitMQServer.php
 Restart=always
 RestartSec=30
 

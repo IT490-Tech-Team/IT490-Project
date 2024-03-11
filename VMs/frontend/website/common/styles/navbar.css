@@ -3,6 +3,8 @@ nav {
     justify-content: space-around;
     align-items: center;
     padding: 1rem 0;
+    background-color: black;
+    color: white;
 }
 
 nav div {
@@ -21,7 +23,7 @@ nav div {
 }
 
 a {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
