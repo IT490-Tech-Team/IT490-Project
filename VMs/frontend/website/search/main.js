@@ -64,12 +64,14 @@ const addBook = (data) => {
         // DMZ stores them as an array
         else if (columnContent == "authors" || columnContent == "genres") {
             // If columnData is a string, parse it to get the array
-            if (typeof columnData === "string"){
-                columnData =JSON.parse(columnData)
+            if (columnData){
+                if (typeof columnData === "string"){
+                    columnData =JSON.parse(columnData)
+                }
+    
+                // Join the array with and (i.e. A and B )
+                dataElement.textContent = columnData.join(" and ")
             }
-
-            // Join the array with and (i.e. A and B )
-            dataElement.textContent = columnData.join(" and ")
         }
         else {
             dataElement.textContent = columnData
