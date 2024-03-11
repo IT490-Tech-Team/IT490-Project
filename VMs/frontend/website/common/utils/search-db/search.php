@@ -12,22 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     echo json_encode($response);
     exit;
 }
-
 $type = $_POST["type"];
-$title = $_POST["title"];
-$author = $_POST["author"];
-$genre = $_POST["genre"];
-$language = $_POST["language"];
-$year = $_POST["year"];
 
-if ($type === "database_search") {
-
+if ($type === "search") {
+    $title = $_POST["title"];
+    $author = $_POST["author"];
+    $genre = $_POST["genre"];
+    $language = $_POST["language"];
+    $year = $_POST["year"];
 }
-elseif ($type === "database_add") {
-    $request['title'] = $title;
+elseif ($type === "add") {
+    $request['books'] = $_POST["books"];
 }
-elseif ($type === "dmz_search") {
-    $request['title'] = $title;
+elseif ($type === "add_covers") {
+    $request['books'] = $_POST["books"];
 }
 
 $request['type'] = $type;

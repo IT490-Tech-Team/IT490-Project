@@ -3,7 +3,7 @@
 function doRegister($username, $password)
 {
   try {
-    $conn = new mysqli('localhost', 'guest', '3394dzwHi0HJimrA13JO', 'userdb');
+    $conn = new mysqli('localhost', 'bookQuest', '3394dzwHi0HJimrA13JO', 'userdb');
   } catch (Exception $e) {
     $response = array(
       "returnCode" => '500',

@@ -18,9 +18,9 @@ apt install -y php-cli php-mysql php-amqp
 # Log in to MySQL as root
 sudo mysql -u root -p <<EOF
     # Execute SQL commands from user-database.sql
-    source ./users.sql;
-    source ./books.sql;
-    source ./credentials.sql;
+    source ./sql/users.sql;
+    source ./sql/books.sql;
+    source ./sql/credentials.sql;
 EOF
 
 echo "MySQL setup completed successfully."
