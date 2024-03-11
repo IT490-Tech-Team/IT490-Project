@@ -1,11 +1,31 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('dependencies/path.inc');
-require_once('dependencies/get_host_info.inc');
-require_once('dependencies/rabbitMQLib.inc');
-require_once('functions/addBooks.php');
-require_once('functions/addCovers.php');
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
+include_once('functions/addBooks.php');
+include_once('functions/addCovers.php');
+include_once('functions/searchBooks.php');
+
+function getDatabaseConnection()
+{
+    $host = 'localhost';
+    $username = 'bookQuest';
+    $password = '3394dzwHi0HJimrA13JO';
+    $database = 'booksdb';
+
+    // Create connection
+    $conn = new mysqli($host, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        // Log error or handle as needed
+        return null;
+    }
+
+    return $conn;
+}
 
 // Function to process incoming requests
 function requestProcessor($request)
@@ -21,13 +41,18 @@ function requestProcessor($request)
 
     // Determine request type and call corresponding function
     if ($request['type'] === "add") {
-        $books = addBooks($request);
-        return array("returnCode" => '200', 'message' => $books);
+        return addBooks($request);
     } elseif ($request['type'] === "add_covers") {
         // Extract books array from request and decodes from string to array
         $books = $request["books"];
-        $database_books = addCoverImageUrls(json_decode($books, true));
-        return array("returnCode" => '200', 'message' => $database_books);
+        return addCoverImageUrls(json_decode($books, true));
+    } elseif ($request['type'] === "search") {
+        $title = $request["title"];
+        $author = $request["author"];
+        $genre = $request["genre"];
+        $language = $request["language"];
+        $year = $request["year"];
+        return searchBooks($title, $author, $genre, $language, $year);;
     }
 
     // Default return if request type is not recognized

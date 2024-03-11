@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=root
 Group=root
-ExecStart=/usr/bin/php /opt/search-db-reciever/RabbitMQServer.php
+ExecStart=/usr/bin/php /opt/search-db-receiver/RabbitMQServer.php
 Restart=always
 RestartSec=30
 

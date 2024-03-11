@@ -2,9 +2,9 @@
 <?php
 
 // Include required files
-require_once('dependencies/path.inc');
-require_once('dependencies/get_host_info.inc');
-require_once('dependencies/rabbitMQLib.inc');
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
 require_once('functions/saveCover.php');
 
 // Function to process incoming requests
@@ -17,10 +17,8 @@ function requestProcessor($request)
     // Check request type
     if ($request['type'] === "download_covers") {
         // Save book covers
-        $books = $request["books"];
-        $databaseBooks = saveBookCovers(json_decode($books, true));
-        // Return response
-        return ["returnCode" => 0, 'message' => $databaseBooks];
+        $books = json_decode($request["books"], true);
+        return saveBookCovers($books);
     }
 }
 

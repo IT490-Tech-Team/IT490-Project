@@ -26,6 +26,7 @@ function display_help {
     echo "  stop    - Stop the $service_name service."
     echo "  restart - Restart the $service_name service."
     echo "  status  - Show the status of the $service_name service."
+    echo "  log     - Show the journalctl logs for the $service_name service."
 }
 
 if [ $# -eq 0 ]; then
@@ -48,12 +49,15 @@ case "$action" in
     status)
         status_service
         ;;
+    log)
+        sudo journalctl -e -u "$service_name"
+        ;;
     help)
         display_help
         exit 0
         ;;
     *)
-        echo "Invalid action. Please use 'start', 'stop', 'restart', 'status', or 'help'."
+        echo "Invalid action. Please use 'start', 'stop', 'restart', 'status', 'log', or 'help'."
         exit 1
         ;;
 esac

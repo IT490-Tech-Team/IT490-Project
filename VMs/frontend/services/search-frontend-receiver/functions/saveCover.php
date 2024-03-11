@@ -8,8 +8,8 @@ function saveBookCovers($bookCovers)
 
     // Iterate over each book cover
     foreach ($bookCovers as $cover) {
-        $bookId = $cover[0];
-        $imageUrl = $cover[1];
+        $bookId = $cover["id"];
+        $imageUrl = $cover["cover_image_url"];
 
         // Get the image data
         $imageData = file_get_contents($imageUrl);
@@ -33,7 +33,8 @@ function saveBookCovers($bookCovers)
         $savedBookCovers[] = [$bookId, $newImageUrl];
     }
 
-    return $savedBookCovers;
+    return array("returnCode" => 200, "message" => $savedBookCovers);
+
 }
 
 ?>

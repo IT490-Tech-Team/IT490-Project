@@ -67,7 +67,8 @@ function handleQuery($request)
     }
 
     // Return array of book information
-    return $databaseBooks;
+    return array("returnCode" => 200, "message" => $databaseBooks);
+
 }
 
 ?>

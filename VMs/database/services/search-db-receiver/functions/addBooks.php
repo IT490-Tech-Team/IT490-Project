@@ -1,23 +1,5 @@
 <?php
 
-function getDatabaseConnection()
-{
-    $host = 'localhost';
-    $username = 'bookQuest';
-    $password = '3394dzwHi0HJimrA13JO';
-    $database = 'userdb';
-
-    try {
-        $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
-        // Set PDO to throw exceptions on error
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-    } catch (PDOException $e) {
-        // Log error or handle as needed
-        return null;
-    }
-}
-
 function addBooks($request)
 {
     // Connect to the database
@@ -36,10 +18,10 @@ function addBooks($request)
     foreach ($books as $book) {
         try {
             // Prepare SQL statement to insert a new book record
-            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description, cover_image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description) VALUES (?, ?, ?, ?, ?, ?)");
 
             // Bind parameters
-            $stmt->bind_param("ssssiss", $title, $authors, $genres, $languages, $year_published, $description, $cover_image_url);
+            $stmt->bind_param("ssssis", $title, $authors, $genres, $languages, $year_published, $description);
 
             // Set parameters
             $title = $book['title'];
@@ -67,7 +49,8 @@ function addBooks($request)
     $conn->close();
 
     // Return array containing IDs of inserted books along with their cover image URLs
-    return $insertedBooks;
+    return array("returnCode" => 200, "message" => $insertedBooks);
+
 }
 
 ?>

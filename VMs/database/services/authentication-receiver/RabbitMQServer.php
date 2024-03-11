@@ -1,12 +1,30 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('dependencies/path.inc');
-require_once('dependencies/get_host_info.inc');
-require_once('dependencies/rabbitMQLib.inc');
-require_once('functions/register.php');
-require_once('functions/login.php');
-require_once('functions/validate.php');
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
+include_once('functions/register.php');
+include_once('functions/login.php');
+include_once('functions/validate.php');
+
+function getDatabaseConnection()
+{
+    $host = 'localhost';
+    $username = 'bookQuest';
+    $password = '3394dzwHi0HJimrA13JO';
+    $database = 'userdb';
+
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+        // Set PDO to throw exceptions on error
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conn;
+    } catch (PDOException $e) {
+        // Log error or handle as needed
+        return null;
+    }
+}
 
 // Function to process incoming requests
 function requestProcessor($request)

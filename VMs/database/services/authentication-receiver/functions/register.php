@@ -1,23 +1,5 @@
 <?php
 
-function getDatabaseConnection()
-{
-    $host = 'localhost';
-    $username = 'bookQuest';
-    $password = '3394dzwHi0HJimrA13JO';
-    $database = 'userdb';
-
-    try {
-        $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
-        // Set PDO to throw exceptions on error
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-    } catch (PDOException $e) {
-        // Log error or handle as needed
-        return null;
-    }
-}
-
 function doRegister($username, $password)
 {
     $conn = getDatabaseConnection();

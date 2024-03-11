@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 $type = $_POST["type"];
 
 if ($type === "search") {
-    $title = $_POST["title"];
-    $author = $_POST["author"];
-    $genre = $_POST["genre"];
-    $language = $_POST["language"];
-    $year = $_POST["year"];
+    $request["title"] = isset($_POST["title"]) ? $_POST["title"] : null;
+    $request["author"] = isset($_POST["author"]) ? $_POST["author"] : null;
+    $request["genre"] = isset($_POST["genre"]) ? $_POST["genre"] : null;
+    $request["language"] = isset($_POST["language"]) ? $_POST["language"] : null;
+    $request["year"] = isset($_POST["year"]) ? $_POST["year"] : null;
 }
 elseif ($type === "add") {
     $request['books'] = $_POST["books"];
