@@ -4,6 +4,7 @@ require_once('../RabbitMQClient/path.inc');
 require_once('../RabbitMQClient/get_host_info.inc');
 require_once('../RabbitMQClient/rabbitMQLib.inc');
 
+// Checks if the request is a post request
 if ($_SERVER["REQUEST_METHOD"] !== "POST"){
     $response = array(
         "returnCode" => '400',
@@ -14,24 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 }
 
 $type = $_POST["type"];
-$title = $_POST["title"];
-$author = $_POST["author"];
-$genre = $_POST["genre"];
-$language = $_POST["language"];
-$year = $_POST["year"];
 
-if ($type === "database_search") {
-
-}
-elseif ($type === "database_add") {
-    $request['title'] = $title;
-}
-elseif ($type === "dmz_search") {
-    $request['title'] = $title;
+elseif ($type === "search") {
+    $request['title'] = $_POST["title"];
 }
 
+// Sets request type
 $request['type'] = $type;
 
+// Sends the message and waits for a response
 $client = new rabbitMQClient("RabbitMQ.ini","development");
 $response = $client->send_request($request);
 

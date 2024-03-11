@@ -6,6 +6,20 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+# Function to uninstall phpMyAdmin
+uninstall_phpmyadmin() {
+    apt purge -y phpmyadmin
+    apt autoremove -y
+    apt autoclean
+}
+
+# Check if phpMyAdmin is already installed
+if [ -x "$(command -v phpmyadmin)" ]; then
+    # phpMyAdmin is installed, so uninstall it first
+    echo "phpMyAdmin is already installed. Uninstalling..."
+    uninstall_phpmyadmin
+fi
+
 # Update package index
 apt update
 

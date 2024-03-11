@@ -6,6 +6,13 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+# Function to install and set up services
+setup_services() {
+    cd ./search-dmz-receiver
+    ./service_setup.sh
+    cd ../
+}
+
 # Update package index
 apt update
 

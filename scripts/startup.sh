@@ -53,3 +53,18 @@ if confirm "Do you want to install Tailscale?"; then
 fi
 
 echo "Please restart your terminal to apply changes."
+
+# Change directories and run setup scripts for VMs
+cd ..
+cd VMs
+cd database
+./setup.sh
+cd ..
+cd dmz
+./setup.sh
+cd ..
+cd frontend
+./setup.sh
+cd ..
+cd rabbitmq
+./setup.sh
