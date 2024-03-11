@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 
 $type = $_POST["type"];
 
-elseif ($type === "search") {
+if ($type === "search") {
     $request['title'] = $_POST["title"];
 }
 

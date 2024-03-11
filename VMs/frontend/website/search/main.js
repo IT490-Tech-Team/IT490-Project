@@ -11,8 +11,11 @@ const fetchData = async (endpoint, data) => {
             method: "POST",
             headers: headers,
             body: new URLSearchParams(data)
-        });
-        return await response.json();
+        })
+        .then(response => response.text())
+        .then(response => JSON.parse(response))
+        
+        return response;
     } catch (error) {
         console.error("Error fetching data:", error);
         return { error: "Error fetching data" };

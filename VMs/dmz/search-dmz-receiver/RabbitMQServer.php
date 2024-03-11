@@ -33,7 +33,7 @@ function requestProcessor($request)
     var_dump($request);
 
     // Check request type
-    if ($request['type'] === "dmz_search") {
+    if ($request['type'] === "search") {
         return handleQuery($request);
     }
 }
