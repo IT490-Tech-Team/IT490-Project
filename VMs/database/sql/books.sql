@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS books (
     languages VARCHAR(10) NOT NULL,
     year_published INT,
     description TEXT,
-    cover_image_url VARCHAR(255) DEFAULT '/book_covers/default.png',
+    cover_image_url VARCHAR(255) DEFAULT '/book_covers/default.jpg',
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

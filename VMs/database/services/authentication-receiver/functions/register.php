@@ -1,43 +1,43 @@
 <?php
 
+function getDatabaseConnection()
+{
+    $host = 'localhost';
+    $username = 'bookQuest';
+    $password = '3394dzwHi0HJimrA13JO';
+    $database = 'userdb';
+
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+        // Set PDO to throw exceptions on error
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conn;
+    } catch (PDOException $e) {
+        // Log error or handle as needed
+        return null;
+    }
+}
+
 function doRegister($username, $password)
 {
-  try {
-    $conn = new mysqli('localhost', 'bookQuest', '3394dzwHi0HJimrA13JO', 'userdb');
-  } catch (Exception $e) {
-    $response = array(
-      "returnCode" => '500',
-      "message" => "Error connecting to the database"
-    );
-    return $response;
-  }
+    $conn = getDatabaseConnection();
+    if (!$conn) {
+        return array("returnCode" => 500, "message" => "Error connecting to the database");
+    }
 
-  $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+    try {
+        // Prepare SQL statement to prevent SQL injection
+        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+        $stmt->execute(array(':username' => $username, ':password' => $password));
 
-  try {
-    $result = $conn->query($sql);
-  } catch (Exception $e) {
-
-    $response = array(
-      "returnCode" => '400',
-      "message" => "Error registering user: " . $e->getMessage() // Append exception message to the error message
-    );
-    return $response;
-  }
-
-  if ($result === TRUE) {
-    $response = array(
-      "returnCode" => '200',
-      "message" => "Registration successful"
-    );
-    return $response;
-  } else {
-    $response = array(
-      "returnCode" => '400',
-      "message" => "Error registering user"
-    );
-    return $response;
-  }
+        return array(
+            "returnCode" => 200,
+            "message" => "Registration successful"
+        );
+    } catch (PDOException $e) {
+        // Log error or handle as needed
+        return array("returnCode" => 400, "message" => "Error registering user: " . $e->getMessage());
+    }
 }
 
 ?>

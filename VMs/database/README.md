@@ -1,8 +1,20 @@
 # Database
 
-* **`RabbitMQServer/`** ➜ Folder containing everything necessary for the database to handle RabbitMQ messages (login, register, validate_session).
-  * *`rabbitMQ.ini`* ➜ configuration file with variables for the RabbitMQ connection
-  * *`rabbitMQServer.php`* ➜ RabbitMQ receiver which currently handles login, registration, and session validation.
+* **`services/`** ➜ folder containing php scripts that are meant to be run as services.
+  * **`authentication-receiver/`** ➜ Folder containing everything necessary for the database to handle RabbitMQ messages (login, register, validate_session).
+    *  **`functions/`** ➜ folder containing files that the *`rabbitMQServer.php`* uses
+    * *`rabbitMQ.ini`* ➜ configuration file with variables for the RabbitMQ connection
+    * *`rabbitMQServer.php`* ➜ RabbitMQ receiver which currently handles login, registration, and session validation.
+    * *`authentication-receiver.service`* ➜ service file
+    * *`service_setup.sh`* ➜ script file to set up the service
+    * *`rabbitMQServer.php`* ➜ script file to manipulate the service
+  * **`search-db-receiver/`** ➜ Folder containing everything necessary for the database to handle RabbitMQ messages (add books to database, add book covers to database).
+    *  **`functions/`** ➜ folder containing files that the *`rabbitMQServer.php`* uses
+    * *`rabbitMQ.ini`* ➜ configuration file with variables for the RabbitMQ connection
+    * *`rabbitMQServer.php`* ➜ RabbitMQ receiver which currently handles `add` and `add_covers`.
+    * *`search-db-receiver.service`* ➜ service file
+    * *`service_setup.sh`* ➜ script file to set up the service
+    * *`service_manipulate.sh`* ➜ script file to manipulate the service
 * **`sql/`** ➜ Folder containing SQL files for initializing the databases and tables:
   * *`users.sql`* ➜ SQL file for initializing the `usersdb` and `users` table.
   * *`books.sql`* ➜ SQL file for initializing the `booksdb` and related tables.
@@ -13,7 +25,12 @@
 1. Run *`setup.sh`*.
 2. **(Optional)** Run *`phpmyadmin.sh`*.
 
-## Running the RabbitMQ Receiver
+### Setting up the Services
 
-1. Navigate to the RabbitMQServer folder from your terminal.
-2. Run the command `sudo ./RabbitMQServer.php`.
+To set up the services, navigate to the corresponding folder for the service you want to set up (e.g., `authentication-receiver` or `search-db-receiver`) and run the `service_setup.sh` script with sudo privileges. This script will configure the service and enable it to run on system startup.
+
+example:
+```bash
+cd services/authentication-receiver
+sudo ./service_setup.sh
+```
