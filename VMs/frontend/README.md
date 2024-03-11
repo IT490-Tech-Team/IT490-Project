@@ -1,7 +1,10 @@
 # Frontend
 
+* **`services/`**
+*   * **`search-frontend-reciever/`** ➜ service which handles RabbitMQ's frontend exchange. Currently handles downloading cover files. 
 * **`Website/`**
   * *`index.html`* ➜ Homepage
+  * **`common/`** ➜ folder which hosts book cover images.
   * **`common/`** ➜ Non-website hosting folder for all common files shared by websites.
     * **`utils/`** ➜ folder containing utility files, such as files for creating RabbitMQ client requests.
     * **`javascript/`** ➜ folder containing shared javascript files such as  *`navbar.js`*
