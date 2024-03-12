@@ -1,0 +1,23 @@
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+table {
+    width: 100%;
+}
+
+thead * {
+    width: fit-content;
+    padding: 1rem;
+}
+
+thead #description {
+    width: 100%;
+}
+
+thead #year {
+    width: fit-content;
+}

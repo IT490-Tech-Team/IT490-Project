@@ -1,0 +1,14 @@
+[Unit]
+Description=RabbitMQ Search Receiver Service for Database
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/php /opt/search-db-receiver/RabbitMQServer.php
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

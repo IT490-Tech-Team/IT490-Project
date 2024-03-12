@@ -1,0 +1,23 @@
+#registration-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+#registration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#registration div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.25rem;
+}

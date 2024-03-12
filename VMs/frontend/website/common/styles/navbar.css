@@ -1,0 +1,33 @@
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: black;
+    color: white;
+}
+
+nav div {
+    display: flex;
+    gap: 1rem;
+}
+
+#welcome-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 1rem;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
