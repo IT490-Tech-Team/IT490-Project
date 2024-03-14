@@ -49,7 +49,7 @@ if ($type === "login" || $type === "register") {
     $request['password'] = $password;
 
 // Checks for validate_session type
-} elseif ($type === "validate_session") {
+} elseif ( $type === "validate_session" || $type === "get_user" ) {
 
     // Error Checking
     if (!(isset($_POST["sessionId"]))){

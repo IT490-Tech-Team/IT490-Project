@@ -1,9 +1,15 @@
 -- Create database
-CREATE DATABASE IF NOT EXISTS userdb;
+CREATE DATABASE IF NOT EXISTS bookShelf;
 
 -- Use the newly created database
-USE userdb;
+USE bookShelf;
 
+<<<<<<< Updated upstream
+=======
+DROP TABLE IF EXISTS user_library;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS books;
+>>>>>>> Stashed changes
 DROP TABLE IF EXISTS users;
 
 
@@ -14,7 +20,23 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL
 );
 
+<<<<<<< Updated upstream
 DROP TABLE IF EXISTS sessions;
+=======
+
+-- Create books table if it does not exist
+CREATE TABLE IF NOT EXISTS books (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    authors JSON,
+    genres JSON,
+    languages VARCHAR(10) NOT NULL,
+    year_published INT,
+    description TEXT,
+    cover_image_url VARCHAR(255) DEFAULT '/book_covers/default.jpg',
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+>>>>>>> Stashed changes
 
 CREATE TABLE IF NOT EXISTS sessions (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -23,4 +45,13 @@ CREATE TABLE IF NOT EXISTS sessions (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     expired_at TIMESTAMP NOT NULL DEFAULT (CURRENT_TIMESTAMP + INTERVAL 7 DAY),
     FOREIGN KEY (userId) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_library ( 
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(6) UNSIGNED,
+    book_id INT,
+    date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
 );
