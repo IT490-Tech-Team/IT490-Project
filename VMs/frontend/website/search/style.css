@@ -14,10 +14,6 @@ thead * {
     padding: 1rem;
 }
 
-thead #description {
-    width: 100%;
-}
-
 thead #year {
     width: fit-content;
 }

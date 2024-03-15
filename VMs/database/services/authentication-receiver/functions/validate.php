@@ -9,10 +9,12 @@ function doValidate($sessionId)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("SELECT * FROM sessions WHERE sessionId = :sessionId");
-        $stmt->execute(array(':sessionId' => $sessionId));
+        $stmt = $conn->prepare("SELECT * FROM sessions WHERE sessionId = ?");
+        $stmt->bind_param("s", $sessionId);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $result->fetch_assoc();
         if (!$row) {
             return array("returnCode" => 400, "message" => "Invalid session ID");
         }
@@ -30,7 +32,7 @@ function doValidate($sessionId)
             "returnCode" => 200,
             "message" => "Session validated successfully"
         );
-    } catch (PDOException $e) {
+    } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
         return array("returnCode" => 500, "message" => "Error executing query: " . $e->getMessage());
     }

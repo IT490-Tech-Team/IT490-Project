@@ -9,14 +9,15 @@ function doRegister($username, $password)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
-        $stmt->execute(array(':username' => $username, ':password' => $password));
+        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
 
         return array(
             "returnCode" => 200,
             "message" => "Registration successful"
         );
-    } catch (PDOException $e) {
+    } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
         return array("returnCode" => 400, "message" => "Error registering user: " . $e->getMessage());
     }

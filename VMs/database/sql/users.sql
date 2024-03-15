@@ -4,14 +4,10 @@ CREATE DATABASE IF NOT EXISTS bookShelf;
 -- Use the newly created database
 USE bookShelf;
 
-<<<<<<< Updated upstream
-=======
 DROP TABLE IF EXISTS user_library;
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS books;
->>>>>>> Stashed changes
 DROP TABLE IF EXISTS users;
-
 
 -- Create table for user information
 CREATE TABLE IF NOT EXISTS users (
@@ -20,9 +16,6 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL
 );
 
-<<<<<<< Updated upstream
-DROP TABLE IF EXISTS sessions;
-=======
 
 -- Create books table if it does not exist
 CREATE TABLE IF NOT EXISTS books (
@@ -36,7 +29,6 @@ CREATE TABLE IF NOT EXISTS books (
     cover_image_url VARCHAR(255) DEFAULT '/book_covers/default.jpg',
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
->>>>>>> Stashed changes
 
 CREATE TABLE IF NOT EXISTS sessions (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
