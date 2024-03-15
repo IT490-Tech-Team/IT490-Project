@@ -7,6 +7,8 @@ require_once('rabbitMQLib.inc');
 include_once('functions/addBooks.php');
 include_once('functions/searchBooks.php');
 include_once('functions/addToLibrary.php');
+include_once('functions/removeFromLibrary.php');
+include_once('functions/getBooks.php');
 
 function getDatabaseConnection()
 {
@@ -57,6 +59,13 @@ function requestProcessor($request)
         $userId = $request["user_id"];
         $bookId = $request["book_id"];
         return addToLibrary($userId, $bookId);
+    } elseif ($request['type'] === "remove_from_library") {
+        $userId = $request["user_id"];
+        $bookId = $request["book_id"];
+        return removeFromLibrary($userId, $bookId);
+    } elseif ($request['type'] === "get_books") {
+        $bookIds = json_decode($request["book_ids"]);
+        return getBooks($bookIds);
     }
 
     // Default return if request type is not recognized
