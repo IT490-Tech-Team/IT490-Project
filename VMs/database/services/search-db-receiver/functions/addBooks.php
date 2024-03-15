@@ -11,7 +11,7 @@ function addBooks($request)
     // Decode the JSON string containing book data
     $books = json_decode($request["books"], true);
 
-    // Array to store the inserted books
+    // Array to store the IDs of inserted books along with their cover image URLs
     $insertedBooks = array();
 
     // Iterate over each book in the request
@@ -36,22 +36,8 @@ function addBooks($request)
             if ($stmt->execute()) {
                 // If query is successful, retrieve the ID of the last inserted record
                 $last_insert_id = $stmt->insert_id;
-<<<<<<< Updated upstream
                 // Add the ID and cover image URL to the result array
                 $insertedBooks[] = array("id" => $last_insert_id, "cover_image_url" => $cover_image_url);
-=======
-                // Add the entire book data to the result array
-                $insertedBooks[] = array(
-                    "id" => $last_insert_id,
-                    "title" => $title,
-                    "authors" => json_decode($authors, true),
-                    "genres" => json_decode($genres, true),
-                    "languages" => $languages,
-                    "year_published" => $year_published,
-                    "description" => $description,
-                    "cover_image_url" => $cover_image_url
-                );
->>>>>>> Stashed changes
             }
         } catch (Exception $e) {
             // Log error or handle as needed
@@ -62,14 +48,9 @@ function addBooks($request)
     // Close database connection
     $conn->close();
 
-<<<<<<< Updated upstream
     // Return array containing IDs of inserted books along with their cover image URLs
     return array("returnCode" => 200, "message" => $insertedBooks);
 
-=======
-    // Return array containing inserted books
-    return array("returnCode" => 200, "message" => "Books added successfully", "insertedBooks" => $insertedBooks);
->>>>>>> Stashed changes
 }
 
 ?>

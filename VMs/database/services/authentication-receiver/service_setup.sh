@@ -20,5 +20,4 @@ sudo cp "./$service_name" "/etc/systemd/system/$service_name"
 # Start Service and enable for reboot
 sudo systemctl daemon-reload
 sudo systemctl start "$service_name"
-sudo systemctl restart "$service_name"
 sudo systemctl enable "$service_name"

@@ -135,13 +135,16 @@ form.addEventListener("submit", async (event) => {
                 }
             });
 
+            booksNotInDb.forEach(book => {
+                addBook(book)
+            })
+
             // Adds books that aren't in the database to it
             const addToDatabase = await fetchData(
                 "/search-db/search.php",
                 { type: "add", books: JSON.stringify(booksNotInDb) }
             );
 
-<<<<<<< Updated upstream
             // Downloads the books in the frontend
             const downloadCovers = await fetchData(
                 "/search-frontend/search.php",
@@ -153,11 +156,6 @@ form.addEventListener("submit", async (event) => {
                 "/search-db/search.php",
                 { type: "add_covers", books: JSON.stringify(downloadCovers.message) }
             );
-=======
-            addToDatabase.insertedBooks.forEach(book => {
-                addBook(book)
-            })
->>>>>>> Stashed changes
 
         } catch (error) {
             console.error("Error:", error);

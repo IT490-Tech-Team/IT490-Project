@@ -7,14 +7,13 @@ require_once('rabbitMQLib.inc');
 include_once('functions/register.php');
 include_once('functions/login.php');
 include_once('functions/validate.php');
-include_once('functions/getUser.php');
 
 function getDatabaseConnection()
 {
     $host = 'localhost';
     $username = 'bookQuest';
     $password = '3394dzwHi0HJimrA13JO';
-    $database = 'bookShelf';
+    $database = 'userdb';
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
@@ -46,8 +45,6 @@ function requestProcessor($request)
     return doRegister($request['username'], $request['password']);
   } elseif ($request['type'] === "validate_session") {
     return doValidate($request['sessionId']);
-  } elseif ($request['type'] === "get_user") {
-    return getUser($request['sessionId']);
   }
 
   // Default return if request type is not recognized
