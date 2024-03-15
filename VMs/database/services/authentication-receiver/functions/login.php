@@ -9,12 +9,10 @@ function doLogin($username, $password)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $username, $password);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt->execute(array(':username' => $username, ':password' => $password));
 
-        $row = $result->fetch_assoc();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$row) {
             return array("returnCode" => 400, "message" => "Invalid username or password");
         }
@@ -22,16 +20,14 @@ function doLogin($username, $password)
         $userId = $row['id'];
 
         // Delete existing sessions for the user
-        $stmt = $conn->prepare("DELETE FROM sessions WHERE userId = ?");
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM sessions WHERE userId = :userId");
+        $stmt->execute(array(':userId' => $userId));
 
         // Create a new session for the user
         $sessionId = uniqid();
         $expiryDate = date('Y-m-d H:i:s', strtotime('+7 days'));
-        $stmt = $conn->prepare("INSERT INTO sessions (sessionId, userId, expired_at) VALUES (?, ?, ?)");
-        $stmt->bind_param("sis", $sessionId, $userId, $expiryDate);
-        $stmt->execute();
+        $stmt = $conn->prepare("INSERT INTO sessions (sessionId, userId, expired_at) VALUES (:sessionId, :userId, :expiryDate)");
+        $stmt->execute(array(':sessionId' => $sessionId, ':userId' => $userId, ':expiryDate' => $expiryDate));
 
         return array(
             "returnCode" => 200,
@@ -39,7 +35,7 @@ function doLogin($username, $password)
             "expired_at" => $expiryDate,
             "message" => "Login successful"
         );
-    } catch (mysqli_sql_exception $e) {
+    } catch (PDOException $e) {
         // Log error or handle as needed
         return array("returnCode" => 500, "message" => "Error executing query: " . $e->getMessage());
     }

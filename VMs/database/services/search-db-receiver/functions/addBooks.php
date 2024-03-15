@@ -18,10 +18,10 @@ function addBooks($request)
     foreach ($books as $book) {
         try {
             // Prepare SQL statement to insert a new book record
-            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description, cover_image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description) VALUES (?, ?, ?, ?, ?, ?)");
 
             // Bind parameters
-            $stmt->bind_param("ssssiss", $title, $authors, $genres, $languages, $year_published, $description, $cover_image_url);
+            $stmt->bind_param("ssssis", $title, $authors, $genres, $languages, $year_published, $description);
 
             // Set parameters
             $title = $book['title'];
@@ -36,6 +36,10 @@ function addBooks($request)
             if ($stmt->execute()) {
                 // If query is successful, retrieve the ID of the last inserted record
                 $last_insert_id = $stmt->insert_id;
+<<<<<<< Updated upstream
+                // Add the ID and cover image URL to the result array
+                $insertedBooks[] = array("id" => $last_insert_id, "cover_image_url" => $cover_image_url);
+=======
                 // Add the entire book data to the result array
                 $insertedBooks[] = array(
                     "id" => $last_insert_id,
@@ -47,8 +51,9 @@ function addBooks($request)
                     "description" => $description,
                     "cover_image_url" => $cover_image_url
                 );
+>>>>>>> Stashed changes
             }
-        } catch (mysqli_sql_exception $e) {
+        } catch (Exception $e) {
             // Log error or handle as needed
             return array("returnCode" => 500, "message" => "Error inserting book: " . $e->getMessage());
         }
@@ -57,8 +62,14 @@ function addBooks($request)
     // Close database connection
     $conn->close();
 
+<<<<<<< Updated upstream
+    // Return array containing IDs of inserted books along with their cover image URLs
+    return array("returnCode" => 200, "message" => $insertedBooks);
+
+=======
     // Return array containing inserted books
     return array("returnCode" => 200, "message" => "Books added successfully", "insertedBooks" => $insertedBooks);
+>>>>>>> Stashed changes
 }
 
 ?>

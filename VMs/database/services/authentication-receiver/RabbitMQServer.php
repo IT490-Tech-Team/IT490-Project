@@ -16,16 +16,15 @@ function getDatabaseConnection()
     $password = '3394dzwHi0HJimrA13JO';
     $database = 'bookShelf';
 
-    // Create connection
-    $conn = new mysqli($host, $username, $password, $database);
-
-    // Check connection
-    if ($conn->connect_error) {
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+        // Set PDO to throw exceptions on error
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $conn;
+    } catch (PDOException $e) {
         // Log error or handle as needed
         return null;
     }
-
-    return $conn;
 }
 
 // Function to process incoming requests

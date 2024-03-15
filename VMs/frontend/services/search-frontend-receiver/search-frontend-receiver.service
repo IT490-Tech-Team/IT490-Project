@@ -1,0 +1,14 @@
+[Unit]
+Description=RabbitMQ Search Receiver Service for the Frontend
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=sudo /usr/bin/php /opt/search-frontend-receiver/RabbitMQServer.php
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

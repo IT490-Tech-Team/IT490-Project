@@ -6,7 +6,6 @@ require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include_once('functions/addBooks.php');
 include_once('functions/searchBooks.php');
-include_once('functions/addToLibrary.php');
 
 function getDatabaseConnection()
 {
@@ -52,11 +51,7 @@ function requestProcessor($request)
         $genre = $request["genre"];
         $language = $request["language"];
         $year = $request["year"];
-        return searchBooks($title, $author, $genre, $language, $year);
-    } elseif ($request['type'] === "add_to_library") {
-        $userId = $request["user_id"];
-        $bookId = $request["book_id"];
-        return addToLibrary($userId, $bookId);
+        return searchBooks($title, $author, $genre, $language, $year);;
     }
 
     // Default return if request type is not recognized

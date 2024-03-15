@@ -1,148 +1,166 @@
-import { authenticate } from "../common/javascript/authenticate.js";
-import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
-import { getCookies } from "../common/javascript/helpers.js";
 import { UTILS_PATH } from "/common/javascript/defaults.js";
 
 const headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
 };
 
-// Function to fetch data from PHP scripts
+// Function to fetch from php scripts in /common/utils/ 
 const fetchData = async (endpoint, data) => {
     try {
         const response = await fetch(UTILS_PATH + endpoint, {
             method: "POST",
             headers: headers,
             body: new URLSearchParams(data)
-        });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return await response.json();
+        })
+        .then(response => response.text())
+        .then(response => JSON.parse(response))
+        
+        return response;
     } catch (error) {
         console.error("Error fetching data:", error);
         return { error: "Error fetching data" };
     }
 };
 
-// Function to check if an object is included in an array
 function arrayIncludesObject(arr, obj) {
-    return arr.some(item => JSON.stringify(item) === JSON.stringify(obj));
+    // Iterate through the array
+    for (let item of arr) {
+        // Convert objects to JSON strings for comparison
+        const itemString = JSON.stringify(item);
+        const objString = JSON.stringify(obj);
+        // If the JSON strings match, return true
+        if (itemString === objString) {
+            return true;
+        }
+    }
+    // If no match found, return false
+    return false;
 }
 
-// Function to add a book to the table body as a row
-const addBookToTable = (data) => {
-    // Column order and corresponding data keys
-    const columnOrder = ["cover", "title", "authors", "genres", "languages", "year published"];
-    const dataKeys = ["cover_image_url", "title", "authors", "genres", "languages", "year_published"];
-
-    // Create a table row
-    const row = document.createElement("tr");
-
+// Function that adds the book to the table body as a row
+const addBook = (data) => {
+    // Arrays to coordinate the column with the data object
+    const columnOrder = ["id", "cover", "title", "description", "authors", "genres", "languages", "year published"]
+    const dataKeys= ["id", "cover_image_url", "title", "description", "authors",  "genres", "languages", "year_published"]
+    
+    const row = document.createElement("tr")
+    
     // Iterate through the columns
-    columnOrder.forEach(columnContent => {
-        // Get the data key for the current column
-        const dataKey = dataKeys[columnOrder.indexOf(columnContent)];
-        let columnData = data[dataKey];
+    for (const columnContent of columnOrder) {
+        // Matches data to the column
+        const dataKey = dataKeys[columnOrder.indexOf(columnContent)]
+        let columnData = data[dataKey]
+        
+        const dataElement = document.createElement("td")
 
-        const dataElement = document.createElement("td");
+        // If the column is cover, then add an image element
+        if(columnContent == "cover"){
+            const coverElement = document.createElement("img")
+            coverElement.src = columnData
 
-        // If the column is 'cover', add an image element
-        if (columnContent === "cover" && columnData) {
-            const coverElement = document.createElement("img");
-            coverElement.src = columnData;
-            dataElement.appendChild(coverElement);
-        } else if (columnContent === "authors" || columnContent === "genres") {
-            // Handle authors and genres
-            if (columnData && typeof columnData === "string") {
-                columnData = JSON.parse(columnData);
-                dataElement.textContent = columnData.join(" and ");
+            dataElement.appendChild(coverElement)
+        }
+        // Database stores authors and genres as a string of an array
+        // DMZ stores them as an array
+        else if (columnContent == "authors" || columnContent == "genres") {
+            // If columnData is a string, parse it to get the array
+            if (columnData){
+                if (typeof columnData === "string"){
+                    columnData =JSON.parse(columnData)
+                }
+    
+                // Join the array with and (i.e. A and B )
+                dataElement.textContent = columnData.join(" and ")
             }
-        } else {
-            dataElement.textContent = columnData;
+        }
+        else {
+            dataElement.textContent = columnData
         }
 
-        // Add the column data to the row
-        row.appendChild(dataElement);
-    });
-
-    // Add 'Add To Library' button if user is logged in and book is not in the library
-    if (loggedIn && !libraryBooks.includes(data.id)) {
-        const addToLibraryCell = document.createElement("td");
-        const addToLibraryButton = document.createElement("button");
-        addToLibraryButton.textContent = "Add To Library";
-        addToLibraryButton.setAttribute("data-book-id", data.id);
-        addToLibraryButton.addEventListener("click", async (e) => {
-            try {
-                const response = await fetchData(
-                    "/search-db/search.php",
-                    { type: "add_to_library", user_id: userId, book_id: data.id }
-                );
-                console.log(response);
-                // Remove the button after adding to library
-                addToLibraryCell.innerHTML = "";
-            } catch (error) {
-                console.error("Error adding book to library:", error);
-            }
-        });
-        addToLibraryCell.appendChild(addToLibraryButton);
-        row.appendChild(addToLibraryCell);
+        // Add column into the row
+        row.appendChild(dataElement)
     }
 
-    // Add the row to the table
-    result.appendChild(row);
-};
+    // Add row to the table
+    result.appendChild(row)
+}
 
-// Initialize variables
-let loggedIn = false;
-let userId = -1;
-let libraryBooks = [];
+const form = document.querySelector("form#search");
+const result = document.querySelector("tbody#search-results")
 
-// Authenticate user and get user's library
-authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
-    .then(data => {
-        loggedIn = true;
-        userId = data.userDetails.id;
-        libraryBooks = data.userLibraries.map(entry => entry.book_id);
-        console.log(libraryBooks);
-    })
-    .catch(error => {
-        console.log(error);
-    });
-
-// Handle form submission
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Clear previous search results
-    result.innerHTML = "";
+    // Empties the result table 
+    result.innerHTML = ""
 
-    // Get search data from the form
+    // Gets the entries from the form (currently only title)
     const data = Object.fromEntries(new FormData(form));
     const dataKeys = Object.keys(data);
 
-    // Perform search if the form only has a 'title' search
+    // If the form only has a title search, then do a full DB + DMZ search
     if (dataKeys.length === 1 && dataKeys.includes("title") && data.title.length > 0) {
         try {
-            // Search the database
-            const database = await fetchData("/search-db/search.php", { type: "search", ...data });
-
-            // Add resulting books to the table
-            database.message.forEach(book => addBookToTable(book));
+            // Searches the database
+            const database = await fetchData(
+                "/search-db/search.php",
+                { type: "search", ...data }
+            );
+            
+            // Adds resulting books to the table
+            // and create an a simpler array to compare to DMZ
+            const dbCompare = database.message.map((book) => {
+                addBook(book)
+                return {
+                    title: book.title,
+                    year: JSON.stringify(book.year_published)
+                }
+            })
 
             // Search the DMZ
-            const dmz = await fetchData("/search-dmz/search.php", { type: "search", ...data });
+            const dmz = await fetchData(
+                "/search-dmz/search.php",
+                { type: "search", ...data }
+            );
 
-            // Filter out books not in the database
-            const booksNotInDb = dmz.message.filter(book => !arrayIncludesObject(database.message, { title: book.title, year_published: book.year_published }));
+            // Compares DMZ results and DB results
+            const booksNotInDb = []
+            dmz.message.forEach(book => {
+                // If the book isn't in datbase, add it to the array
+                if (!arrayIncludesObject(dbCompare, {
+                    title: book.title,
+                    year: book.year_published,
+                })) {
+                    booksNotInDb.push(book)
+                }
+            });
 
-            // Add books not in the database to the database
-            if (booksNotInDb.length > 0) {
-                const addToDatabase = await fetchData("/search-db/search.php", { type: "add", books: JSON.stringify(booksNotInDb) });
-                addToDatabase.insertedBooks.forEach(book => addBookToTable(book));
-            }
+            // Adds books that aren't in the database to it
+            const addToDatabase = await fetchData(
+                "/search-db/search.php",
+                { type: "add", books: JSON.stringify(booksNotInDb) }
+            );
+
+<<<<<<< Updated upstream
+            // Downloads the books in the frontend
+            const downloadCovers = await fetchData(
+                "/search-frontend/search.php",
+                { type: "download_covers", books: JSON.stringify(addToDatabase.message) }
+            );
+
+            // Finally, replaces the default cover with the book cover downloaded
+            const addCoversToDatabase = await fetchData(
+                "/search-db/search.php",
+                { type: "add_covers", books: JSON.stringify(downloadCovers.message) }
+            );
+=======
+            addToDatabase.insertedBooks.forEach(book => {
+                addBook(book)
+            })
+>>>>>>> Stashed changes
+
         } catch (error) {
-            console.error("Error searching:", error);
+            console.error("Error:", error);
         }
     }
 });

@@ -1,4 +1,4 @@
-import { authenticate }  from "/common/javascript/authenticate.js"
+import {authenticate}  from "/common/javascript/authenticate.js"
 
 let form = document.getElementById("registration")
 
