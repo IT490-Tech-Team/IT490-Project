@@ -29,7 +29,10 @@ if ($type === "search") {
 elseif ($type === "add") {
     $request['books'] = $_POST["books"];
 }
-
+elseif ($type === "add_to_library"){
+    $request["user_id"] = $_POST["user_id"];
+    $request["book_id"] = $_POST["book_id"];
+}
 // Sets request type
 $request['type'] = $type;
 

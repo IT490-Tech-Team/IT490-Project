@@ -1,4 +1,7 @@
 import { fetchData } from "../common/javascript/helpers.js";
+import { authenticate } from "../common/javascript/authenticate.js";
+import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
+import { getCookies } from "../common/javascript/helpers.js";
 
 function arrayIncludesObject(arr, obj) {
     // Iterate through the array
@@ -18,21 +21,21 @@ function arrayIncludesObject(arr, obj) {
 // Function that adds the book to the table body as a row
 const addBook = (data) => {
     // Arrays to coordinate the column with the data object
-    const columnOrder = ["id", "cover", "title", "description", "authors", "genres", "languages", "year published"]
-    const dataKeys= ["id", "cover_image_url", "title", "description", "authors",  "genres", "languages", "year_published"]
-    
+    const columnOrder = ["cover", "title", "authors", "genres", "languages", "year published"]
+    const dataKeys = ["cover_image_url", "title", "authors", "genres", "languages", "year_published"]
+
     const row = document.createElement("tr")
-    
+
     // Iterate through the columns
     for (const columnContent of columnOrder) {
         // Matches data to the column
         const dataKey = dataKeys[columnOrder.indexOf(columnContent)]
         let columnData = data[dataKey]
-        
+
         const dataElement = document.createElement("td")
 
         // If the column is cover, then add an image element
-        if(columnContent == "cover"){
+        if (columnContent == "cover") {
             const coverElement = document.createElement("img")
             coverElement.src = columnData
 
@@ -42,13 +45,15 @@ const addBook = (data) => {
         // DMZ stores them as an array
         else if (columnContent == "authors" || columnContent == "genres") {
             // If columnData is a string, parse it to get the array
-            if (columnData){
-                if (typeof columnData === "string"){
-                    columnData =JSON.parse(columnData)
+            if (columnData) {
+                if (typeof columnData === "string") {
+                    columnData = JSON.parse(columnData)
                 }
-    
-                // Join the array with and (i.e. A and B )
-                dataElement.textContent = columnData.join(" and ")
+
+                if (columnData) {
+                    // Join the array with and (i.e. A and B )
+                    dataElement.textContent = columnData.join(" and ")
+                }
             }
         }
         else {
@@ -59,12 +64,49 @@ const addBook = (data) => {
         row.appendChild(dataElement)
     }
 
+    // Add 'Add To Library' button if user is logged in and book is not in the library
+    if (loggedIn && !libraryBooks.includes(data.id)) {
+        const addToLibraryCell = document.createElement("td");
+        const addToLibraryButton = document.createElement("button");
+        addToLibraryButton.textContent = "Add To Library";
+        addToLibraryButton.setAttribute("data-book-id", data.id);
+        addToLibraryButton.addEventListener("click", async (e) => {
+            try {
+                const response = await fetchData(
+                    "/search-db/search.php",
+                    { type: "add_to_library", user_id: userId, book_id: data.id }
+                );
+                console.log(response);
+                // Remove the button after adding to library
+                addToLibraryCell.innerHTML = "";
+            } catch (error) {
+                console.error("Error adding book to library:", error);
+            }
+        });
+        addToLibraryCell.appendChild(addToLibraryButton);
+        row.appendChild(addToLibraryCell);
+    }
+
     // Add row to the table
     result.appendChild(row)
 }
 
 const form = document.querySelector("form#search");
 const result = document.querySelector("tbody#search-results")
+
+// Initialize variables
+let loggedIn = false;
+let userId = -1;
+let libraryBooks = [];
+
+// Authenticate user and get user's library
+authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
+    .then(data => {
+        loggedIn = true;
+        userId = data.userDetails.id;
+        libraryBooks = data.userLibraries.map(entry => entry.book_id);
+    })
+
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -84,7 +126,7 @@ form.addEventListener("submit", async (event) => {
                 "/search-db/search.php",
                 { type: "search", ...data }
             );
-            
+
             // Adds resulting books to the table
             // and create an a simpler array to compare to DMZ
             const dbCompare = database.message.map((book) => {
@@ -119,9 +161,11 @@ form.addEventListener("submit", async (event) => {
                 { type: "add", books: JSON.stringify(booksNotInDb) }
             );
 
-            addToDatabase.insertedBooks.forEach(book => {
+            console.log(addToDatabase)
+            addToDatabase.books.forEach(book => {
                 addBook(book)
             })
+
 
         } catch (error) {
             console.error("Error:", error);

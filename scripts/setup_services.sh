@@ -21,8 +21,3 @@ cd search-dmz-receiver
 cd ..
 cd ..
 cd ..
-
-cd frontend
-cd services
-cd search-frontend-receiver
-./service_setup.sh

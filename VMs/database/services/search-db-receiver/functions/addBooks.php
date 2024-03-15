@@ -18,10 +18,10 @@ function addBooks($request)
     foreach ($books as $book) {
         try {
             // Prepare SQL statement to insert a new book record
-            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description, cover_image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             // Bind parameters
-            $stmt->bind_param("ssssis", $title, $authors, $genres, $languages, $year_published, $description);
+            $stmt->bind_param("ssssiss", $title, $authors, $genres, $languages, $year_published, $description, $cover_image_url);
 
             // Set parameters
             $title = $book['title'];
@@ -58,7 +58,7 @@ function addBooks($request)
     $conn->close();
 
     // Return array containing IDs of inserted books along with their cover image URLs
-    return array("returnCode" => 200, "message" => $insertedBooks);
+    return array("returnCode" => 200, "books" => $insertedBooks);
 
 }
 
