@@ -1,26 +1,4 @@
-import { UTILS_PATH } from "/common/javascript/defaults.js";
-
-const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-// Function to fetch from php scripts in /common/utils/ 
-const fetchData = async (endpoint, data) => {
-    try {
-        const response = await fetch(UTILS_PATH + endpoint, {
-            method: "POST",
-            headers: headers,
-            body: new URLSearchParams(data)
-        })
-        .then(response => response.text())
-        .then(response => JSON.parse(response))
-        
-        return response;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        return { error: "Error fetching data" };
-    }
-};
+import { fetchData } from "../common/javascript/helpers.js";
 
 function arrayIncludesObject(arr, obj) {
     // Iterate through the array
@@ -135,27 +113,15 @@ form.addEventListener("submit", async (event) => {
                 }
             });
 
-            booksNotInDb.forEach(book => {
-                addBook(book)
-            })
-
             // Adds books that aren't in the database to it
             const addToDatabase = await fetchData(
                 "/search-db/search.php",
                 { type: "add", books: JSON.stringify(booksNotInDb) }
             );
 
-            // Downloads the books in the frontend
-            const downloadCovers = await fetchData(
-                "/search-frontend/search.php",
-                { type: "download_covers", books: JSON.stringify(addToDatabase.message) }
-            );
-
-            // Finally, replaces the default cover with the book cover downloaded
-            const addCoversToDatabase = await fetchData(
-                "/search-db/search.php",
-                { type: "add_covers", books: JSON.stringify(downloadCovers.message) }
-            );
+            addToDatabase.insertedBooks.forEach(book => {
+                addBook(book)
+            })
 
         } catch (error) {
             console.error("Error:", error);

@@ -37,7 +37,16 @@ function addBooks($request)
                 // If query is successful, retrieve the ID of the last inserted record
                 $last_insert_id = $stmt->insert_id;
                 // Add the ID and cover image URL to the result array
-                $insertedBooks[] = array("id" => $last_insert_id, "cover_image_url" => $cover_image_url);
+                $insertedBooks[] = array(
+                    "id" => $last_insert_id,
+                    "title" => $title,
+                    "authors" => json_decode($authors, true),
+                    "genres" => json_decode($genres, true),
+                    "languages" => $languages,
+                    "year_published" => $year_published,
+                    "description" => $description,
+                    "cover_image_url" => $cover_image_url
+                );
             }
         } catch (Exception $e) {
             // Log error or handle as needed

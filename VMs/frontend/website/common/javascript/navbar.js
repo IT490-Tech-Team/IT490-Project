@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addPath("BookQuest","/",left)
     addPath("Search","/search",center)
+    addPath("Library","/library",center)
     addPath("Login","/login",right)
     addPath("Register","/register",right)
     

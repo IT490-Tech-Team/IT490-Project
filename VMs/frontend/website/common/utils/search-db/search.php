@@ -29,10 +29,6 @@ if ($type === "search") {
 elseif ($type === "add") {
     $request['books'] = $_POST["books"];
 }
-// Add book covers
-elseif ($type === "add_covers") {
-    $request['books'] = $_POST["books"];
-}
 
 // Sets request type
 $request['type'] = $type;

@@ -5,7 +5,6 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include_once('functions/addBooks.php');
-include_once('functions/addCovers.php');
 include_once('functions/searchBooks.php');
 
 function getDatabaseConnection()
@@ -13,7 +12,7 @@ function getDatabaseConnection()
     $host = 'localhost';
     $username = 'bookQuest';
     $password = '3394dzwHi0HJimrA13JO';
-    $database = 'booksdb';
+    $database = 'bookShelf';
 
     // Create connection
     $conn = new mysqli($host, $username, $password, $database);

@@ -18,6 +18,10 @@ function status_service {
     sudo systemctl status "$service_name"
 }
 
+function log_service {
+    sudo journalctl -e -u "$service_name"
+}
+
 function display_help {
     echo "Usage: $0 [action]"
     echo "Default action is 'status'."
@@ -26,6 +30,7 @@ function display_help {
     echo "  stop    - Stop the $service_name service."
     echo "  restart - Restart the $service_name service."
     echo "  status  - Show the status of the $service_name service."
+    echo "  log     - Show the journalctl log for the $service_name service."
 }
 
 if [ $# -eq 0 ]; then
@@ -48,12 +53,16 @@ case "$action" in
     status)
         status_service
         ;;
+    log)
+        log_service
+        exit 0
+        ;;
     help)
         display_help
         exit 0
         ;;
     *)
-        echo "Invalid action. Please use 'start', 'stop', 'restart', 'status', or 'help'."
+        echo "Invalid action. Please use 'start', 'stop', 'restart', 'status', 'log', or 'help'."
         exit 1
         ;;
 esac
