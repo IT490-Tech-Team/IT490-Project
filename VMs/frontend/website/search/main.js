@@ -93,11 +93,36 @@ const addBook = (data) => {
 
 const form = document.querySelector("form#search");
 const result = document.querySelector("tbody#search-results")
+const genreSelection = document.querySelector("#genre")
+const languageSelection = document.querySelector("#language")
 
 // Initialize variables
 let loggedIn = false;
 let userId = -1;
 let libraryBooks = [];
+
+fetchData(
+    "/search-db/search.php",
+    { type: "get_filters"}
+)
+.then((data) => {
+
+    data.genres.forEach((genre) => {
+        const option = document.createElement("option")
+        option.value = genre
+        option.textContent = genre
+        
+        genreSelection.appendChild(option)
+    })
+    data.languages.forEach(language => {
+        const option = document.createElement("option")
+        option.value = language
+        option.textContent = language
+        
+        languageSelection.appendChild(option)
+    })
+    console.log(data)
+})
 
 // Authenticate user and get user's library
 authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
@@ -106,7 +131,6 @@ authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) }
         userId = data.userDetails.id;
         libraryBooks = data.userLibraries.map(entry => entry.book_id);
     })
-
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -118,25 +142,41 @@ form.addEventListener("submit", async (event) => {
     const data = Object.fromEntries(new FormData(form));
     const dataKeys = Object.keys(data);
 
+    let onlyTitle = true;
+
+    for (const [key, value] of Object.entries(data)) {
+        // if any of the other form values are filled
+        if (key != "title" && value != "") {
+            onlyTitle = false
+        }
+
+        // if title is empty
+        if (key == "title" && value == "") {
+            onlyTitle = false
+        }
+    }
+
+    // Searches the database
+    const database = await fetchData(
+        "/search-db/search.php",
+        { type: "search", ...data }
+    );
+
+    console.log(database)
+
+    // Adds resulting books to the table
+    // and create an a simpler array to compare to DMZ
+    const dbCompare = database.message.map((book) => {
+        addBook(book)
+        return {
+            title: book.title,
+            year: JSON.stringify(book.year_published)
+        }
+    })
+
     // If the form only has a title search, then do a full DB + DMZ search
-    if (dataKeys.length === 1 && dataKeys.includes("title") && data.title.length > 0) {
+    if (onlyTitle) {
         try {
-            // Searches the database
-            const database = await fetchData(
-                "/search-db/search.php",
-                { type: "search", ...data }
-            );
-
-            // Adds resulting books to the table
-            // and create an a simpler array to compare to DMZ
-            const dbCompare = database.message.map((book) => {
-                addBook(book)
-                return {
-                    title: book.title,
-                    year: JSON.stringify(book.year_published)
-                }
-            })
-
             // Search the DMZ
             const dmz = await fetchData(
                 "/search-dmz/search.php",
@@ -165,8 +205,6 @@ form.addEventListener("submit", async (event) => {
             addToDatabase.books.forEach(book => {
                 addBook(book)
             })
-
-
         } catch (error) {
             console.error("Error:", error);
         }

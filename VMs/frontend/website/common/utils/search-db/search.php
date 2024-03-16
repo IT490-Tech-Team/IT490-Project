@@ -40,6 +40,8 @@ elseif ($type === "remove_from_library"){
     $request["user_id"] = $_POST["user_id"];
     $request["book_id"] = $_POST["book_id"];
 }
+elseif ($type === "get_filters"){
+}
 
 // Sets request type
 $request['type'] = $type;

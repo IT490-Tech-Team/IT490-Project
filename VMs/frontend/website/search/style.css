@@ -13,3 +13,8 @@ thead * {
     width: fit-content;
     padding: 1rem;
 }
+
+form {
+    display: flex;
+    gap: 1rem;
+}

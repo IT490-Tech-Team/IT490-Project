@@ -8,35 +8,46 @@ function searchBooks($title, $author, $genre, $language, $year)
         return array("returnCode" => 500, "message" => "Error connecting to the database");
     }
 
-    // Prepare base SQL statement for fuzzy search on title
-    $sql = "SELECT * FROM books WHERE title LIKE ?";
+    // Initialize array to hold search parameters
+    $params = array();
 
-    // Bind parameter for title search
-    $searchParam = "%" . $title . "%";
+    // Prepare base SQL statement
+    $sql = "SELECT * FROM books WHERE 1=1";
+
+    // Add title search criteria if provided
+    if ($title !== null && strlen($title) > 0) {
+        $sql .= " AND title LIKE ?";
+        $params[] = "%" . $title . "%";
+    }
 
     // Add additional search criteria if provided
-    if ($author !== null) {
+    if ($author !== null && strlen($author) > 0) {
         $sql .= " AND authors LIKE ?";
-        $searchParam .= "%" . $author . "%";
+        $params[] = "%" . $author . "%";
     }
-    if ($genre !== null) {
+    if ($genre !== null && strlen($genre) > 0) {
         $sql .= " AND genres LIKE ?";
-        $searchParam .= "%" . $genre . "%";
+        $params[] = "%" . $genre . "%";
     }
-    if ($language !== null) {
+    if ($language !== null && strlen($language) > 0) {
         $sql .= " AND languages LIKE ?";
-        $searchParam .= "%" . $language . "%";
+        $params[] = "%" . $language . "%";
     }
-    if ($year !== null) {
+    if ($year !== null && strlen($year) > 0) {
         $sql .= " AND year_published LIKE ?";
-        $searchParam .= "%" . $year . "%";
+        $params[] = "%" . $year . "%";
     }
+
+    echo $sql;
 
     // Prepare SQL statement
     $stmt = $conn->prepare($sql);
 
-    // Bind parameter
-    $stmt->bind_param("s", $searchParam);
+    // Dynamically bind parameters
+    $types = str_repeat("s", count($params));
+    if ($types !== "") {
+        $stmt->bind_param($types, ...$params);
+    }
 
     // Execute the query
     $stmt->execute();
@@ -53,7 +64,6 @@ function searchBooks($title, $author, $genre, $language, $year)
         // Close database connection
         $conn->close();
         return array("returnCode" => 200, "message" => $books);
-        return $books;
     } else {
         // No results found
         // Close statement

@@ -9,6 +9,7 @@ include_once('functions/searchBooks.php');
 include_once('functions/addToLibrary.php');
 include_once('functions/removeFromLibrary.php');
 include_once('functions/getBooks.php');
+include_once('functions/getFilters.php');
 
 function getDatabaseConnection()
 {
@@ -66,6 +67,8 @@ function requestProcessor($request)
     } elseif ($request['type'] === "get_books") {
         $bookIds = json_decode($request["book_ids"]);
         return getBooks($bookIds);
+    } elseif ($request['type'] === "get_filters") {
+        return getFilters();
     }
 
     // Default return if request type is not recognized
