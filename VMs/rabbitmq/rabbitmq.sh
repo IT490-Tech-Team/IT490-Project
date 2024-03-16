@@ -86,4 +86,4 @@ check_access_refused "$output"
 output=$(rabbitmqctl set_permissions -p $VHOST $RABBITMQ_USER ".*" ".*" ".*" 2>&1)
 check_access_refused "$output"
 
-# systemctl restart rabbitmq-server
+systemctl restart rabbitmq-server

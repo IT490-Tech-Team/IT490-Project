@@ -1,5 +1,5 @@
 import { authenticate } from "./authenticate.js";
-import { SESSION_ID_COOKIE_NAME } from "./defaults.js";
+import { SESSION_ID_COOKIE_NAME, UTILS_PATH } from "./defaults.js";
 
 export const getCookies = (cookieName) => {
     const cookies = document.cookie.split('; ');
@@ -27,3 +27,23 @@ export const validateSession = () => {
 
     return authenticate(data)
 }
+
+// Function to fetch from php scripts in /common/utils/ 
+export const fetchData = async (endpoint, data) => {
+    try {
+        const response = await fetch(UTILS_PATH + endpoint, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(data)
+        })
+        .then(response => response.text())
+        .then(response => JSON.parse(response))
+        
+        return response;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return { error: "Error fetching data" };
+    }
+};

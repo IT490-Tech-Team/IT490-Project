@@ -18,10 +18,10 @@ function addBooks($request)
     foreach ($books as $book) {
         try {
             // Prepare SQL statement to insert a new book record
-            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO books (title, authors, genres, languages, year_published, description, cover_image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             // Bind parameters
-            $stmt->bind_param("ssssis", $title, $authors, $genres, $languages, $year_published, $description);
+            $stmt->bind_param("ssssiss", $title, $authors, $genres, $languages, $year_published, $description, $cover_image_url);
 
             // Set parameters
             $title = $book['title'];
@@ -37,7 +37,16 @@ function addBooks($request)
                 // If query is successful, retrieve the ID of the last inserted record
                 $last_insert_id = $stmt->insert_id;
                 // Add the ID and cover image URL to the result array
-                $insertedBooks[] = array("id" => $last_insert_id, "cover_image_url" => $cover_image_url);
+                $insertedBooks[] = array(
+                    "id" => $last_insert_id,
+                    "title" => $title,
+                    "authors" => json_decode($authors, true),
+                    "genres" => json_decode($genres, true),
+                    "languages" => $languages,
+                    "year_published" => $year_published,
+                    "description" => $description,
+                    "cover_image_url" => $cover_image_url
+                );
             }
         } catch (Exception $e) {
             // Log error or handle as needed
@@ -49,7 +58,7 @@ function addBooks($request)
     $conn->close();
 
     // Return array containing IDs of inserted books along with their cover image URLs
-    return array("returnCode" => 200, "message" => $insertedBooks);
+    return array("returnCode" => 200, "books" => $insertedBooks);
 
 }
 

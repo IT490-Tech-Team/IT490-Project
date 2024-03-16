@@ -12,7 +12,7 @@ function getDatabaseConnection()
     $host = 'localhost';
     $username = 'bookQuest';
     $password = '3394dzwHi0HJimrA13JO';
-    $database = 'userdb';
+    $database = 'bookShelf';
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$database", $username, $password);

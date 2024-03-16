@@ -17,6 +17,16 @@ if confirm "Do you want to update package lists and upgrade installed packages?"
     sudo apt-get upgrade -y
 fi
 
+# Install Nano and Git
+if confirm "Do you want to install Nano and Git?"; then
+    sudo apt-get install nano git -y
+fi
+
+# Install Tailscale
+if confirm "Do you want to install Tailscale?"; then
+    curl -fsSL https://tailscale.com/install.sh | sh
+fi
+
 # Install Zsh
 if confirm "Do you want to install Zsh?"; then
     sudo apt-get install zsh -y
@@ -40,16 +50,6 @@ fi
 # Change default shell to Zsh
 if confirm "Do you want to change the default shell to Zsh?"; then
     chsh -s $(which zsh)
-fi
-
-# Install Nano and Git
-if confirm "Do you want to install Nano and Git?"; then
-    sudo apt-get install nano git -y
-fi
-
-# Install Tailscale
-if confirm "Do you want to install Tailscale?"; then
-    curl -fsSL https://tailscale.com/install.sh | sh
 fi
 
 echo "Please restart your terminal to apply changes."

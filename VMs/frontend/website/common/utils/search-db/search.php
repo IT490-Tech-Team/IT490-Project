@@ -29,9 +29,18 @@ if ($type === "search") {
 elseif ($type === "add") {
     $request['books'] = $_POST["books"];
 }
-// Add book covers
-elseif ($type === "add_covers") {
-    $request['books'] = $_POST["books"];
+elseif ($type === "add_to_library"){
+    $request["user_id"] = $_POST["user_id"];
+    $request["book_id"] = $_POST["book_id"];
+}
+elseif ($type === "get_books"){
+    $request["book_ids"] = $_POST["book_ids"];
+}
+elseif ($type === "remove_from_library"){
+    $request["user_id"] = $_POST["user_id"];
+    $request["book_id"] = $_POST["book_id"];
+}
+elseif ($type === "get_filters"){
 }
 
 // Sets request type

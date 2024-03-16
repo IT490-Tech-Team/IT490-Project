@@ -5,15 +5,18 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include_once('functions/addBooks.php');
-include_once('functions/addCovers.php');
 include_once('functions/searchBooks.php');
+include_once('functions/addToLibrary.php');
+include_once('functions/removeFromLibrary.php');
+include_once('functions/getBooks.php');
+include_once('functions/getFilters.php');
 
 function getDatabaseConnection()
 {
     $host = 'localhost';
     $username = 'bookQuest';
     $password = '3394dzwHi0HJimrA13JO';
-    $database = 'booksdb';
+    $database = 'bookShelf';
 
     // Create connection
     $conn = new mysqli($host, $username, $password, $database);
@@ -52,7 +55,20 @@ function requestProcessor($request)
         $genre = $request["genre"];
         $language = $request["language"];
         $year = $request["year"];
-        return searchBooks($title, $author, $genre, $language, $year);;
+        return searchBooks($title, $author, $genre, $language, $year);
+    } elseif ($request['type'] === "add_to_library") {
+        $userId = $request["user_id"];
+        $bookId = $request["book_id"];
+        return addToLibrary($userId, $bookId);
+    } elseif ($request['type'] === "remove_from_library") {
+        $userId = $request["user_id"];
+        $bookId = $request["book_id"];
+        return removeFromLibrary($userId, $bookId);
+    } elseif ($request['type'] === "get_books") {
+        $bookIds = json_decode($request["book_ids"]);
+        return getBooks($bookIds);
+    } elseif ($request['type'] === "get_filters") {
+        return getFilters();
     }
 
     // Default return if request type is not recognized
