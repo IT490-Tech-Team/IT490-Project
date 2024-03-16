@@ -40,4 +40,16 @@ body {
     background-color: white;
     border-radius: 2rem;
     overflow: scroll;
+    margin: 1rem;
+}
+
+.book-content textarea {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+} 
+
+.book-content #discussion > div{
+    border-bottom: 1px solid black;
 }
