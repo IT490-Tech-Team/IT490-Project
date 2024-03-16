@@ -2,6 +2,7 @@ import { fetchData } from "../common/javascript/helpers.js";
 import { authenticate } from "../common/javascript/authenticate.js";
 import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
 import { getCookies } from "../common/javascript/helpers.js";
+import { bookPopUp } from "./bookPopup.js";
 
 function arrayIncludesObject(arr, obj) {
     // Iterate through the array
@@ -58,6 +59,13 @@ const addBook = (data) => {
         }
         else {
             dataElement.textContent = columnData
+        }
+
+        if (columnContent == "title"){
+            dataElement.addEventListener("click", () => {
+                console.log("YEO")
+                document.querySelector("body").appendChild(bookPopUp(data))
+            })
         }
 
         // Add column into the row
@@ -144,6 +152,7 @@ form.addEventListener("submit", async (event) => {
 
     let onlyTitle = true;
 
+    console.log(data)
     for (const [key, value] of Object.entries(data)) {
         // if any of the other form values are filled
         if (key != "title" && value != "") {

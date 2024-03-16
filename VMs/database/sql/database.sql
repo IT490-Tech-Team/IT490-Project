@@ -46,3 +46,27 @@ CREATE TABLE IF NOT EXISTS user_library (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (book_id) REFERENCES books(id)
 );
+
+CREATE TABLE IF NOT EXISTS discussions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT(6) UNSIGNED,
+    username VARCHAR(50),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT(6) UNSIGNED,
+    username VARCHAR(50),
+    rating TINYINT UNSIGNED NOT NULL,
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT chk_rating CHECK (rating BETWEEN 1 AND 5)
+);
