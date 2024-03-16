@@ -2,6 +2,7 @@ import { fetchData } from "../common/javascript/helpers.js";
 import { authenticate } from "../common/javascript/authenticate.js";
 import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
 import { getCookies } from "../common/javascript/helpers.js";
+import { bookPopUp } from "./bookPopup.js";
 
 function arrayIncludesObject(arr, obj) {
     // Iterate through the array
@@ -60,6 +61,12 @@ const addBook = (data) => {
             dataElement.textContent = columnData
         }
 
+        if (columnContent == "title"){
+            dataElement.addEventListener("click", () => {
+                document.querySelector("body").appendChild(bookPopUp(data, userDetails))
+            })
+        }
+
         // Add column into the row
         row.appendChild(dataElement)
     }
@@ -76,7 +83,6 @@ const addBook = (data) => {
                     "/search-db/search.php",
                     { type: "add_to_library", user_id: userId, book_id: data.id }
                 );
-                console.log(response);
                 // Remove the button after adding to library
                 addToLibraryCell.innerHTML = "";
             } catch (error) {
@@ -99,6 +105,7 @@ const languageSelection = document.querySelector("#language")
 // Initialize variables
 let loggedIn = false;
 let userId = -1;
+let userDetails = null;
 let libraryBooks = [];
 
 fetchData(
@@ -106,7 +113,6 @@ fetchData(
     { type: "get_filters"}
 )
 .then((data) => {
-
     data.genres.forEach((genre) => {
         const option = document.createElement("option")
         option.value = genre
@@ -121,7 +127,6 @@ fetchData(
         
         languageSelection.appendChild(option)
     })
-    console.log(data)
 })
 
 // Authenticate user and get user's library
@@ -130,6 +135,7 @@ authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) }
         loggedIn = true;
         userId = data.userDetails.id;
         libraryBooks = data.userLibraries.map(entry => entry.book_id);
+        userDetails = data.userDetails
     })
 
 form.addEventListener("submit", async (event) => {
@@ -162,8 +168,8 @@ form.addEventListener("submit", async (event) => {
         { type: "search", ...data }
     );
 
-    console.log(database)
 
+    console.log("good1")
     // Adds resulting books to the table
     // and create an a simpler array to compare to DMZ
     const dbCompare = database.message.map((book) => {
@@ -174,6 +180,8 @@ form.addEventListener("submit", async (event) => {
         }
     })
 
+    console.log("good2")
+
     // If the form only has a title search, then do a full DB + DMZ search
     if (onlyTitle) {
         try {
@@ -182,6 +190,8 @@ form.addEventListener("submit", async (event) => {
                 "/search-dmz/search.php",
                 { type: "search", ...data }
             );
+
+            console.log("good3")
 
             // Compares DMZ results and DB results
             const booksNotInDb = []
@@ -195,16 +205,17 @@ form.addEventListener("submit", async (event) => {
                 }
             });
 
+            console.log("good4")
             // Adds books that aren't in the database to it
             const addToDatabase = await fetchData(
                 "/search-db/search.php",
                 { type: "add", books: JSON.stringify(booksNotInDb) }
             );
 
-            console.log(addToDatabase)
             addToDatabase.books.forEach(book => {
                 addBook(book)
             })
+            console.log("good5")
         } catch (error) {
             console.error("Error:", error);
         }

@@ -10,6 +10,7 @@ function searchBooks($title, $author, $genre, $language, $year)
 
     // Initialize array to hold search parameters
     $params = array();
+    $sortingConditions = array();
 
     // Prepare base SQL statement
     $sql = "SELECT * FROM books WHERE 1=1";
@@ -18,24 +19,33 @@ function searchBooks($title, $author, $genre, $language, $year)
     if ($title !== null && strlen($title) > 0) {
         $sql .= " AND title LIKE ?";
         $params[] = "%" . $title . "%";
+        $sortingConditions[] = "title DESC";
     }
 
     // Add additional search criteria if provided
     if ($author !== null && strlen($author) > 0) {
         $sql .= " AND authors LIKE ?";
         $params[] = "%" . $author . "%";
+        $sortingConditions[] = "authors DESC";
     }
     if ($genre !== null && strlen($genre) > 0) {
         $sql .= " AND genres LIKE ?";
         $params[] = "%" . $genre . "%";
+        $sortingConditions[] = "genres DESC";
     }
     if ($language !== null && strlen($language) > 0) {
         $sql .= " AND languages LIKE ?";
         $params[] = "%" . $language . "%";
+        $sortingConditions[] = "languages DESC";
     }
     if ($year !== null && strlen($year) > 0) {
         $sql .= " AND year_published LIKE ?";
         $params[] = "%" . $year . "%";
+        $sortingConditions[] = "year_published DESC";
+    }
+
+    if (!empty($sortingConditions)) {
+        $sql .= " ORDER BY " . implode(", ", $sortingConditions);
     }
 
     echo $sql;
