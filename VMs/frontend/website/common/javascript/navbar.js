@@ -27,15 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adds Set Paths
     addPath("BookQuest","/",left)
-    addPath("Search","/search",center)
-    addPath("Library","/library",center)
+    
     addPath("Login","/login",right)
     addPath("Register","/register",right)
     
     // Add optional paths
     authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
     .then((data) => {
+        addPath("Search","/search",center)
+        addPath("Library","/library",center)
         addPath("Log Out", "/logout", right)
+        addPath("Recommendations", "/recommendations", center)
         document.querySelector("#logout").addEventListener("click", (e) => {  logOut(e) })
     })
     // Silences error
