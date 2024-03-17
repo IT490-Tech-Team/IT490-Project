@@ -1,4 +1,4 @@
-import { fetchData } from "../common/javascript/helpers.js";
+import { fetchData } from "./helpers.js";
 
 export const bookPopUp = (bookData, userData) => {
     const container = document.createElement("div")

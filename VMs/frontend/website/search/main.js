@@ -2,7 +2,7 @@ import { fetchData } from "../common/javascript/helpers.js";
 import { authenticate } from "../common/javascript/authenticate.js";
 import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
 import { getCookies } from "../common/javascript/helpers.js";
-import { bookPopUp } from "./bookPopup.js";
+import { bookPopUp } from "../common/javascript/bookPopup.js";
 
 function arrayIncludesObject(arr, obj) {
     // Iterate through the array

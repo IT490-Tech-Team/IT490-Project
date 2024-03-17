@@ -1,0 +1,31 @@
+
+.popup {
+    position: sticky;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+
+    justify-content: center;
+    background-color: red;
+}
+
+.book-content {
+    width: 60%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 2rem;
+    overflow: scroll;
+    margin: 1rem;
+}
+
+.book-content textarea {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    width: 100%;
+} 
+
+.book-content #discussion > div{
+    border-bottom: 1px solid black;
+}
