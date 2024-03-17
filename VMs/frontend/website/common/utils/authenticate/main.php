@@ -24,8 +24,8 @@ if($type === "login"){
 if($type === "register"){
     $request['username'] = isset($_POST["username"]) ? $_POST["username"] : null;
     $request['password'] = isset($_POST["password"]) ? $_POST["password"] : null;
-    $request['email'] = isset($_POST["email"]) ? $_POST["email"] : null; // Added line to capture email
-    $request['updates_enabled'] = isset($_POST["updates_enabled"]) ? $_POST["updates_enabled"] : null; // Added line to capture updates_enabled
+    $request['email'] = isset($_POST["email"]) ? $_POST["email"] : null;
+    $request['updates_enabled'] = isset($_POST["updates_enabled"]) ? $_POST["updates_enabled"] : null;
 }
 if($type === "validate_session"){
     $request['sessionId'] = isset($_POST["sessionId"]) ? $_POST["sessionId"] : null;
