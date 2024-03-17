@@ -1,4 +1,5 @@
 import { authenticate } from "../common/javascript/authenticate.js"
+import { bookPopUp } from "../common/javascript/bookPopup.js"
 import { fetchData, getCookies } from "../common/javascript/helpers.js"
 
 const addBook = (data) => {
@@ -41,6 +42,12 @@ const addBook = (data) => {
             dataElement.textContent = columnData
         }
 
+        if (columnContent == "title"){
+            dataElement.addEventListener("click", () => {
+                document.querySelector("body").appendChild(bookPopUp(data, userDetails))
+            })
+        }
+
         // Add column into the row
         row.appendChild(dataElement)
     }
@@ -73,6 +80,7 @@ let userId = null;
 
 const result = document.querySelector("tbody#results")
 const sessionId = getCookies("sessionId")
+let userDetails = null
 
 console.log(sessionId)
 authenticate({
@@ -83,7 +91,7 @@ authenticate({
         console.log(response)
 
         userId = response.userDetails.id
-
+        userDetails = response.userDetails
         const books = []
 
         response.userLibraries.forEach(entry => {

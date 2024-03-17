@@ -4,6 +4,8 @@ CREATE DATABASE IF NOT EXISTS bookShelf;
 -- Use the newly created database
 USE bookShelf;
 
+DROP TABLE IF EXISTS discussions;
+DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS user_library;
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS books;
@@ -47,4 +49,30 @@ CREATE TABLE IF NOT EXISTS user_library (
     date_added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (book_id) REFERENCES books(id)
+);
+
+CREATE TABLE IF NOT EXISTS discussions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT(6) UNSIGNED,
+    username VARCHAR(50),
+    comment TEXT,
+    reply_to_id INT UNSIGNED,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_reply_to_id FOREIGN KEY (reply_to_id) REFERENCES discussions(id)
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT(6) UNSIGNED,
+    username VARCHAR(50),
+    rating TINYINT UNSIGNED NOT NULL,
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT chk_rating CHECK (rating BETWEEN 1 AND 5)
 );

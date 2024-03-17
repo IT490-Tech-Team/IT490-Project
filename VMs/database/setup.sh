@@ -32,7 +32,7 @@ apt install -y php-cli php-mysql php-amqp
 # Log in to MySQL as root
 sudo mysql -u root -p <<EOF
     # Execute SQL commands from user-database.sql
-    source ./sql/users.sql;
+    source ./sql/database.sql;
     source ./sql/credentials.sql;
 EOF
 

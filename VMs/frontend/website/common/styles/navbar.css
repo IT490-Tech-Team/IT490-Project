@@ -1,7 +1,6 @@
 nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 1rem 0;
     background-color: black;
     color: white;
@@ -10,6 +9,7 @@ nav {
 nav div {
     display: flex;
     gap: 1rem;
+    justify-content: center;
 }
 
 #welcome-banner {

@@ -22,7 +22,7 @@ function getUser($sessionId)
         $userId = $row['userId'];
 
         // Now fetch user details from the users table
-        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, username FROM users WHERE id = ?");
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
