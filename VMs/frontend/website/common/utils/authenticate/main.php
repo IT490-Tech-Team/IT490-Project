@@ -16,66 +16,26 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 
 $type = $_POST['type'];
 $request = array();
-$request['type'] = $type;
 
-// Checks for login or register
-if ($type === "login" || $type === "register") {
-
-    // Error checking
-    if (!(isset($_POST["username"])) || !(isset($_POST["password"]))){
-        $response = array(
-            "returnCode" => '400',
-            "message" => "Bad Request: Username or password not set"
-        );
-        echo json_encode($response);
-        exit;
-    }
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Error checking
-    if (empty($username) || empty($password)) {
-        $response = array(
-            "returnCode" => '400',
-            "message" => "Bad Request: All fields are required."
-        );
-        echo json_encode($response);
-        exit;
-    }
-
-    // Sets request variables
-    $request['username'] = $username;
-    $request['password'] = $password;
-
-// Checks for validate_session type
-} elseif ($type === "validate_session" || $type === "get_user") {
-
-    // Error Checking
-    if (!(isset($_POST["sessionId"]))){
-        $response = array(
-            "returnCode" => '400',
-            "message" => "Bad Request: SessionId not set"
-        );
-        echo json_encode($response);
-        exit;
-    }
-
-    $sessionId = $_POST['sessionId'];
-
-    // Error Checking
-    if (empty($sessionId)) {
-        $response = array(
-            "returnCode" => '400',
-            "message" => "Bad Request: SessionId is required."
-        );
-        echo json_encode($response);
-        exit;
-    }
-
-    // Sets request variables
-    $request['sessionId'] = $sessionId;
+if($type === "login"){
+    $request['username'] = isset($_POST["username"]) ? $_POST["username"] : null;
+    $request['password'] = isset($_POST["password"]) ? $_POST["password"] : null;
 }
+if($type === "register"){
+    $request['username'] = isset($_POST["username"]) ? $_POST["username"] : null;
+    $request['password'] = isset($_POST["password"]) ? $_POST["password"] : null;
+    $request['email'] = isset($_POST["email"]) ? $_POST["email"] : null;
+    $request['updates_enabled'] = isset($_POST["updates_enabled"]) ? $_POST["updates_enabled"] : null;
+}
+if($type === "validate_session"){
+    $request['sessionId'] = isset($_POST["sessionId"]) ? $_POST["sessionId"] : null;
+}
+if($type === "get_user"){
+    $request['sessionId'] = isset($_POST["sessionId"]) ? $_POST["sessionId"] : null;
+}
+
+// Sets request type
+$request['type'] = $type;
 
 // Sends the message and waits for a response
 $client = new rabbitMQClient("RabbitMQ.ini","development");

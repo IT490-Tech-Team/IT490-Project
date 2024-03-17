@@ -42,13 +42,21 @@ function requestProcessor($request)
 
   // Determine request type and call corresponding function
   if ($request['type'] === "login") {
-    return doLogin($request['username'], $request['password']);
+    $username = $request['username'];
+    $password = $request['password'];
+    return doLogin($username, $password);
   } elseif ($request['type'] === "register") {
-    return doRegister($request['username'], $request['password']);
+    $username = $request['username'];
+    $password = $request['password'];
+    $email = $request['email'];
+    $updates_enabled = json_decode($request['updates_enabled']);
+    return doRegister($username, $password, $email, $updates_enabled);
   } elseif ($request['type'] === "validate_session") {
-    return doValidate($request['sessionId']);
+    $sessionId = $request['sessionId'];
+    return doValidate($sessionId);
   } elseif ($request['type'] === "get_user") {
-    return getUser($request['sessionId']);
+    $sessionId = $request['sessionId'];
+    return getUser($sessionId);
   }
 
   // Default return if request type is not recognized
