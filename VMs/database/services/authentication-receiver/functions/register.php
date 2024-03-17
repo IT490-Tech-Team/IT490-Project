@@ -9,8 +9,8 @@ function doRegister($username, $password, $email, $update_enabled)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ss", $username, $password, $email, $update_enabled);
+        $stmt = $conn->prepare("INSERT INTO users (username, password, email, update_enabled) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssi", $username, $password, $email, $update_enabled);
         $stmt->execute();
 
         return array(
