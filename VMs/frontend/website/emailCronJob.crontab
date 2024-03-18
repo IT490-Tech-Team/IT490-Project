@@ -1,0 +1,1 @@
+0 0 1 * * /usr/bin/node /IT490-Project/VMs/frontend/website/emailCronJob.js
