@@ -97,18 +97,21 @@ const addBookToSection = (parent, data, userDetails) => {
     parent.appendChild(book)
 }
 
-const contentContainer = document.querySelector("div#content")
+const main = () => {
+    const contentContainer = document.querySelector("div#content")
 
-authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
-.then((data) => {
-    const userLibrary = data.userLibraries
-    const userDetails = data
+    authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
+    .then((data) => {
+        const userLibrary = data.userLibraries
+        const userDetails = data
+    
+        if(userLibrary.length > 0){
+            recommendations(contentContainer, data.userLibraries, userDetails)
+        }
+        else {
+            emptyRecommendations(contentContainer)
+        }
+    })
+}
 
-    if(userLibrary.length > 0){
-        recommendations(contentContainer, data.userLibraries, userDetails)
-    }
-    else {
-        emptyRecommendations(contentContainer)
-    }
-
-})
+main()

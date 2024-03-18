@@ -44,18 +44,22 @@ function requestProcessor($request)
   if ($request['type'] === "login") {
     $username = $request['username'];
     $password = $request['password'];
+
     return doLogin($username, $password);
   } elseif ($request['type'] === "register") {
     $username = $request['username'];
     $password = $request['password'];
     $email = $request['email'];
     $updates_enabled = json_decode($request['updates_enabled']);
+
     return doRegister($username, $password, $email, $updates_enabled);
   } elseif ($request['type'] === "validate_session") {
     $sessionId = $request['sessionId'];
+
     return doValidate($sessionId);
   } elseif ($request['type'] === "get_user") {
     $sessionId = $request['sessionId'];
+    
     return getUser($sessionId);
   }
 

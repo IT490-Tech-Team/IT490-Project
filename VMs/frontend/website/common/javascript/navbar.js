@@ -2,6 +2,9 @@ import { authenticate } from "./authenticate.js";
 import { SESSION_ID_COOKIE_NAME } from "./defaults.js";
 import { getCookies, setCookies } from "./helpers.js";
 
+const main = () => {
+    
+}
 
 const addPath = (title, path, parent) => {
     const element = document.createElement("a")
@@ -10,6 +13,14 @@ const addPath = (title, path, parent) => {
     element.href = path
 
     parent.appendChild(element)
+    return element
+}
+
+const logOut = (e) => {
+    e.preventDefault()
+
+    setCookies(SESSION_ID_COOKIE_NAME, "", new Date())
+    location.reload()
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,27 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
     addPath("Login","/login",right)
     addPath("Register","/register",right)
     
-    // Add optional paths
-    authenticate({ type: "get_user", sessionId: getCookies(SESSION_ID_COOKIE_NAME) })
-    .then((data) => {
-        addPath("Search","/search",center)
-        addPath("Library","/library",center)
-        addPath("Log Out", "/logout", right)
-        addPath("Recommendations", "/recommendations", center)
-        document.querySelector("#logout").addEventListener("click", (e) => {  logOut(e) })
-    })
-    // Silences error
-    .catch(() => {})
+    if(getCookies(SESSION_ID_COOKIE_NAME)){
+        const search = addPath("Search","/search",center)
+        const library = addPath("Library","/library",center)
+        const logout = addPath("Log Out", "/logout", right)
+        const recommendations = addPath("Recommendations", "/recommendations", center)
+
+        logout.addEventListener("click", (e) => {  logOut(e) })
+    }
 
     // Add areas to nav bar
     nav.appendChild(left)
     nav.appendChild(center)
     nav.appendChild(right)
 })
-
-const logOut = (e) => {
-    e.preventDefault()
-
-    setCookies(SESSION_ID_COOKIE_NAME, "", new Date())
-    location.reload()
-}

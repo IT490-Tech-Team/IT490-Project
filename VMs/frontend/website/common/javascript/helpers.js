@@ -47,3 +47,34 @@ export const fetchData = async (endpoint, data) => {
         return { error: "Error fetching data" };
     }
 };
+
+export const getUserDetailsAndLibrary = async () => {
+    try {
+        const { userDetails, userLibraries } = await fetchData(
+            "/authenticate/main.php",
+            {
+                type: "get_user",
+                sessionId: getCookies(SESSION_ID_COOKIE_NAME)
+            }
+        );
+        return [userDetails, userLibraries];
+    } catch (error) {
+        console.error("Error fetching user details and library:", error);
+        return [null, null];
+    }
+}
+
+export const arrayIncludesObject = (arr, obj) => {
+    // Iterate through the array
+    for (let item of arr) {
+        // Convert objects to JSON strings for comparison
+        const itemString = JSON.stringify(item);
+        const objString = JSON.stringify(obj);
+        // If the JSON strings match, return true
+        if (itemString === objString) {
+            return true;
+        }
+    }
+    // If no match found, return false
+    return false;
+}
