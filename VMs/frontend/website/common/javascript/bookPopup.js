@@ -48,6 +48,10 @@ export const bookPopUp = (bookData, userData) => {
     discussionHeading.textContent = "Discussion"
     const reviewHeading = document.createElement("h1")
     reviewHeading.textContent = "Reviews"
+    
+    const reviewsContainer = document.createElement("div")
+    reviewsContainer.id = "reviews"
+    const reviewsInput = reviewsInputFunction(bookData.id, userData.id, userData.username, reviewsContainer, content)
 
     const discussionContainer = document.createElement("div")
     discussionContainer.id = "discussion"
@@ -63,9 +67,9 @@ export const bookPopUp = (bookData, userData) => {
     content.appendChild(languagesElement)
     content.appendChild(year_publishedElement)
     content.appendChild(reviewHeading)
+    content.appendChild(reviewsInput)
     content.appendChild(discussionHeading)
     content.appendChild(discussionInput)
-
     container.appendChild(content)
 
     return container
@@ -186,8 +190,17 @@ const fillDiscussion = (discussionContainer, parent, discussionInput, book_id) =
 // * display entries
 // input for rating
 // input for comment
-const reviewInput = () => {
+const reviewsInputFunction = (parent) => {
+    console.log(parent)
     const container = document.createElement("div")
+
+    const textInput = document.createElement("textarea")
+    const submitButton = document.createElement("button")
+    submitButton.textContent = "Submit"
+    
+    container.appendChild(textInput)
+    container.appendChild(submitButton)
+    return container
 }
 
 
