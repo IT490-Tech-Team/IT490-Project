@@ -51,13 +51,14 @@ export const bookPopUp = (bookData, userData) => {
     
     const reviewsContainer = document.createElement("div")
     reviewsContainer.id = "reviews"
-    const reviewsInput = reviewsInputFunction(bookData.id, userData.id, userData.username, reviewsContainer, content)
+    const reviewsInput = reviewsInputFunction(parent, bookData.id, userData.id, userData.username, reviewsContainer, content)
 
     const discussionContainer = document.createElement("div")
     discussionContainer.id = "discussion"
     const discussionInput = discussionInputFunction(bookData.id, userData.id, userData.username, discussionContainer, content)
 
     fillDiscussion(discussionContainer, content, discussionInput, bookData.id)
+    fillReviews(reviewsContainer, content, reviewsInput, bookData.id)
 
     content.childNodes.contains
     content.appendChild(imageElement)
@@ -190,17 +191,81 @@ const fillDiscussion = (discussionContainer, parent, discussionInput, book_id) =
 // * display entries
 // input for rating
 // input for comment
-const reviewsInputFunction = (parent) => {
+const reviewsInputFunction = (parent, book_id, user_id, username) => {
     console.log(parent)
     const container = document.createElement("div")
 
     const textInput = document.createElement("textarea")
     const submitButton = document.createElement("button")
     submitButton.textContent = "Submit"
-    
+  
+    const numberRating = document.createElement("input")
+    numberRating.setAttribute("type", "number")
+    numberRating.setAttribute("min", 1)
+    numberRating.setAttribute("max", 5)
+    numberRating.setAttribute("value", 3)
+    submitButton.addEventListener("click",()=>{
+        const fetchingData = {
+            book_id: book_id,
+            user_id: user_id,
+            username: username,
+            comment: textInput.value,
+            rating: numberRating.value,
+            type: "add_review"
+        }
+        fetchData("/reviews/main.php", fetchingData)
+        .then((data) => {
+            console.log(data)
+
+        })
+    })
+    container.appendChild(numberRating)
     container.appendChild(textInput)
     container.appendChild(submitButton)
     return container
 }
+
+const fillReviews = (reviewsContainer, parent, book_id) => {
+    console.log(parent)
+    fetchData("/reviews/main.php", {
+        type: "getReviewsByBookId",
+        book_id: book_id
+    }).then((data) => {
+        reviewsContainer.innerHTML = "";
+
+        console.log(data); 
+
+        data.reviews.forEach((review) => {
+            const reviewContainer = document.createElement("div");
+            
+            usernameElement.textContent = `User: ${review.username}`;
+            ratingElement.textContent = `Rating: ${review.rating}`;
+            commentElement.textContent = `Comment: ${review.comment}`;
+            
+            const book_id = discussion.book_id
+            const comment = discussion.comment
+            const created_at = discussion.created_at
+            const user_id = discussion.user_id
+            const username = discussion.username
+            
+
+            const usernameElement = document.createElement("p")
+            usernameElement.textContent = username
+            const commentElement = document.createElement("p")
+            commentElement.textContent = comment
+            const timestampElement = document.createElement("p")
+            timestampElement.textContent = created_at
+
+            reviewContainer.appendChild(usernameElement);
+            reviewContainer.appendChild(ratingElement);
+            reviewContainer.appendChild(commentElement);
+
+            reviewsContainer.appendChild(reviewContainer);
+        });
+
+        parent.appendChild(reviewsContainer);
+    });
+};
+
 
 
