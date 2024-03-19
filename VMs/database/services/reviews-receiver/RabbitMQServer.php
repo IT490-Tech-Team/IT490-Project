@@ -4,9 +4,9 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-include_once("functions/getDiscussions.php");
-include_once("functions/addDiscussion.php");
-include_once("functions/getDiscussionById.php");
+
+include_once("functions/addReview.php");
+include_once("functions/getReviewById.php");
 
 function getDatabaseConnection()
 {
