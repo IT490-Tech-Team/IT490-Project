@@ -45,9 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if(getCookies(SESSION_ID_COOKIE_NAME)){
         const search = addPath("Search","/search",center)
         const library = addPath("Library","/library",center)
-        const logout = addPath("Log Out", "/logout", right)
         const recommendations = addPath("Recommendations", "/recommendations", center)
+        const email = addPath("Email", "/email", center)
 
+
+        const logout = addPath("Log Out", "/logout", right)
         logout.addEventListener("click", (e) => {  logOut(e) })
     }
 

@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS bookShelf;
 -- Use the newly created database
 USE bookShelf;
 
+DROP TABLE IF EXISTS updates;
 DROP TABLE IF EXISTS discussions;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS user_library;
@@ -11,13 +12,11 @@ DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS users;
 
-
--- Create table for user information
 CREATE TABLE IF NOT EXISTS users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
+    email VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS books (
