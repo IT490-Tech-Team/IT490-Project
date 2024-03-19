@@ -4,8 +4,8 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-include_once("functions/getReviewByBookId.php");
-include_once("functions/addReview.php");
+include_once("functions/getAllUpdates.php");
+include_once("functions/addUpdate.php");
 
 function getDatabaseConnection()
 {
@@ -39,23 +39,17 @@ function requestProcessor($request)
     }
 
     // Determine request type and call corresponding function
-    if ($request['type'] === "add_review") {
+    if ($request['type'] === "add_update") {
         // Extract parameters from the request
-        $book_id = $request["book_id"];
-        $user_id = $request["user_id"];
-        $username = $request["username"];
-        $rating= $request["rating"];
-        $comment = $request["comment"];
+        $user_email = $request["user_email"];
+        $email_type = $request["email_type"];
+        $query = $request["query"];
         
-        // Call addReview function to add the comment
-        return addReview($book_id, $user_id, $username, $rating, $comment);
-    } 
-    elseif ($request['type'] === "get_reviews_by_bookid") {
-        // Extract the ID from the request
-        $book_id = $request["book_id"];
-      
-        // Call getReviewById function to retrieve a specific discussion by ID
-        return getReviewById($id);
+        // Call addUpdate function to add the update
+        return addUpdate($user_email, $email_type, $query);
+    } elseif ($request['type'] === "get_all_updates") {
+
+        return getAllUpdates();
     }
 
     // Default return if request type is not recognized

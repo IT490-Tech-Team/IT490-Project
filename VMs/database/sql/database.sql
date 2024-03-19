@@ -4,6 +4,7 @@ CREATE DATABASE IF NOT EXISTS bookShelf;
 -- Use the newly created database
 USE bookShelf;
 
+DROP TABLE IF EXISTS updates;
 DROP TABLE IF EXISTS discussions;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS user_library;
@@ -11,14 +12,11 @@ DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS users;
 
-
--- Create table for user information
 CREATE TABLE IF NOT EXISTS users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    updates_enabled INT(1)
+    email VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS books (
@@ -75,4 +73,12 @@ CREATE TABLE IF NOT EXISTS reviews (
     FOREIGN KEY (book_id) REFERENCES books(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     CONSTRAINT chk_rating CHECK (rating BETWEEN 1 AND 5)
+);
+
+CREATE TABLE IF NOT EXISTS updates (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_email VARCHAR(255) NOT NULL,
+    type ENUM('author', 'genre', 'book') NOT NULL,
+    query VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

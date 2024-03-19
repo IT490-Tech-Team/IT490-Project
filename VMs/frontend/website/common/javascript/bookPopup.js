@@ -198,6 +198,7 @@ const reviewsInputFunction = (parent, book_id, user_id, username) => {
     const textInput = document.createElement("textarea")
     const submitButton = document.createElement("button")
     submitButton.textContent = "Submit"
+  
     const numberRating = document.createElement("input")
     numberRating.setAttribute("type", "number")
     numberRating.setAttribute("min", 1)

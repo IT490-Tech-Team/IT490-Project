@@ -1,6 +1,6 @@
 <?php
 
-function doRegister($username, $password, $email, $updates_enabled)
+function doRegister($username, $password, $email)
 {
     $conn = getDatabaseConnection();
     if (!$conn) {
@@ -9,8 +9,8 @@ function doRegister($username, $password, $email, $updates_enabled)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("INSERT INTO users (username, password, email, updates_enabled) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sssi", $username, $password, $email, $updates_enabled);
+        $stmt = $conn->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $password, $email);
         $stmt->execute();
 
         return array(

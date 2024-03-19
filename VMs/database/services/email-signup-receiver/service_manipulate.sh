@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service_name="reviews-receiver"
+service_name="email-signup-receiver"
 
 function start_service {
     sudo systemctl start "$service_name"
