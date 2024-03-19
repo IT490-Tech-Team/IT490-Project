@@ -237,7 +237,6 @@ const fillReviews = (reviewsContainer, parent, book_id) => {
         data.reviews.forEach((review) => {
             const reviewContainer = document.createElement("div");
             
-
             usernameElement.textContent = `User: ${review.username}`;
             ratingElement.textContent = `Rating: ${review.rating}`;
             commentElement.textContent = `Comment: ${review.comment}`;
