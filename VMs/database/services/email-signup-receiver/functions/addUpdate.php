@@ -1,6 +1,6 @@
 <?php
 
-function addUpdate($user_id, $type, $query)
+function addUpdate($user_email, $type, $query)
 {
     // Connect to the database
     $conn = getDatabaseConnection();
@@ -10,10 +10,10 @@ function addUpdate($user_id, $type, $query)
 
     try {
         // Prepare SQL statement to insert a new update record
-        $stmt = $conn->prepare("INSERT INTO updates (user_id, type, query) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO updates (user_email, type, query) VALUES (?, ?, ?)");
 
         // Bind parameters
-        $stmt->bind_param("iss", $user_id, $type, $query);
+        $stmt->bind_param("sss", $user_email, $type, $query);
 
         // Execute the query
         if ($stmt->execute()) {

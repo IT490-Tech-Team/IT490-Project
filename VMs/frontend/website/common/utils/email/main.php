@@ -20,8 +20,8 @@ $type = $_POST["type"];
 // Check the type of request
 if ($type === "add_update") {
     // Set request parameters for adding an update
-    $request["user_id"] = isset($_POST["user_id"]) ? $_POST["user_id"] : null;
-    $request["type"] = isset($_POST["type"]) ? $_POST["type"] : null;
+    $request["user_email"] = isset($_POST["user_email"]) ? $_POST["user_email"] : null;
+    $request["email_type"] = isset($_POST["type"]) ? $_POST["email_type"] : null;
     $request["query"] = isset($_POST["query"]) ? $_POST["query"] : null;
 } elseif ($type === "get_all_updates") {
 }

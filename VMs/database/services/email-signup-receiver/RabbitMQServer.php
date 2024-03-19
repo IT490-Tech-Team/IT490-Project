@@ -41,12 +41,12 @@ function requestProcessor($request)
     // Determine request type and call corresponding function
     if ($request['type'] === "add_update") {
         // Extract parameters from the request
-        $user_id = $request["user_id"];
-        $type = $request["type"];
+        $user_email = $request["user_email"];
+        $email_type = $request["email_type"];
         $query = $request["query"];
         
         // Call addUpdate function to add the update
-        return addUpdate($user_id, $type, $query);
+        return addUpdate($user_email, $email_type, $query);
     } elseif ($request['type'] === "get_all_updates") {
 
         return getAllUpdates();
