@@ -55,7 +55,7 @@ function requestProcessor($request)
         $book_id = $request["book_id"];
       
         // Call getReviewById function to retrieve a specific discussion by ID
-        return getReviewById($id);
+        return getReviewsByBookId($book_id);
     }
 
     // Default return if request type is not recognized

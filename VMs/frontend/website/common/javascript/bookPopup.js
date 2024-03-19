@@ -69,6 +69,7 @@ export const bookPopUp = (bookData, userData) => {
     content.appendChild(year_publishedElement)
     content.appendChild(reviewHeading)
     content.appendChild(reviewsInput)
+    content.appendChild(reviewsContainer)
     content.appendChild(discussionHeading)
     content.appendChild(discussionInput)
     container.appendChild(content)
@@ -130,8 +131,9 @@ const fillDiscussion = (discussionContainer, parent, discussionInput, book_id) =
         id: book_id
     })
     .then((data) => {
+        
         discussionContainer.innerHTML = ""
-
+        console.log(data)
         console.log(discussionContainer)
         data.discussions.forEach(async discussion => {
             let replied_comment = null
@@ -225,10 +227,10 @@ const reviewsInputFunction = (parent, book_id, user_id, username) => {
     return container
 }
 
-const fillReviews = (reviewsContainer, parent, book_id) => {
-    console.log(parent)
+const fillReviews = (reviewsContainer, parent, reviewsInput, book_id) => {
+    console.log(reviewsContainer, parent, reviewsInput, book_id)
     fetchData("/reviews/main.php", {
-        type: "getReviewsByBookId",
+        type: "get_reviews_by_bookid",
         book_id: book_id
     }).then((data) => {
         reviewsContainer.innerHTML = "";
@@ -237,24 +239,13 @@ const fillReviews = (reviewsContainer, parent, book_id) => {
 
         data.reviews.forEach((review) => {
             const reviewContainer = document.createElement("div");
-            
-            usernameElement.textContent = `User: ${review.username}`;
-            ratingElement.textContent = `Rating: ${review.rating}`;
-            commentElement.textContent = `Comment: ${review.comment}`;
-            
-            const book_id = discussion.book_id
-            const comment = discussion.comment
-            const created_at = discussion.created_at
-            const user_id = discussion.user_id
-            const username = discussion.username
-            
 
             const usernameElement = document.createElement("p")
-            usernameElement.textContent = username
+            usernameElement.textContent = `User: ${review.username}`;
             const commentElement = document.createElement("p")
-            commentElement.textContent = comment
-            const timestampElement = document.createElement("p")
-            timestampElement.textContent = created_at
+            commentElement.textContent = `Comment: ${review.comment}`;
+            const ratingElement = document.createElement("p")
+            ratingElement.textContent = `Rating: ${review.rating}`;
 
             reviewContainer.appendChild(usernameElement);
             reviewContainer.appendChild(ratingElement);
@@ -263,7 +254,7 @@ const fillReviews = (reviewsContainer, parent, book_id) => {
             reviewsContainer.appendChild(reviewContainer);
         });
 
-        parent.appendChild(reviewsContainer);
+        
     });
 };
 
