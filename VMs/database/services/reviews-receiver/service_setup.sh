@@ -4,7 +4,7 @@
 target_directory="/opt/$(basename "$(pwd)")"
 
 # Define the service name
-service_name="discussion-receiver.service"
+service_name="reviews-receiver.service"
 
 # If the directory exists, delete it
 if [ -d "$target_directory" ]; then

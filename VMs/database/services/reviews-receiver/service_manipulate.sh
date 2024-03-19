@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service_name="discussion-receiver"
+service_name="reviews-receiver"
 
 function start_service {
     sudo systemctl start "$service_name"

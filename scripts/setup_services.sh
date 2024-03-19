@@ -17,6 +17,9 @@ cd ..
 cd email-signup-receiver
 ./service_setup.sh
 cd ..
+cd email-signup-receiver
+./service_setup.sh
+cd ..
 cd ..
 cd ..
 
