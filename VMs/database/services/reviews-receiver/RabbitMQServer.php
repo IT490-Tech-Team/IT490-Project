@@ -4,9 +4,8 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
-include_once("functions/getDiscussions.php");
-include_once("functions/addDiscussion.php");
-include_once("functions/getDiscussionById.php");
+include_once("functions/getReviewByBookId.php");
+include_once("functions/addReview.php");
 
 function getDatabaseConnection()
 {
@@ -40,37 +39,23 @@ function requestProcessor($request)
     }
 
     // Determine request type and call corresponding function
-    if ($request['type'] === "add_comment") {
+    if ($request['type'] === "add_review") {
         // Extract parameters from the request
         $book_id = $request["book_id"];
         $user_id = $request["user_id"];
         $username = $request["username"];
+        $rating= $request["rating"];
         $comment = $request["comment"];
         
-        // Call addDiscussion function to add the comment
-        return addDiscussion($book_id, $user_id, $username, $comment);
-    } elseif ($request['type'] === "reply_comment") {
-        // Extract parameters from the request
+        // Call addReview function to add the comment
+        return addReview($book_id, $user_id, $username, $rating, $comment);
+    } 
+     elseif ($request['type'] === "get_reviews_by_bookid") {
+        // Extract the ID from the request
         $book_id = $request["book_id"];
-        $user_id = $request["user_id"];
-        $username = $request["username"];
-        $comment = $request["comment"];
-        $reply_to_id = $request["reply_to_id"]; // Assuming this is provided in the request
-        
-        // Call addDiscussion function to add the reply comment
-        return addDiscussion($book_id, $user_id, $username, $comment, $reply_to_id);
-    } elseif ($request['type'] === "get_comments") {
-        // Extract the ID from the request
-        $id = $request["id"];
-
-        // Call getDiscussions function to get all discussions
-        return getAllDiscussions($id);
-    } elseif ($request['type'] === "get_comment_by_id") {
-        // Extract the ID from the request
-        $id = $request["id"];
-        
-        // Call getDiscussionById function to retrieve a specific discussion by ID
-        return getDiscussionById($id);
+      
+        // Call getReviewById function to retrieve a specific discussion by ID
+        return getReviewById($id);
     }
 
     // Default return if request type is not recognized

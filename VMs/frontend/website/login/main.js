@@ -20,6 +20,7 @@ const formSubmission = (event) => {
 }
 
 const success = (data) => {
+    console.log(data)
     setCookies(SESSION_ID_COOKIE_NAME, data.sessionId, data.expired_at)
     let result = confirm("Login Successful, would you like to go to the website?");
 

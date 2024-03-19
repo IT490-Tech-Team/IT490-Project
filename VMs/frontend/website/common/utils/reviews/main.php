@@ -24,6 +24,7 @@ if ($type === "add_review") {
     $request["username"] = isset($_POST["username"]) ? $_POST["username"] : null;
     $request["rating"] = isset($_POST["rating"]) ? $_POST["rating"] : null;
     $request["comment"] = isset($_POST["comment"]) ? $_POST["comment"] : null; 
+
 } elseif($type === "get_reviews_by_bookid"){
     $request["book_id"] = isset($_POST["book_id"]) ? $_POST["book_id"] : null;
 }
