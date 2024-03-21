@@ -16,7 +16,7 @@ This repo holds the source code for **Tech Team's** System Integration project. 
 
 The Online Bookshelf service allows users to easily find and save books tailored to their interests. Users can search for books, read reviews, leave their own reviews, and access personal bookshelves. Recommendations are provided based on user interests and reading history.
 
-For more details, refer to [proposal.md](./.docs/proposal.md).
+For more details, refer to [proposal.md](./docs/proposal.md).
 
 ## Project Structure
 
