@@ -38,6 +38,9 @@ $exchangeQueueConfig = [
     "QUEUE" => $request["queue"]
 ];
 
+unset($request["exchange"]);
+unset($request["queue"]);
+
 // Sends the message and waits for a response
 $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
 $response = $client->send_request($request);

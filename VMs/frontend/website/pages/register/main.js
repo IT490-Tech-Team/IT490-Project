@@ -1,4 +1,4 @@
-import { fetchData } from "/common/javascript/helpers.js";
+import { register } from "../../javascript/api.js"
 
 const main = () => {
     let form = document.getElementById("registration")
@@ -10,10 +10,9 @@ const formSubmission = (event) => {
 
     const form = event.target
     const data = Object.fromEntries(new FormData(form))
-    data.type = event.target.getAttribute("data-auth")
 
-    fetchData("/authenticate/main.php", data)
-    .then(data => { success(data) })
+    register(data)
+    .then(response => { success(response) })
     .catch(error => { failure(error) })
 }
 

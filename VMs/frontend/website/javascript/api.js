@@ -7,7 +7,7 @@ export const fetchData = async (data) => {
         body: new URLSearchParams(data)
     };
 
-    const response = await fetch("/client/main.php", options);
+    const response = await fetch("/RabbitMQClient/main.php", options);
     const [ok, responseData] = await Promise.all([response.ok, response.json()]);
 
     if (!ok) {
@@ -27,7 +27,7 @@ export const login = ({ username, password }) => {
     });
 };
 
-export const register = ({username, password, email, updates_enabled}) => {
+export const register = ({username, password, email}) => {
         return fetchData({
         type: "register",
         exchange: "authenticationExchange",
@@ -35,7 +35,6 @@ export const register = ({username, password, email, updates_enabled}) => {
         username: username, 
         password: password, 
         email: email, 
-        updates_enabled: updates_enabled
     });
 }
 
@@ -50,7 +49,7 @@ export const validateSession = ({sessionId}) => {
 
 export const getUser = ({sessionId}) => {
         return fetchData({
-        type: "login",
+        type: "get_user",
         exchange: "authenticationExchange",
         queue: "authenticationQueue",
         sessionId: sessionId
