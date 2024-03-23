@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Folder to monitor
 FOLDER_TO_MONITOR="./website"
 

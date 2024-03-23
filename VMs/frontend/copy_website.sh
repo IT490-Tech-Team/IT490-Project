@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Default restart Apache option
 default_restart_apache=N
 

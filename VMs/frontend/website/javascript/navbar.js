@@ -1,4 +1,3 @@
-import { authenticate } from "./authenticate.js";
 import { SESSION_ID_COOKIE_NAME } from "./defaults.js";
 import { getCookies, setCookies } from "./helpers.js";
 
