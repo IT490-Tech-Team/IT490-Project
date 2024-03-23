@@ -1,5 +1,7 @@
-import { setCookies, fetchData } from "/common/javascript/helpers.js";
-import { SESSION_ID_COOKIE_NAME } from "../common/javascript/defaults.js";
+import { setCookies } from "/javascript/helpers.js";
+import { SESSION_ID_COOKIE_NAME } from "/javascript/defaults.js";
+
+import { login } from "../../javascript/api.js"
 
 const main = () => {
     let form = document.getElementById("login")
@@ -12,11 +14,9 @@ const formSubmission = (event) => {
     // Formats data for rabbitmq
     const form = event.target
     const data = Object.fromEntries(new FormData(form))
-    data.type = event.target.getAttribute("data-auth")
-
-    fetchData("/authenticate/main.php", data)
-    .then(data => { success(data) })
-    .catch(error => { failure(error) })
+    login(data)
+    .then(response => success(response))
+    .catch(response => failure(response))
 }
 
 const success = (data) => {
