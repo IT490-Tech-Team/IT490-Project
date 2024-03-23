@@ -13,7 +13,7 @@ This guide provides step-by-step instructions to set up the Database, DMZ, Front
 Before diving into the setup process, ensure that you have a terminal emulator installed on your system. If you're unsure, you can check by searching for a terminal application in your VM and running the following command:
 
 ```bash
-echo "Terminal is ready!"
+echo "Terminal is ready"
 ```
 
 ## Step-by-Step Setup
