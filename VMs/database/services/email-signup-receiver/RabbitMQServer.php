@@ -1,11 +1,11 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('path.inc');
-require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include_once("functions/getAllUpdates.php");
 include_once("functions/addUpdate.php");
+
+$BROKER_HOST = "127.0.0.1";
 
 function getDatabaseConnection()
 {
@@ -56,8 +56,23 @@ function requestProcessor($request)
     return array("returnCode" => '0', 'message' => "");
 }
 
-// Create RabbitMQ server instance
-$server = new rabbitMQServer("RabbitMQ.ini", "development");
+$connectionConfig = [
+    "BROKER_HOST" => $BROKER_HOST,
+    "BROKER_PORT" => 5672,
+    "USER" => "bookQuest",
+    "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
+    "VHOST" => "bookQuest",
+  ];
+  
+  $exchangeQueueConfig = [
+    "EXCHANGE_TYPE" => "topic",
+    "AUTO_DELETE" => true,
+    "EXCHANGE" => "emailExchange",
+    "QUEUE" => "emailQueue",
+  ];
+  
+  // Create RabbitMQ server instance
+  $server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
 
 // Main execution starts here
 echo "testRabbitMQServer BEGIN" . PHP_EOL;

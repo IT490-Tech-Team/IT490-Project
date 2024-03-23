@@ -27,19 +27,19 @@ export const login = ({ username, password }) => {
     });
 };
 
-export const register = ({username, password, email}) => {
-        return fetchData({
+export const register = ({ username, password, email }) => {
+    return fetchData({
         type: "register",
         exchange: "authenticationExchange",
         queue: "authenticationQueue",
-        username: username, 
-        password: password, 
-        email: email, 
+        username: username,
+        password: password,
+        email: email,
     });
 }
 
-export const validateSession = ({sessionId}) => {
-        return fetchData({
+export const validateSession = ({ sessionId }) => {
+    return fetchData({
         type: "validate_session",
         exchange: "authenticationExchange",
         queue: "authenticationQueue",
@@ -47,11 +47,33 @@ export const validateSession = ({sessionId}) => {
     });
 }
 
-export const getUser = ({sessionId}) => {
-        return fetchData({
+export const getUserDetails = ({ sessionId }) => {
+    return fetchData({
         type: "get_user",
         exchange: "authenticationExchange",
         queue: "authenticationQueue",
         sessionId: sessionId
-    });
+    })
+    .then(data => data.userDetails)
+}
+
+export const getUserLibrary = ({ sessionId }) => {
+    return fetchData({
+        type: "get_user",
+        exchange: "authenticationExchange",
+        queue: "authenticationQueue",
+        sessionId: sessionId
+    })
+    .then(data => data.userLibrary)
+}
+
+export const emailSignUp = ({user_email, email_type, query}) => {
+    return fetchData({
+        type: "add_update",
+        exchange: "emailExchange",
+        queue: "emailQueue",
+        user_email: user_email,
+        email_type: email_type,
+        query: query
+    })
 }

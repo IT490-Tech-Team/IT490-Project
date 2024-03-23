@@ -48,7 +48,7 @@ function getUser($sessionId)
             "returnCode" => 200,
             "message" => "User details and libraries retrieved successfully",
             "userDetails" => $userDetails,
-            "userLibraries" => $userLibraries
+            "userLibrary" => $userLibraries
         );
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
