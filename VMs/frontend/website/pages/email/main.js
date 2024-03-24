@@ -1,9 +1,7 @@
-// import { getUserDetailsAndLibrary } from "/javascript/helpers.js";
-// import { fetchData } from "/javascript/helpers.js";
-
-import { emailSignUp, getUserDetails, getUserLibrary } from "../../javascript/api.js"
-import { SESSION_ID_COOKIE_NAME } from "../../javascript/defaults.js"
-import { getCookies } from "../../javascript/helpers.js"
+import { getUserDetails } from "/api/authentication.js"
+import { emailSignUp } from "/api/email_signup.js"
+import { SESSION_ID_COOKIE_NAME } from "/javascript/defaults.js"
+import { getCookies } from "/javascript/helpers.js"
 
 const form = document.querySelector("form")
 
@@ -24,8 +22,4 @@ form.addEventListener("submit", async (event) => {
     .then(data => {
         console.log(data)
     })
-})
-
-getUserDetails({
-    sessionId: getCookies(SESSION_ID_COOKIE_NAME)
 })

@@ -1,6 +1,6 @@
 import { setCookies } from "/javascript/helpers.js";
 import { SESSION_ID_COOKIE_NAME } from "/javascript/defaults.js";
-import { login } from "/javascript/api.js"
+import { login } from "/api/authentication.js"
 
 const main = () => {
     let form = document.getElementById("login")

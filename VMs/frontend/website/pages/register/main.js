@@ -1,4 +1,4 @@
-import { register } from "../../javascript/api.js"
+import { register } from "/api/authentication.js"
 
 const main = () => {
     let form = document.getElementById("registration")
