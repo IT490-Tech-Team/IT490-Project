@@ -16,22 +16,3 @@ export const fetchData = async (data) => {
 
     return responseData;
 };
-
-export const getFilters = () => {
-    return fetchData({
-        type: "get_filters",
-        exchange: "searchDatabaseExchange",
-        queue: "searchDatabaseQueue",
-    })
-    .then(data => {return {genres: data.genres, languages: data.languages}})
-}
-
-export const getGenreFilters = () => {
-    return getFilters()
-    .then(data => data.genres)
-}
-
-export const getLanguageFilters = () => {
-    return getFilters()
-    .then(data => data.languages)
-}

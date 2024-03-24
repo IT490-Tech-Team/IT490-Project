@@ -44,11 +44,7 @@ function requestProcessor($request)
 
     // Determine request type and call corresponding function
     if ($request['type'] === "add") {
-        return addBooks($request);
-    } elseif ($request['type'] === "add_covers") {
-        // Extract books array from request and decodes from string to array
-        $books = $request["books"];
-        return addCoverImageUrls(json_decode($books, true));
+        return addBooks(json_decode($request["books"], true));
     } elseif ($request['type'] === "search") {
         $title = $request["title"];
         $author = $request["author"];

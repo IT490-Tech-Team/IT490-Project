@@ -1,15 +1,12 @@
 <?php
 
-function addBooks($request)
+function addBooks($books)
 {
     // Connect to the database
     $conn = getDatabaseConnection();
     if (!$conn) {
         return array("returnCode" => 500, "message" => "Error connecting to the database");
     }
-
-    // Decode the JSON string containing book data
-    $books = json_decode($request["books"], true);
 
     // Array to store the IDs of inserted books along with their cover image URLs
     $insertedBooks = array();
@@ -50,7 +47,7 @@ function addBooks($request)
             }
         } catch (Exception $e) {
             // Log error or handle as needed
-            return array("returnCode" => 500, "message" => "Error inserting book: " . $e->getMessage());
+            return array("returnCode" => 500, "books" => "Error inserting book: " . $e->getMessage());
         }
     }
 

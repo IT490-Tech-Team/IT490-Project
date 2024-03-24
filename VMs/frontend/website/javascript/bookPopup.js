@@ -1,262 +1,154 @@
-import { fetchData } from "./helpers.js";
+import { addDiscussionComment, getDiscussionByBookId, getDiscussionByCommentId } from "/api/discussion.js"
+import { addReview, getReviewbyBookId } from "/api/reviews.js"
 
-export const bookPopUp = (bookData, userData) => {
-    const container = document.createElement("div")
-    const content = document.createElement("div")
-    
-    container.classList.add("popup")
-    content.classList.add("book-content")
+export const bookPopUp = (book, user) => {
+	const container = document.createElement("div")
+	container.classList.add("popup")
 
     container.addEventListener("click", (e) => {
-        if(e.target == container){
+        if(e.target.className == container.className){
             container.remove()
         }
     })
-    
-    console.log(bookData, userData)
 
-    const authors = bookData.authors
-    const cover_image_url = bookData.cover_image_url
-    const date_added = bookData.date_added
-    const description = bookData.description
-    const genres = bookData.genres
-    const id = bookData.id
-    const languages = bookData.languages
-    const title = bookData.title
-    const year_published = bookData.year_published
+	console.log(user)
+	const imageUrl = book.cover_image_url
+	const title = book.title
+	const authors = JSON.parse(book.authors).join(", ")
+	const description = book.description
+	const genre = JSON.parse(book.genres).join(", ")
+	const language = book.langauge
 
-    const imageElement = document.createElement("img")
-    imageElement.src = cover_image_url
+	console.log(authors)
 
-    const titleElement = document.createElement("h1")
-    titleElement.textContent = title
+	container.innerHTML = 
+	`
+	<div class="book-content">
+		<img src="${imageUrl}" alt="">
+		<h1>${title}</h1>
+		<h2>Authors</h2>
+		<p>${authors}</p>
+		<h2>Description</h2>
+		<p>${description}</p>
+		<h2>Genre</h2>
+		<p>${genre}</p>
+		<h1>Reviews</h1>
+		<div>
+			<textarea id="review-input"></textarea>
+			<input type="number" id="review-number" max=5 min=1 value=0>
+			<button id="review-submit">Send</button>
+		</div>
+		<div id="reviews-container"></div>
+		<h1>Discussion</h1>
+		<div>
+			<div id="replying-to"></div>
+			<textarea id="discussion-input"></textarea>
+			<button id="discussion-submit">Send</button>
+		</div>
+		<div id="discussion-container"></div>
+	</div>
+	`
 
-    const descriptionElement = document.createElement("p")
-    descriptionElement.textContent = description
+	reviews(container, book.id, user.id, user.username)
+	discussion(container, book.id, user.id, user.username)
 
-    const genresElement = document.createElement("p")
-    genresElement.textContent = genres
-
-    const languagesElement = document.createElement("p")
-    languagesElement.textContent = languages
-
-    const year_publishedElement = document.createElement("p")
-    year_publishedElement.textContent = year_published
-    
-    
-    const discussionHeading = document.createElement("h1")
-    discussionHeading.textContent = "Discussion"
-    const reviewHeading = document.createElement("h1")
-    reviewHeading.textContent = "Reviews"
-    
-    const reviewsContainer = document.createElement("div")
-    reviewsContainer.id = "reviews"
-    const reviewsInput = reviewsInputFunction(parent, bookData.id, userData.id, userData.username, reviewsContainer, content)
-
-    const discussionContainer = document.createElement("div")
-    discussionContainer.id = "discussion"
-    const discussionInput = discussionInputFunction(bookData.id, userData.id, userData.username, discussionContainer, content)
-
-    fillDiscussion(discussionContainer, content, discussionInput, bookData.id)
-    fillReviews(reviewsContainer, content, reviewsInput, bookData.id)
-
-    content.childNodes.contains
-    content.appendChild(imageElement)
-    content.appendChild(titleElement)
-    content.appendChild(descriptionElement)
-    content.appendChild(genresElement)
-    content.appendChild(languagesElement)
-    content.appendChild(year_publishedElement)
-    content.appendChild(reviewHeading)
-    content.appendChild(reviewsInput)
-    content.appendChild(reviewsContainer)
-    content.appendChild(discussionHeading)
-    content.appendChild(discussionInput)
-    container.appendChild(content)
-
-    return container
+	return container
 }
 
-// Todo: Discussion
-// * Finish discussion input
-// * add service for "discussion" that adds a discussion comment
-// * add scripts that interact with service for "discussion"
-// * add service functionality to get discussion
-// * display entries
-// text input for comment section
-const discussionInputFunction = (book_id, user_id, username, discussionContainer, parent) => {
-    console.log(parent)
-    const container = document.createElement("div")
+const reviews = (parent, bookId, userId, username) => {
+	const reviewsContainer = parent.querySelector("#reviews-container")
+	const reviewsSubmitButton = parent.querySelector("#review-submit")
+	const reviewsInputText = parent.querySelector("#review-input")
+	const reviewsNumber = parent.querySelector("#review-number")
 
-    const textInput = document.createElement("textarea")
-    const submitButton = document.createElement("button")
-    submitButton.textContent = "Submit"
-    
-    container.appendChild(textInput)
-    container.appendChild(submitButton)
+	fillReviews(reviewsContainer, bookId)
 
-    submitButton.addEventListener("click",() => {
-        const fetchingData = {
-            book_id: book_id,
-            user_id: user_id,
-            username: username,
-            comment: textInput.value,
-        }
+	reviewsSubmitButton.addEventListener("click", () => {
+		const rating = reviewsNumber.value
+		const comment = reviewsInputText.value
 
-        if(container.getAttribute("reply-to")){
-            fetchingData.type = "reply_comment"
-            fetchingData.reply_to_id = JSON.parse(container.getAttribute("reply-to"))
-        }
-        else {
-            fetchingData.type = "add_comment"
-        }
-
-        console.log(fetchingData)
-
-        fetchData("/discussion/main.php", fetchingData)
-        .then((data) => {
-            textInput.value = ""
-            fillDiscussion(discussionContainer, parent, container, book_id)
-        })
-    } )
-    return container
+		addReview({bookId, userId, username, rating, comment})
+		.then(data => {
+			console.log(data)
+			fillReviews(reviewsContainer, bookId)
+		})
+	})
 }
 
-const fillDiscussion = (discussionContainer, parent, discussionInput, book_id) => {
-    console.log(parent)
+const fillReviews = (reviewsContainer, bookId) => {
+	reviewsContainer.innerHTML = ""
+	getReviewbyBookId({bookId})
+	.then(data => {
+		data.reviews.forEach(review => {
 
-    fetchData("/discussion/main.php", 
-    {
-        type: "get_comments",
-        id: book_id
-    })
-    .then((data) => {
-        
-        discussionContainer.innerHTML = ""
-        console.log(data)
-        console.log(discussionContainer)
-        data.discussions.forEach(async discussion => {
-            let replied_comment = null
-            let repliedElement = null;
+			const reviewElement = document.createElement("div")
+			reviewElement.innerHTML = 
+			`
+			<h3>${review.username}</h3>
+			<p>review: ${review.comment}</p>
+			<p>rating: ${review.rating}</p>
+			`
 
-            if (discussion.reply_to_id){
-                replied_comment = await fetchData("/discussion/main.php", {
-                    type: "get_comment_by_id",
-                    id: discussion.reply_to_id
-                })
-
-                repliedElement = document.createElement("div");
-                repliedElement.textContent = `replying to: ${replied_comment.discussion.username}: ${replied_comment.discussion.comment}`
-                console.log(replied_comment)
-            }
-            const commentContainer = document.createElement("div")
-
-            const book_id = discussion.book_id
-            const comment = discussion.comment
-            const created_at = discussion.created_at
-            const user_id = discussion.user_id
-            const username = discussion.username
-            
-
-            const usernameElement = document.createElement("p")
-            usernameElement.textContent = username
-            const commentElement = document.createElement("p")
-            commentElement.textContent = comment
-            const timestampElement = document.createElement("p")
-            timestampElement.textContent = created_at
-            const replyToButton = document.createElement("button")
-            replyToButton.textContent = "Reply To"
-            replyToButton.addEventListener("click", () => {
-                discussionInput.setAttribute("reply-to", discussion.id)
-            })
-
-            commentContainer.appendChild(usernameElement)
-            if(repliedElement){
-                commentContainer.appendChild(repliedElement)
-            }
-            commentContainer.appendChild(commentElement)
-            commentContainer.appendChild(timestampElement)
-            commentContainer.appendChild(replyToButton)
-
-            discussionContainer.appendChild(commentContainer)
-        });
-
-        parent.appendChild(discussionContainer)
-    })
+			reviewsContainer.appendChild(
+				reviewElement
+			)
+		});
+	})
+	.catch(error => {
+		console.log(error)
+	})
 }
 
-// Todo: Reviews
-// * Finish review input
-// * add service for "reviews" that adds a review
-// * add scripts that interact with service for "reviews"
-// * add service functionality to get review
-// * display entries
-// input for rating
-// input for comment
-const reviewsInputFunction = (parent, book_id, user_id, username) => {
-    console.log(parent)
-    const container = document.createElement("div")
+const discussion = (parent, bookId, userId, username) => {
+	const discussionSubmitButton = parent.querySelector("#discussion-submit")
+	const discussionContainer = parent.querySelector("#discussion-container")
+	const discussionInputText = parent.querySelector("#discussion-input")
+	const replyingToTextElement = parent.querySelector("#replying-to")
 
-    const textInput = document.createElement("textarea")
-    const submitButton = document.createElement("button")
-    submitButton.textContent = "Submit"
-  
-    const numberRating = document.createElement("input")
-    numberRating.setAttribute("type", "number")
-    numberRating.setAttribute("min", 1)
-    numberRating.setAttribute("max", 5)
-    numberRating.setAttribute("value", 3)
-    submitButton.addEventListener("click",()=>{
-        const fetchingData = {
-            book_id: book_id,
-            user_id: user_id,
-            username: username,
-            comment: textInput.value,
-            rating: numberRating.value,
-            type: "add_review"
-        }
-        fetchData("/reviews/main.php", fetchingData)
-        .then((data) => {
-            console.log(data)
+	fillDiscussion(discussionContainer, replyingToTextElement, discussionSubmitButton, bookId)
 
-        })
-    })
-    container.appendChild(numberRating)
-    container.appendChild(textInput)
-    container.appendChild(submitButton)
-    return container
+	discussionSubmitButton.addEventListener("click", () => {
+		const comment = discussionInputText.value
+		const replyingToId = discussionSubmitButton.getAttribute("replying-to") ?? null
+		console.log(replyingToId)
+		addDiscussionComment({bookId, userId, username, comment, replyingToId})
+		.then(data => {
+			fillDiscussion(discussionContainer, replyingToTextElement, discussionSubmitButton, bookId)
+		})
+	})
 }
 
-const fillReviews = (reviewsContainer, parent, reviewsInput, book_id) => {
-    console.log(reviewsContainer, parent, reviewsInput, book_id)
-    fetchData("/reviews/main.php", {
-        type: "get_reviews_by_bookid",
-        book_id: book_id
-    }).then((data) => {
-        reviewsContainer.innerHTML = "";
+const fillDiscussion = (discussionContainer, replyingToTextElement, discussionSubmitButton, bookId) => {
+	discussionContainer.innerHTML = ""
 
-        console.log(data); 
+	getDiscussionByBookId({bookId})
+	.then(data => {
+		data.forEach(async (comment) => {
+			let repliedComment = null
+			if(comment.reply_to_id){
+				repliedComment = await getDiscussionByCommentId({commentId: comment.reply_to_id})
+			}
+			const commentElement = document.createElement("div")
+			commentElement.innerHTML = 
+			`
+			<h2>${comment.username}</h2>
+			<p>${repliedComment ? `replying to ${repliedComment.username}: ${repliedComment.comment}` : ""}</p>
+			<p>${comment.comment}</p>
+			<button>Reply To</button>
+			`
 
-        data.reviews.forEach((review) => {
-            const reviewContainer = document.createElement("div");
+			const replyToButton = commentElement.querySelector("button")
+			replyToButton.addEventListener("click", () => {
+				replyingToTextElement.innerHTML = 
+				`
+				<h4>replying to</h4>
+				<p>${comment.username}: ${comment.comment}</p>
+				`
 
-            const usernameElement = document.createElement("p")
-            usernameElement.textContent = `User: ${review.username}`;
-            const commentElement = document.createElement("p")
-            commentElement.textContent = `Comment: ${review.comment}`;
-            const ratingElement = document.createElement("p")
-            ratingElement.textContent = `Rating: ${review.rating}`;
+				discussionSubmitButton.setAttribute("replying-to", comment.id)
+			})
 
-            reviewContainer.appendChild(usernameElement);
-            reviewContainer.appendChild(ratingElement);
-            reviewContainer.appendChild(commentElement);
-
-            reviewsContainer.appendChild(reviewContainer);
-        });
-
-        
-    });
-};
-
-
-
+			discussionContainer.appendChild(commentElement)
+		})
+	})
+}
