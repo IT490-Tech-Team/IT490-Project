@@ -7,7 +7,7 @@ export const fetchData = async (data) => {
         body: new URLSearchParams(data)
     };
 
-    const response = await fetch("/RabbitMQClient/main.php", options);
+    const response = await fetch("/client/main.php", options);
     const [ok, responseData] = await Promise.all([response.ok, response.json()]);
 
     if (!ok) {
