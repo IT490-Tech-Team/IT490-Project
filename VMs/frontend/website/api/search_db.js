@@ -38,3 +38,13 @@ export const addBookToUserLibrary = ({book_id, user_id}) => {
         book_id: book_id 
     })
 }
+
+export const addBooksToDatabase = ({books}) => {
+    return fetchData({
+        type: "add",
+        exchange: "searchDatabaseExchange",
+        queue: "searchDatabaseQueue",
+        books: JSON.stringify(books)
+    })
+    .then(data => data.books)
+}

@@ -34,7 +34,7 @@ function requestProcessor($request)
 
     // Check request type
     if ($request['type'] === "search") {
-        return handleQuery($request);
+        return handleQuery($request["title"]);
     }
 }
 
