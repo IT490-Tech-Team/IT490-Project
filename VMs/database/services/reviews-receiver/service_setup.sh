@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the target directory
-target_directory="/opt/$(basename "$(pwd)")"
+target_directory="/opt/$(basename "$(dirname "$0")")"
 
 # Define the service name
 service_name="reviews-receiver.service"
@@ -12,10 +12,10 @@ if [ -d "$target_directory" ]; then
 fi
 
 # Copy Service files to /opt/
-sudo cp -r "$(pwd)" "$target_directory"
+sudo cp -r "$(dirname "$0")" "$target_directory"
 
 # Copy Service
-sudo cp "./$service_name" "/etc/systemd/system/$service_name"
+sudo cp "$target_directory/$service_name" "/etc/systemd/system/$service_name"
 
 # Start Service and enable for reboot
 sudo systemctl daemon-reload
