@@ -18,7 +18,7 @@ const formSubmission = (event) => {
 
 const success = (data) => {
     let result = confirm("Registration Successful, would you like to login?");
-            
+    console.log(data)
     if (result){
         location.assign("/login")
     }

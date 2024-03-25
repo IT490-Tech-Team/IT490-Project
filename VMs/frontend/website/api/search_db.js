@@ -37,6 +37,7 @@ export const addBookToUserLibrary = ({book_id, user_id}) => {
         user_id: user_id, 
         book_id: book_id 
     })
+    .then(data => { return {}});
 }
 
 export const addBooksToDatabase = ({books}) => {
@@ -67,4 +68,5 @@ export const removeBookFromUserLibrary = ({book_id, user_id}) => {
         user_id: user_id, 
         book_id: book_id 
     })
+    .then(data => { return {}});
 }

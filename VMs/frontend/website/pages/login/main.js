@@ -1,6 +1,6 @@
-import { setCookies } from "/javascript/helpers.js";
+import { getCookies, setCookies } from "/javascript/helpers.js";
 import { SESSION_ID_COOKIE_NAME } from "/javascript/defaults.js";
-import { login } from "/api/authentication.js"
+import { login, validateSession } from "/api/authentication.js"
 
 const main = () => {
     let form = document.getElementById("login")
@@ -19,7 +19,6 @@ const formSubmission = (event) => {
 }
 
 const success = (data) => {
-    console.log(data)
     setCookies(SESSION_ID_COOKIE_NAME, data.sessionId, data.expired_at)
     let result = confirm("Login Successful, would you like to go to the website?");
 
