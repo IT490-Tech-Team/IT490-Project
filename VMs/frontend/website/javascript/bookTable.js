@@ -1,5 +1,5 @@
 import { bookPopUp } from "/javascript/bookPopup.js"
-import { addBookToUserLibrary } from "/api/search_db.js"
+import { addBookToUserLibrary, removeBookFromUserLibrary } from "/api/search_db.js"
 
 
 export const bookToTableRow = (book, userDetails, userLibrary) => {
@@ -19,12 +19,19 @@ export const bookToTableRow = (book, userDetails, userLibrary) => {
         )
     })
 
-	const userLibraryBookIds = userLibrary.map(book => book.id)
+	const userLibraryBookIds = userLibrary.map(library => library.book_id)
 
+    console.log(userLibrary, userLibraryBookIds)
     // If book no in library, create a "add to library" button
     if (userLibrary && !userLibraryBookIds.includes(book.id)){
         row.appendChild(
             bookDataToTableCell("add button", null, book, userDetails)
+        )
+    }
+    else {
+        console.log("")
+        row.appendChild(
+            bookDataToTableCell("remove button", null, book, userDetails)
         )
     }
 
@@ -43,7 +50,15 @@ const bookDataToTableCell = (name, data, bookData, userData) => {
             addToLibraryButton.addEventListener("click", () => { addToLibrary(cell, bookData.id, userData.id)})
 
             cell.appendChild(addToLibraryButton);
-        break
+            break
+        case "remove button":
+            const removeFromLibraryButton = document.createElement("button")
+            removeFromLibraryButton.textContent = "Remove From Library"
+
+            removeFromLibraryButton.addEventListener("click", () => { removeFromLibrary(cell, bookData.id, userData.id) })
+            
+            cell.appendChild(removeFromLibraryButton)
+            break
         case "cover":
             const coverElement = document.createElement("img")
             coverElement.src = data
@@ -85,5 +100,13 @@ const addToLibrary = async (parentElement, book_id, user_id) => {
     addBookToUserLibrary({book_id, user_id})
     .then((data) => {
         parentElement.innerHTML = "";
+    })
+}
+
+const removeFromLibrary = async (parentElement, book_id, user_id) => {
+    removeBookFromUserLibrary({book_id, user_id})
+    .then((data) => {
+        console.log(parentElement)
+        parentElement.innerHTML = ""
     })
 }

@@ -48,3 +48,23 @@ export const addBooksToDatabase = ({books}) => {
     })
     .then(data => data.books)
 }
+
+export const getBooks = ({bookIds}) => {
+    return fetchData({
+        type: "get_books",
+        exchange: "searchDatabaseExchange",
+        queue: "searchDatabaseQueue",
+        book_ids: JSON.stringify(bookIds)
+    })
+    .then(data => data.books)
+}
+
+export const removeBookFromUserLibrary = ({book_id, user_id}) => {
+    return fetchData({
+        type: "remove_from_library",
+        exchange: "searchDatabaseExchange",
+        queue: "searchDatabaseQueue",
+        user_id: user_id, 
+        book_id: book_id 
+    })
+}

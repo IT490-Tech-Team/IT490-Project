@@ -11,7 +11,6 @@ export const bookPopUp = (book, user) => {
         }
     })
 
-	console.log(user)
 	const imageUrl = book.cover_image_url
 	const title = book.title
 	const authors = JSON.parse(book.authors).join(", ")
@@ -19,7 +18,6 @@ export const bookPopUp = (book, user) => {
 	const genre = JSON.parse(book.genres).join(", ")
 	const language = book.langauge
 
-	console.log(authors)
 
 	container.innerHTML = 
 	`
@@ -69,7 +67,6 @@ const reviews = (parent, bookId, userId, username) => {
 
 		addReview({bookId, userId, username, rating, comment})
 		.then(data => {
-			console.log(data)
 			fillReviews(reviewsContainer, bookId)
 		})
 	})
@@ -110,7 +107,6 @@ const discussion = (parent, bookId, userId, username) => {
 	discussionSubmitButton.addEventListener("click", () => {
 		const comment = discussionInputText.value
 		const replyingToId = discussionSubmitButton.getAttribute("replying-to") ?? null
-		console.log(replyingToId)
 		addDiscussionComment({bookId, userId, username, comment, replyingToId})
 		.then(data => {
 			fillDiscussion(discussionContainer, replyingToTextElement, discussionSubmitButton, bookId)

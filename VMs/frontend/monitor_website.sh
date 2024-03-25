@@ -9,7 +9,7 @@ SCRIPT_TO_RUN="copy_website.sh"
 # Function to run the script
 run_script() {
     echo "Changes detected. Copying"
-    ./$SCRIPT_TO_RUN
+    sudo ./$SCRIPT_TO_RUN
 }
 
 # Check if inotifywait is installed
