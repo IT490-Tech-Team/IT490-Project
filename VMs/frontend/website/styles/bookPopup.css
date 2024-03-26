@@ -7,7 +7,9 @@
     display: flex;
 
     justify-content: center;
-    background-color: rgb(224, 149, 95);
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    -webkit-backdrop-filter: blur(10px); /* WebKit-specific backdrop filter */
+    background-color: rgba(230, 230, 230, 0.55);
 }
 
 .book-content {

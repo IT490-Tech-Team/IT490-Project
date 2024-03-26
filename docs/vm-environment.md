@@ -103,9 +103,6 @@ echo "Terminal is ready"
         ```bash
         ./setup_services.sh
         ```
-        ```bash
-        ./postfix.sh
-        ```
 
    - **Go back to the VMs Folder**
    
