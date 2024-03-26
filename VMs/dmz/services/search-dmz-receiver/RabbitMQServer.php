@@ -38,8 +38,24 @@ function requestProcessor($request)
     }
 }
 
+$connectionConfig = [
+    "BROKER_HOST" => $BROKER_HOST,
+    "BROKER_PORT" => 5672,
+    "USER" => "bookQuest",
+    "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
+    "VHOST" => "bookQuest",
+];
+
+$exchangeQueueConfig = [
+    "EXCHANGE_TYPE" => "topic",
+    "AUTO_DELETE" => true,
+    "EXCHANGE" => "searchDmzExchange",
+    "QUEUE" => "searchDmzQueue",
+];
+
+
 // Create RabbitMQ server instance
-$server = new rabbitMQServer("RabbitMQ.ini", "development");
+$server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
 
 // Main execution starts here
 echo "testRabbitMQServer BEGIN" . PHP_EOL;

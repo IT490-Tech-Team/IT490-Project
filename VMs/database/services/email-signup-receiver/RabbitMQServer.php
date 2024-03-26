@@ -1,11 +1,21 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('rabbitMQLib.inc');
-include_once("functions/getAllUpdates.php");
-include_once("functions/addUpdate.php");
+require_once ('rabbitMQLib.inc');
+include_once ("functions/getAllUpdates.php");
+include_once ("functions/addUpdate.php");
 
-$BROKER_HOST = "127.0.0.1";
+// Get Path of JSON, Read JSON, Decode JSON
+$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
+$json_data = file_get_contents($json_file);
+$settings = json_decode($json_data, true);
+
+// Set the RABBITMQ_HOST variable from the current environment with localhost default
+if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
+    $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
+} else {
+    $BROKER_HOST = '127.0.0.1';
+}
 
 function getDatabaseConnection()
 {
@@ -34,7 +44,7 @@ function requestProcessor($request)
     var_dump($request);
 
     // Check if request type is set
-    if (!isset($request['type'])) {
+    if (!isset ($request['type'])) {
         return "ERROR: unsupported message type";
     }
 
@@ -44,7 +54,7 @@ function requestProcessor($request)
         $user_email = $request["user_email"];
         $email_type = $request["email_type"];
         $query = $request["query"];
-        
+
         // Call addUpdate function to add the update
         return addUpdate($user_email, $email_type, $query);
     } elseif ($request['type'] === "get_all_updates") {
@@ -62,17 +72,17 @@ $connectionConfig = [
     "USER" => "bookQuest",
     "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
     "VHOST" => "bookQuest",
-  ];
-  
-  $exchangeQueueConfig = [
+];
+
+$exchangeQueueConfig = [
     "EXCHANGE_TYPE" => "topic",
     "AUTO_DELETE" => true,
     "EXCHANGE" => "emailExchange",
     "QUEUE" => "emailQueue",
-  ];
-  
-  // Create RabbitMQ server instance
-  $server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
+];
+
+// Create RabbitMQ server instance
+$server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
 
 // Main execution starts here
 echo "testRabbitMQServer BEGIN" . PHP_EOL;

@@ -1,31 +1,42 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('rabbitMQLib.inc');
-include_once('functions/register.php');
-include_once('functions/login.php');
-include_once('functions/validate.php');
-include_once('functions/getUser.php');
+require_once ('rabbitMQLib.inc');
+include_once ('functions/register.php');
+include_once ('functions/login.php');
+include_once ('functions/validate.php');
+include_once ('functions/getUser.php');
 
-$BROKER_HOST = "127.0.0.1";
+// Get Path of JSON, Read JSON, Decode JSON
+$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
+$json_data = file_get_contents($json_file);
+$settings = json_decode($json_data, true);
+
+// Set the RABBITMQ_HOST variable from the current environment
+if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
+  $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
+} else {
+  // Set default value if there's an error or if the variable is null
+  $BROKER_HOST = '127.0.0.1';
+}
 
 function getDatabaseConnection()
 {
-    $host = 'localhost';
-    $username = 'bookQuest';
-    $password = '3394dzwHi0HJimrA13JO';
-    $database = 'bookShelf';
+  $host = 'localhost';
+  $username = 'bookQuest';
+  $password = '3394dzwHi0HJimrA13JO';
+  $database = 'bookShelf';
 
-    // Create connection
-    $conn = new mysqli($host, $username, $password, $database);
+  // Create connection
+  $conn = new mysqli($host, $username, $password, $database);
 
-    // Check connection
-    if ($conn->connect_error) {
-        // Log error or handle as needed
-        return null;
-    }
+  // Check connection
+  if ($conn->connect_error) {
+    // Log error or handle as needed
+    return null;
+  }
 
-    return $conn;
+  return $conn;
 }
 
 // Function to process incoming requests
@@ -36,7 +47,7 @@ function requestProcessor($request)
   var_dump($request);
 
   // Check if request type is set
-  if (!isset($request['type'])) {
+  if (!isset ($request['type'])) {
     return "ERROR: unsupported message type";
   }
 
@@ -58,7 +69,7 @@ function requestProcessor($request)
     return doValidate($sessionId);
   } elseif ($request['type'] === "get_user") {
     $sessionId = $request['sessionId'];
-    
+
     return getUser($sessionId);
   }
 

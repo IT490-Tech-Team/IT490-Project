@@ -1,11 +1,21 @@
 #!/usr/bin/php
 <?php
 // Include required files
-require_once('path.inc');
-require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 include_once("functions/getReviewByBookId.php");
 include_once("functions/addReview.php");
+
+// Get Path of JSON, Read JSON, Decode JSON
+$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
+$json_data = file_get_contents($json_file);
+$settings = json_decode($json_data, true);
+
+// Set the RABBITMQ_HOST variable from the current environment with localhost default
+if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
+    $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
+} else {
+    $BROKER_HOST = '127.0.0.1';
+}
 
 function getDatabaseConnection()
 {
@@ -62,8 +72,23 @@ function requestProcessor($request)
     return array("returnCode" => '0', 'message' => "");
 }
 
+$connectionConfig = [
+    "BROKER_HOST" => $BROKER_HOST,
+    "BROKER_PORT" => 5672,
+    "USER" => "bookQuest",
+    "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
+    "VHOST" => "bookQuest",
+];
+
+$exchangeQueueConfig = [
+    "EXCHANGE_TYPE" => "topic",
+    "AUTO_DELETE" => true,
+    "EXCHANGE" => "reviewsExchange",
+    "QUEUE" => "reviewsQueue",
+];
+
 // Create RabbitMQ server instance
-$server = new rabbitMQServer("RabbitMQ.ini", "development");
+$server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
 
 // Main execution starts here
 echo "testRabbitMQServer BEGIN" . PHP_EOL;
