@@ -73,7 +73,7 @@ function searchBooks($title, $author, $genre, $language, $year)
         $stmt->close();
         // Close database connection
         $conn->close();
-        return array("returnCode" => 200, "message" => $books);
+        return array("returnCode" => 200, "books" => $books);
     } else {
         // No results found
         // Close statement

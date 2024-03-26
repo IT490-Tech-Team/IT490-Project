@@ -22,7 +22,7 @@ function getUser($sessionId)
         $userId = $row['userId'];
 
         // Now fetch user details from the users table
-        $stmt = $conn->prepare("SELECT id, username FROM users WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, username, email FROM users WHERE id = ?");
         $stmt->bind_param("i", $userId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -48,7 +48,7 @@ function getUser($sessionId)
             "returnCode" => 200,
             "message" => "User details and libraries retrieved successfully",
             "userDetails" => $userDetails,
-            "userLibraries" => $userLibraries
+            "userLibrary" => $userLibraries
         );
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed

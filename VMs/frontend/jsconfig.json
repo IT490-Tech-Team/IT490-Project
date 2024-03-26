@@ -1,0 +1,13 @@
+// ts-ignore
+{
+	"compilerOptions": {
+	  "module": "ESNext",
+	  "baseUrl": "./", // Change this to the root directory of your project
+	  "paths": {
+		"/javascript/*.js": ["./website/javascript/*.js"],
+		"/api/*.js": ["./website/api/*.js"],
+	  }
+	},
+	"include": ["./website"]
+  }
+  

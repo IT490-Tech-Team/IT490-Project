@@ -1,7 +1,5 @@
 <?php
 
-require_once('get_host_info.inc');
-
 class rabbitMQServer
 {
 	private $machine = "";
@@ -16,24 +14,24 @@ class rabbitMQServer
 	private $exchange_type = "topic";
 	private $auto_delete = false;
 
-	function __construct($machine, $server = "rabbitMQ")
+	function __construct($connectionConfig, $exchangeQueueConfig)
 	{
-		$this->machine = getHostInfo(array($machine));
-		$this->BROKER_HOST   = $this->machine[$server]["BROKER_HOST"];
-		$this->BROKER_PORT   = $this->machine[$server]["BROKER_PORT"];
-		$this->USER     = $this->machine[$server]["USER"];
-		$this->PASSWORD = $this->machine[$server]["PASSWORD"];
-		$this->VHOST = $this->machine[$server]["VHOST"];
-		if (isset( $this->machine[$server]["EXCHANGE_TYPE"]))
+		$this->BROKER_HOST   = $connectionConfig["BROKER_HOST"];
+		$this->BROKER_PORT   = $connectionConfig["BROKER_PORT"];
+		$this->USER     = $connectionConfig["USER"];
+		$this->PASSWORD = $connectionConfig["PASSWORD"];
+		$this->VHOST = $connectionConfig["VHOST"];
+		
+		if (isset( $connectionConfig["EXCHANGE_TYPE"]))
 		{
-			$this->exchange_type = $this->machine[$server]["EXCHANGE_TYPE"];
+			$this->exchange_type = $exchangeQueueConfig["EXCHANGE_TYPE"];
 		}
-		if (isset( $this->machine[$server]["AUTO_DELETE"]))
+		if (isset( $exchangeQueueConfig["AUTO_DELETE"]))
 		{
-			$this->auto_delete = $this->machine[$server]["AUTO_DELETE"];
+			$this->auto_delete = $exchangeQueueConfig["AUTO_DELETE"];
 		}
-		$this->exchange = $this->machine[$server]["EXCHANGE"];
-		$this->queue = $this->machine[$server]["QUEUE"];
+		$this->exchange = $exchangeQueueConfig["EXCHANGE"];
+		$this->queue = $exchangeQueueConfig["QUEUE"];
 	}
 
 	function process_message($msg)
@@ -148,24 +146,24 @@ class rabbitMQClient
 	private $response_queue = array();
 	private $exchange_type = "topic";
 
-	function __construct($machine, $server = "rabbitMQ")
+	function __construct($connectionConfig, $exchangeQueueConfig)
 	{
-		$this->machine = getHostInfo(array($machine));
-		$this->BROKER_HOST   = $this->machine[$server]["BROKER_HOST"];
-		$this->BROKER_PORT   = $this->machine[$server]["BROKER_PORT"];
-		$this->USER     = $this->machine[$server]["USER"];
-		$this->PASSWORD = $this->machine[$server]["PASSWORD"];
-		$this->VHOST = $this->machine[$server]["VHOST"];
-		if (isset( $this->machine[$server]["EXCHANGE_TYPE"]))
+		$this->BROKER_HOST   = $connectionConfig["BROKER_HOST"];
+		$this->BROKER_PORT   = $connectionConfig["BROKER_PORT"];
+		$this->USER     = $connectionConfig["USER"];
+		$this->PASSWORD = $connectionConfig["PASSWORD"];
+		$this->VHOST = $connectionConfig["VHOST"];
+		
+		if (isset( $connectionConfig["EXCHANGE_TYPE"]))
 		{
-			$this->exchange_type = $this->machine[$server]["EXCHANGE_TYPE"];
+			$this->exchange_type = $exchangeQueueConfig["EXCHANGE_TYPE"];
 		}
-		if (isset( $this->machine[$server]["AUTO_DELETE"]))
+		if (isset( $exchangeQueueConfig["AUTO_DELETE"]))
 		{
-			$this->auto_delete = $this->machine[$server]["AUTO_DELETE"];
+			$this->auto_delete = $exchangeQueueConfig["AUTO_DELETE"];
 		}
-		$this->exchange = $this->machine[$server]["EXCHANGE"];
-		$this->queue = $this->machine[$server]["QUEUE"];
+		$this->exchange = $exchangeQueueConfig["EXCHANGE"];
+		$this->queue = $exchangeQueueConfig["QUEUE"];
 	}
 
 	function process_response($response)

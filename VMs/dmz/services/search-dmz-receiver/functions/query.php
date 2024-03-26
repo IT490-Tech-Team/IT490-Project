@@ -2,10 +2,10 @@
 <?php
 
 // Function to handle the query and retrieve book information from Google Books API
-function handleQuery($request)
+function handleQuery($title)
 {
     // Construct the URL
-    $url = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($request["title"]);
+    $url = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($title);
 
     // Initialize curl session
     $curl = curl_init();
@@ -67,7 +67,7 @@ function handleQuery($request)
     }
 
     // Return array of book information
-    return array("returnCode" => 200, "message" => $databaseBooks);
+    return array("returnCode" => 200, "books" => $databaseBooks);
 
 }
 

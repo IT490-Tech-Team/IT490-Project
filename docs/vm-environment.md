@@ -1,44 +1,157 @@
-# Setting Up Your Development Environment
+# Development Environment
 
-To get started with the **Tech Team's** System Integration project, follow these steps to set up your development environment:
+This guide is designed to help contributors, especially those new to working with terminals, set up all the necessary components of the project on their machines.
 
-1. **Clone the Repository**: Begin by cloning the project repository to your local machine. You can do this by executing the following command in your terminal:
+## Introduction
+
+This guide provides step-by-step instructions to set up the Database, DMZ, Frontend, and RabbitMQ components of the project. We recommend performing these setup steps within a virtual machine to prevent any changes to your personal computer.
+
+> **Important**: While we aim to cover various scenarios, this guide may not address all potential errors. If you encounter issues, pay attention to your terminal's output and utilize online resources, such as search engines, to resolve them promptly.
+
+## Before you Begin
+
+Before diving into the setup process, ensure that you have a terminal emulator installed on your system. If you're unsure, you can check by searching for a terminal application in your VM and running the following command:
+
+```bash
+echo "Terminal is ready"
+```
+
+## Step-by-Step Setup
+
+1. **Update Package Lists**
+
+   Begin by updating your package lists. Run the following command in your terminal:
+
+    ```bash
+    sudo apt-get update
+    ```
+
+2. **Install Git**
+    
+    This project is set up to use Git and GitHub as a centralized location for all the project code. To install Git, run the following:
+
+    ```bash
+    sudo apt-get install git -y
+    ```
+
+3. **Clone the Repository**
+   
+   Now, copy the project files into your virtual machine:
+   
     ```bash
     git clone https://github.com/IT490-Tech-Team/IT490-Project
     ```
 
-2. **Initialize Tailscale**: Navigate to the `/scripts` folder within the cloned repository. Run the `startup.sh` script, which includes essential setup commands. The most crucial step is installing Tailscale, which provides secure networking for the project.
+4. **Run Startup Script**
+   
+   This script guides you through running essential and optional commands to set up the environment, the most crucial step is installing Tailscale.
+   
+   Navigate to `/IT490-Project/scripts`.
+   
     ```bash
     cd IT490-Project/scripts
+    ```
+
+    Then run the startup script:
+
+    ```bash
     ./startup.sh
+    ```
+
+5.  **Initialize Tailscale**
+
+    Tailscale helps us connect with other project computers. Replace [your_name] with your actual first name and run:
+
+    ```bash
     ./tailscale_login_[your_name].sh
     ```
 
-3. **Install VM Requirements**: Navigate to the `/VMs` directory within the project repository. Here, you'll find four folders corresponding to each VM: `/database`, `/frontend`, `/rabbitmq`, and `/dmz`. In each folder, there's a `setup.sh` script. Execute these scripts to install all required programs for the respective VM.
+6. install VM Requirements
+
+    Now, let's set up the requirements for each virtual machine (VM). Navigate to the /VMs directory within the project repository.
+
     ```bash
-    cd ../VMs/database
-    ./setup.sh
-    
-    cd ../frontend
-    ./setup.sh
-    ./copy_website.sh
-    
-    cd ../rabbitmq
-    ./setup.sh
-    ./rabbitmq.sh
-    
-    cd ../dmz
-    ./setup.sh
+    cd VMs
     ```
 
-4. **Setup Services**: Once all VM requirements are installed, return to the `/scripts` folder and run `setup_services.sh`. This script configures the services required for the project.
-    ```bash
-    cd ../../scripts
-    ./setup_services.sh
-    ```
+   - **Set up RabbitMQ**
+   
+        ```bash
+        cd rabbitmq
+        ```
+        ```bash
+        ./setup.sh
+        ```
+        ```bash
+        ./rabbitmq.sh
+        ```
 
-5. **Test Your Setup**: After completing the setup steps, your development environment should be ready. You can test if everything is functioning correctly by accessing `localhost` in your web browser. This will allow you to verify if you can access the website.
+   - **Go back to the VMs Folder**
 
-6. **Development Workflow**: To work on the frontend website, run the `monitor_website.sh` script in the background. This script detects any changes made to the website files within the project and automatically copies them to the Apache server. Remember to refresh your browser to see the changes reflected in the website.
+        ```bash
+        cd ..
+        ```
 
-With these steps completed, you're all set to start developing for the Online Bookshelf service. Happy developing!
+   - **Set up DMZ**
+
+        ```bash
+        cd dmz
+        ```
+        ```bash
+        ./setup.sh
+        ```
+        ```bash
+        ./setup_services.sh
+        ```
+
+   - **Go back to the VMs Folder**
+   
+        ```bash
+        cd ..
+        ```
+
+   - **Set up Database**
+
+        ```bash
+        cd database
+        ```
+        ```bash
+        ./setup.sh
+        ```
+        ```bash
+        ./setup_services.sh
+        ```
+
+        This command is optional, but it enables you to look at the database as you make changes:
+
+        ```bash
+        ./phpmyadmin.sh
+        ```
+   
+   - **Go back to the VMs Folder**
+
+        ```bash
+        cd ..
+        ```
+
+   - **Set up Frontend**
+   
+        ```bash
+        cd frontend
+        ```
+        ```bash
+        ./setup.sh
+        ```
+        ```bash
+        ./copy_website.sh
+        ```
+
+7.  **Test Your Setup**
+
+    After completing the setup steps, test your development environment by accessing localhost in your web browser. This will allow you to verify if you can access the website.
+
+8.  **Development Workflow**
+
+    To work on the frontend website, run the `monitor_website.sh` script in the background. This script detects any changes made to the website files within `IT490-Project/VMs/frontend/website` and automatically copies them to the Apache server. Remember to refresh your browser to see the changes reflected on the website.
+
+Congratulations! You've successfully set up your development environment for the Online Bookshelf project. Happy developing!

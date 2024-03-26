@@ -21,7 +21,7 @@ function getFilters() {
     $genres = array();
     $languages = array();
     while ($row = $result->fetch_assoc()) {
-        $genresArray = json_decode($row['genres'], true);
+        $genresArray = json_decode($row['genres'], true) ?? array();
         $languages[] = $row['languages'];
         foreach ($genresArray as $genre) {
             if (!in_array($genre, $genres)) {

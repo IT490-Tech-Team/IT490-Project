@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Check if script is run with sudo
-if [ "$(id -u)" != "0" ]; then
-    echo "Please run this script with sudo."
-    exit 1
-fi
-
 # Default restart Apache option
 default_restart_apache=N
 
@@ -23,26 +17,26 @@ target_dir="/var/www/html"
 
 # Check if the target directory exists, if not, create it
 if [ ! -d "$target_dir" ]; then
-    mkdir -p "$target_dir"
+    sudo mkdir -p "$target_dir"
 fi
 
 # Delete the contents of /var/www/html
-rm -rf "$target_dir"/*
+sudo rm -rf "$target_dir"/*
 
 # Copy the contents of ./website to /var/www/html
-cp -r ./website/* "$target_dir"
+sudo cp -r ./website/* "$target_dir"
 
 # Check if the copy operation was successful
 if [ $? -eq 0 ]; then
     echo "Files copied successfully."
 
     # Copy file ./bookquest.conf to /etc/apache2/sites-available
-    cp ./bookquest.conf /etc/apache2/sites-available
+    sudo cp ./bookquest.conf /etc/apache2/sites-available
 
     # Check if the symbolic link exists
     if [ ! -e "/etc/apache2/sites-enabled/bookquest.conf" ]; then
         # Create symbolic link to enable the site
-        ln -s /etc/apache2/sites-available/bookquest.conf /etc/apache2/sites-enabled/
+        sudo ln -s /etc/apache2/sites-available/bookquest.conf /etc/apache2/sites-enabled/
         
         echo "Symbolic link created."
     else
@@ -51,7 +45,7 @@ if [ $? -eq 0 ]; then
 
     # Check if restart Apache option was specified
     if [[ $default_restart_apache =~ ^[Yy]$ ]]; then
-        systemctl restart apache2
+        sudo systemctl restart apache2
         echo "Apache restarted."
     else
         echo "Changes applied. Apache was not restarted."

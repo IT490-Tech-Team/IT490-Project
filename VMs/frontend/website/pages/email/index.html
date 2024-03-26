@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <script src="/javascript/navbar.js" type="module"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav></nav>
+    <section id="content">
+        <h1>Sign Up for Emails!</h1>
+        <p>subscribe to topics to get scheduled emails!</p>
+        <form>
+            <div>
+                <label for="type">Type</label>
+                <select name="email_type" id="type">
+                    <option value="">Select Topic</option>
+                    <option value="author">Author</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="query">Topic</label>
+                <input type="text" name="query">
+            </div>
+
+            <input type="submit" value="Submit">
+
+        </form>
+    </section>
+    <script src="main.js" type="module"></script>
+</body>
+</html>

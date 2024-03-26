@@ -1,6 +1,6 @@
 <?php
 
-function getDiscussionById($discussionId)
+function getDiscussionByDiscussionId($discussionId)
 {
     // Connect to the database
     $conn = getDatabaseConnection();

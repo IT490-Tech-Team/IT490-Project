@@ -1,0 +1,12 @@
+{
+	"currentEnvironment": "dev",
+	"prod": {
+		"BROKER_HOST": "rabbitmq.tortoise-daggertooth.ts.net"
+	},
+	"test": {
+		"BROKER_HOST": ""
+	},
+	"dev": {
+		"BROKER_HOST": "127.0.0.1"
+	}
+}
