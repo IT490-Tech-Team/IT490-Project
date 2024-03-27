@@ -2,9 +2,9 @@
 
 3 Repos
 
-one for Prod
-One for QA
-One for Dev
+1. Prod
+2. QA
+3. Dev
 
 features go up the ladder.
 
