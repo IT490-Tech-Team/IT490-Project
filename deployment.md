@@ -57,6 +57,4 @@ i.e.
 - test checks for releases in dev
 - prod checks for releases in test
 
-There will be assigned testers for each branch (no dev tester). The tester(s) will have the sole permission to close PRs in a specific repo.
-1 is assigned for test
-2 are assigned for prod
+There will be assigned testers for each branch (no assigned dev tester). The tester(s) will have the sole permission to close PRs in a specific repo.
