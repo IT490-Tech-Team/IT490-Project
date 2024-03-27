@@ -28,9 +28,9 @@ To close would be to commit the changes from 1 repo to another
 2. Test PR accept → requires 2 reviewers → Prod (new branch + PR)
 3. Prod PR accept → requires 3 reviewers → Prod (main)
 
-1. Dev PR deny → New Dev Issue + Repo
-1. Test PR deny → New Dev Issue + Repo
-1. Prod PR deny → New Dev Issue + Repo
+1. Dev PR deny → New Dev Issue + Branch
+1. Test PR deny → New Dev Issue + Branch
+1. Prod PR deny → New Dev Issue + Branch
 
 Every PR accept, a github action will play out where it creates an installable deb
 This deb will take the changes from a PR, bundle them together, and based on the changes figure out what scripts it has to run.
