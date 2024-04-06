@@ -31,11 +31,4 @@ sudo apt-get install -y mysql-server
 echo "Installing PHP CLI, PHP MySQL, and PHP AMQP extensions..."
 sudo apt-get install -y php-cli php-mysql php-amqp
 
-# Log in to MySQL as root and execute SQL commands
-echo "Setting up MySQL database..."
-sudo mysql -u root -p <<EOF
-    source ./sql/database.sql;
-    source ./sql/credentials.sql;
-EOF
-
 echo "Setup completed successfully."

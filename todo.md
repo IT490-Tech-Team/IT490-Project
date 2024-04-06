@@ -1,2 +1,3 @@
-- api clean
-- service clean
+- [ ] DMZ Clean
+- [ ] Frontend Clean
+- [ ] Test deploying into clean VMs
