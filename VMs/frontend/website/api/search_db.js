@@ -26,7 +26,15 @@ export const searchDatabaseBooks = (data) => {
         queue: "searchDatabaseQueue",
         ...data
     })
-    .then(data => data.books)
+    .then(data => {
+        console.log("HELLLLOOOOO")
+        console.log(data)
+        return data.books
+    })
+    .catch(error => {
+        console.log("HELLOOO")
+        console.log(error)
+    })
 }
 
 export const addBookToUserLibrary = ({book_id, user_id}) => {

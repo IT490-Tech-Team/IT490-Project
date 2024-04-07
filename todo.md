@@ -1,2 +1,5 @@
-- api clean
-- service clean
+- [ ] copy over environment
+- [ ] make the php my admin stuff do the website stuff
+- [ ] DMZ Clean
+- [ ] Frontend Clean
+- [ ] Test deploying into clean VMs

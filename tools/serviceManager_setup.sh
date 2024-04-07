@@ -1,13 +1,15 @@
 #!/bin/bash
 
+# TODO: Move scripts to path
+
 # Get the directory of the current script
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_FILENAME="serviceManager_autocomplete.zsh"
 
 # Define the path to the zshrc file
 ZSHRC_FILE="$HOME/.zshrc"
 # Define the path to the completion script
-COMPLETION_SCRIPT="$SCRIPT_DIR/serviceManager_autocomplete.zsh"
-echo $SCRIPT_DIR
+COMPLETION_SCRIPT="$SCRIPT_DIR/$SCRIPT_FILENAME"
 
 # Check if the completion script exists
 if [ ! -f "$COMPLETION_SCRIPT" ]; then

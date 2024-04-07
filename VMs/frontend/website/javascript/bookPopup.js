@@ -13,10 +13,22 @@ export const bookPopUp = (book, user) => {
 
 	const imageUrl = book.cover_image_url
 	const title = book.title
-	const authors = JSON.parse(book.authors).join(", ")
+	let authors = book.authors
+	if(typeof authors == "string"){
+		authors = JSON.parse(authors)
+	}
+	if(typeof authors == "object"){
+		authors = authors.join(", ")
+	}
 	const description = book.description
-	const genre = JSON.parse(book.genres).join(", ")
-	const language = book.langauge
+	let genre = book.genres
+	if(typeof genre == "string"){
+		genre = JSON.parse(genre)
+	}
+	if(typeof genre == "object"){
+		genre = genre.join(", ")
+	}
+	const language = book.language
 
 
 	container.innerHTML = 

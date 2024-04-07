@@ -1,0 +1,12 @@
+{
+	"currentEnvironment": "dev",
+	"prod": {
+		"BROKER_HOST": "prod-backend.tortoise-daggertooth.ts.net"
+	},
+	"test": {
+		"BROKER_HOST": "test-backend.tortoise-daggertooth.ts.net"
+	},
+	"dev": {
+		"BROKER_HOST": "dev-backend.tortoise-daggertooth.ts.net"
+	}
+}

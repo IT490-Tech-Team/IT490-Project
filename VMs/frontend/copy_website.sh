@@ -43,6 +43,12 @@ if [ $? -eq 0 ]; then
         echo "Symbolic link already exists."
     fi
 
+    # Check if 000-default.conf exists and delete it
+    if [ -e "/etc/apache2/sites-enabled/000-default.conf" ]; then
+        sudo rm /etc/apache2/sites-enabled/000-default.conf
+        echo "Deleted 000-default.conf."
+    fi
+
     # Check if restart Apache option was specified
     if [[ $default_restart_apache =~ ^[Yy]$ ]]; then
         sudo systemctl restart apache2

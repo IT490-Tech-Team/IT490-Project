@@ -2,13 +2,11 @@
 <?php
 
 // Include required files
-require_once('path.inc');
-require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 require_once('functions/query.php');
 
 // Get Path of JSON, Read JSON, Decode JSON
-$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
+$json_file = 'environment.json';
 $json_data = file_get_contents($json_file);
 $settings = json_decode($json_data, true);
 

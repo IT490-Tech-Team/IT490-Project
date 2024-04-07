@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# Update package index
+sudo apt-get update
+
 # Install RabbitMQ
 echo "Installing RabbitMQ..."
-sudo apt-get update
 sudo apt-get install -y rabbitmq-server
 
 # Enable RabbitMQ management plugin
@@ -20,5 +22,13 @@ sudo cp ./rabbitmq.config /etc/rabbitmq/
 # Restart RabbitMQ service
 echo "Restarting RabbitMQ service..."
 sudo service rabbitmq-server restart
+
+# Install MySQL Server
+echo "Installing MySQL Server..."
+sudo apt-get install -y mysql-server
+
+# Install PHP CLI, PHP MySQL extension, and PHP AMQP extension
+echo "Installing PHP CLI, PHP MySQL, and PHP AMQP extensions..."
+sudo apt-get install -y php-cli php-mysql php-amqp
 
 echo "Setup completed successfully."

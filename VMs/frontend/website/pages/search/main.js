@@ -50,9 +50,9 @@ const search = async (event, form, tableBody, userDetails, userLibrary) => {
 	const data = Object.fromEntries(new FormData(form))
 
 	const onlyTitle = titleSearchBoolean(data)
-
+    console.log("HELLO2")
 	const databaseBooks = await searchDatabaseBooks(data)
-
+    console.log(databaseBooks)
     // Adds resulting books to the table
     databaseBooks.forEach(book => {
         tableBody.appendChild(bookToTableRow(book, userDetails, userLibrary))
@@ -111,3 +111,5 @@ const titleSearchBoolean = (data) => {
 
 
 main()
+
+console.log("HELLO")
