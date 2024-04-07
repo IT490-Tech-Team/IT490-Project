@@ -1,5 +1,3 @@
-- [ ] book pop up. bug where authors may be a string of an array or it may be the array.
-- [ ] Make website delete the 000-default.conf from there
 - [ ] copy over environment
 - [ ] make the php my admin stuff do the website stuff
 - [ ] DMZ Clean

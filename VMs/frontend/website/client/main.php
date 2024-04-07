@@ -17,11 +17,12 @@ $request = $_POST;
 
 $BROKER_HOST = "127.0.0.1"; // Default
 
-$requestUrlArray = explode(".", $_SERVER["HTTP_HOST"]);
+$requestUrlArray = explode("-", $_SERVER["HTTP_HOST"]);
 // checks if the first machine is frontend to set broker dynamically (production/development)
-if($requestUrlArray[0] === "frontend"){
-    $requestUrlArray[0] = "rabbitmq";
-    $BROKER_HOST = implode(".",$requestUrlArray);
+if($requestUrlArray[1] === "frontend.tortoise")
+{
+    $requestUrlArray[1] = "backend.tortoise";
+    $BROKER_HOST = implode("-",$requestUrlArray);
 }
 
 $connectionConfig = [

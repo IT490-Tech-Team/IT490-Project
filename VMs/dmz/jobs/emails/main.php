@@ -9,6 +9,18 @@ require './PHPMailer/src/SMTP.php';
 require_once('rabbitMQLib.inc');
 require_once("functions/author.php");
 
+// Get Path of JSON, Read JSON, Decode JSON
+$json_file = 'environment.json';
+$json_data = file_get_contents($json_file);
+$settings = json_decode($json_data, true);
+
+// Set the RABBITMQ_HOST variable from the current environment
+if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
+  $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
+} else {
+  // Set default value if there's an error or if the variable is null
+  $BROKER_HOST = '127.0.0.1';
+}
 
 function sendEmail($recipientEmail, $subject, $body)
 {
@@ -107,7 +119,7 @@ function prepareBookMessage($books) {
 }
 
 $connectionConfig = [
-    "BROKER_HOST" => "127.0.0.1",
+    "BROKER_HOST" => $BROKER_HOST,
     "BROKER_PORT" => 5672,
     "USER" => "bookQuest",
     "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
