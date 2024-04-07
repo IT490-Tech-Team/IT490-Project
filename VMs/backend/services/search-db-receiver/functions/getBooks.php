@@ -34,7 +34,7 @@ function getBooks($bookIds)
             $stmt->close();
             // Close database connection
             $conn->close();
-            return array("returnCode" => 404, "message" => []);
+            return array("returnCode" => 200, "books" => []);
         }
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed

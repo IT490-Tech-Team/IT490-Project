@@ -15,8 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST"){
 // Sets POST data to request for rabbitMQ Message
 $request = $_POST;
 
-$requestUrlArray = explode(".", $_SERVER["HTTP_HOST"]);
 $BROKER_HOST = "127.0.0.1"; // Default
+
+$requestUrlArray = explode(".", $_SERVER["HTTP_HOST"]);
 // checks if the first machine is frontend to set broker dynamically (production/development)
 if($requestUrlArray[0] === "frontend"){
     $requestUrlArray[0] = "rabbitmq";

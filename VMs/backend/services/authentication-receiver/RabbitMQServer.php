@@ -7,19 +7,6 @@ include_once ('functions/login.php');
 include_once ('functions/validate.php');
 include_once ('functions/getUser.php');
 
-// Get Path of JSON, Read JSON, Decode JSON
-$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
-$json_data = file_get_contents($json_file);
-$settings = json_decode($json_data, true);
-
-// Set the RABBITMQ_HOST variable from the current environment
-if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
-  $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
-} else {
-  // Set default value if there's an error or if the variable is null
-  $BROKER_HOST = '127.0.0.1';
-}
-
 function getDatabaseConnection()
 {
   $host = 'localhost';
@@ -78,7 +65,7 @@ function requestProcessor($request)
 }
 
 $connectionConfig = [
-  "BROKER_HOST" => $BROKER_HOST,
+  "BROKER_HOST" => "localhost",
   "BROKER_PORT" => 5672,
   "USER" => "bookQuest",
   "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
