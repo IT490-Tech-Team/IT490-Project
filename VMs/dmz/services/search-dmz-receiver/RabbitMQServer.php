@@ -6,8 +6,9 @@ require_once('rabbitMQLib.inc');
 require_once('functions/query.php');
 
 // Get Path of JSON, Read JSON, Decode JSON
+$json_path = implode("/",array_slice(explode("/", $_SERVER["PHP_SELF"]), 1, -1));
 $json_file = 'environment.json';
-$json_data = file_get_contents($json_file);
+$json_data = file_get_contents("/" . $json_path . "/" . $json_file);
 $settings = json_decode($json_data, true);
 
 // Set the RABBITMQ_HOST variable from the current environment
