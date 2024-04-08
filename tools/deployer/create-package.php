@@ -23,8 +23,7 @@ $file_location = $argv[2];
 
 $request = [
     "type" => "create-package",
-    "environment" => $environment,
-    "file_location" => $file_location
+    "environment" => $environment
 ];
 
 // Sends the message and waits for a response
