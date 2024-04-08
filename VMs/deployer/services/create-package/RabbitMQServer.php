@@ -2,6 +2,7 @@
 <?php
 // Include required files
 require_once ('rabbitMQLib.inc');
+include_once ("functions/createPackage.php");
 
 function getDatabaseConnection()
 {
@@ -25,17 +26,64 @@ function getDatabaseConnection()
 // Function to process incoming requests
 function requestProcessor($request)
 {
+
+  $computers = array(
+    "dev" => array(
+        "hostname" => "dev-backend",
+        "username" => "ubuntu",
+        "password" => "ubuntu"
+    ),
+    "test" => array(
+        "hostname" => "test-backend",
+        "username" => "ubuntu",
+        "password" => "ubuntu"
+    ),
+    "prod" => array(
+        "hostname" => "prod-backend",
+        "username" => "ubuntu",
+        "password" => "ubuntu"
+    )
+  );
+
   // Debug: Display received request
-  echo "received request" . PHP_EOL;
-  var_dump($request);
+    echo "received request" . PHP_EOL;
+    var_dump($request);
 
-  // Check if request type is set
-  if (!isset ($request['type'])) {
-    return "ERROR: unsupported message type";
-  }
+    // Check if request type is set
+    if (!isset($request['type'])) {
+        return "ERROR: unsupported message type";
+    }
 
-  // Default return if request type is not recognized
-  return array("returnCode" => '0', 'message' => "Request not processed.");
+    // Check if request type is 'create-package'
+    if ($request["type"] === "create-package") {
+        // Check if 'environment' is set in the request
+        if (!isset($request['environment'])) {
+            return "ERROR: 'environment' not provided in request";
+        }
+
+        // Retrieve environment details from the $computers array
+        $environment = $request['environment'];
+        if (!array_key_exists($environment, $computers)) {
+            return "ERROR: Invalid environment provided";
+        }
+
+        // Extract hostname, username, and password for the given environment
+        $hostname = $computers[$environment]['hostname'];
+        $username = $computers[$environment]['username'];
+        $password = $computers[$environment]['password'];
+
+        // Check if 'file_location' is set in the request
+        if (!isset($request['file_location'])) {
+            return "ERROR: 'file_location' not provided in request";
+        }
+
+        // Call createPackage function with retrieved details
+        $result = createPackage($hostname, $username, $password, $request['file_location']);
+        return $result;
+    }
+
+    // Default return if request type is not recognized
+    return array("returnCode" => '0', 'message' => "Request not processed.");
 }
 
 $connectionConfig = [

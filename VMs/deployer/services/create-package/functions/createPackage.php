@@ -1,51 +1,34 @@
 <?php
 
-function createPackage($remoteHostname, $remoteUsername, $remotePassword, $fileAbsolutePath) {
-    // Validate inputs
-    if (!file_exists($fileAbsolutePath)) {
-        return "Error: File does not exist at the provided path.";
-    }
-
-    // Check file extension
-    $extension = pathinfo($fileAbsolutePath, PATHINFO_EXTENSION);
-    if ($extension !== 'tar.gz') {
-        return "Error: File extension is not '.tar.gz'.";
-    }
+function createPackage($remoteHostname, $remoteUsername, $remotePassword, $remoteFilePath) {
+    // Local directory to save the file
+    $localDirectory = $_SERVER["PWD"];
 
     // Establish SSH connection
     $connection = ssh2_connect($remoteHostname);
     if (!$connection) {
-        return "Error: Unable to establish SSH connection to $remoteHostname.";
+        return array("returnCode" => '400', 'message' => "Error: Unable to establish SSH connection to $remoteHostname.");
     }
 
     // Authenticate with SSH credentials
     if (!ssh2_auth_password($connection, $remoteUsername, $remotePassword)) {
-        return "Error: Authentication failed for $remoteUsername.";
+        return array("returnCode" => '400', 'message' => "Error: Authentication failed for $remoteUsername.");
     }
 
-    // Destination directory on the remote server
-    $destinationDirectory = '/opt/packages/';
+    // Remote file path
+    $remoteFile = $remoteFilePath;
 
-    // Get the file name from the absolute path
-    $filename = basename($fileAbsolutePath);
+    // Local file path
+    $localFile = $localDirectory . '/' . basename($remoteFile);
 
-    // Copy the file to the remote server
-    if (!ssh2_scp_send($connection, $fileAbsolutePath, $destinationDirectory.'/'.$filename)) {
-        return "Error: Failed to copy the file to the remote server.";
+    // Copy the file from the remote server to the local machine
+    if (!ssh2_scp_recv($connection, $remoteFile, $localFile)) {
+        return array("returnCode" => '400', 'message' => "Error: Failed to copy the file from the remote server.");
     }
 
     // Close SSH connection
     ssh2_disconnect($connection);
 
-    return "File copied successfully to $remoteHostname.";
+    return array("returnCode" => '200', 'message' => "File copied successfully to $localFile");
 }
-
-// Usage example:
-$fileAbsolutePath = "/path/to/your/file.tar.gz";
-$remoteUsername = "username";
-$remotePassword = "password";
-$remoteHostname = "example.com";
-
-$result = createPackage($fileAbsolutePath, $remoteUsername, $remotePassword, $remoteHostname);
-echo $result;
 ?>

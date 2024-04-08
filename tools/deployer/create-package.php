@@ -22,7 +22,7 @@ $environment = $argv[1];
 $file_location = $argv[2];
 
 $request = [
-    "type" => $type,
+    "type" => "create-package",
     "environment" => $environment,
     "file_location" => $file_location
 ];
@@ -32,7 +32,6 @@ $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
 $response = $client->send_request($request);
 
 // Returns response
-header("Content-Type: application/json");
 http_response_code($response["returnCode"]);
 echo json_encode($response);
 exit(0);
