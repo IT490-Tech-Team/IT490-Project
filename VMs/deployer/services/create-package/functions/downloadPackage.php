@@ -1,8 +1,8 @@
 <?php
 
-function createPackage($remoteHostname, $remoteUsername, $remotePassword, $remoteFilePath) {
+function downloadPackage($remoteHostname, $remoteUsername, $remotePassword, $remoteFilePath) {
     // Local directory to save the file
-    $localDirectory = $_SERVER["PWD"];
+    $localDirectory = "/" . implode("/", array_slice(explode("/", $_SERVER["PWD"]),1, -4)) . "/packages/backups";
 
     // Establish SSH connection
     $connection = ssh2_connect($remoteHostname);
@@ -17,7 +17,6 @@ function createPackage($remoteHostname, $remoteUsername, $remotePassword, $remot
 
     // Remote file path
     $remoteFile = $remoteFilePath;
-
     // Local file path
     $localFile = $localDirectory . '/' . basename($remoteFile);
 
@@ -29,6 +28,6 @@ function createPackage($remoteHostname, $remoteUsername, $remotePassword, $remot
     // Close SSH connection
     ssh2_disconnect($connection);
 
-    return array("returnCode" => '200', 'message' => "File copied successfully to $localFile");
+    return $localFile;
 }
 ?>

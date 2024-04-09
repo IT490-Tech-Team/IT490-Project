@@ -2,7 +2,8 @@
 <?php
 // Include required files
 require_once ('rabbitMQLib.inc');
-include_once ("functions/createPackage.php");
+include_once ("functions/downloadPackage.php");
+include_once ("functions/downloadDirectory.php");
 
 function getDatabaseConnection()
 {
@@ -78,8 +79,8 @@ function requestProcessor($request)
         }
 
         // Call createPackage function with retrieved details
-        $result = createPackage($hostname, $username, $password, $request['file_location']);
-        return $result;
+        $file = downloadPackage($hostname, $username, $password, $request['file_location']);
+        return array("returnCode" => '0', 'message' => "Request processed.");
     }
 
     // Default return if request type is not recognized
