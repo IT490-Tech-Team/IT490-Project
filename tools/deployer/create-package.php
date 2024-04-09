@@ -17,14 +17,19 @@ $exchangeQueueConfig = [
     "QUEUE" => "createPackageQueue"
 ];
 
+
 // Fetch arguments
 $environment = $argv[1];
-$file_location = $argv[2];
+$name = $argv[2];
+$file_location = $argv[3];
+$install_arguments = trim($argv[4]);
 
 $request = [
     "type" => "create-package",
     "environment" => $environment,
-    "file_location" => $file_location
+    "name" => $name,
+    "file_location" => $file_location,
+    "install_arguments" => $install_arguments
 ];
 
 // Sends the message and waits for a response

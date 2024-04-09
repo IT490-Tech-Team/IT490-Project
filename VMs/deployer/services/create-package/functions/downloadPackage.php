@@ -28,6 +28,6 @@ function downloadPackage($remoteHostname, $remoteUsername, $remotePassword, $rem
     // Close SSH connection
     ssh2_disconnect($connection);
 
-    return $localFile;
+    return array("returnCode" => '200', 'message' => $localFile);
 }
 ?>

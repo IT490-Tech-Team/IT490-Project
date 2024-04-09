@@ -3,7 +3,7 @@
 // Include required files
 require_once ('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
-include_once ("functions/downloadDirectory.php");
+include_once ("functions/addPackage.php");
 
 function getDatabaseConnection()
 {
@@ -80,6 +80,25 @@ function requestProcessor($request)
 
         // Call createPackage function with retrieved details
         $file = downloadPackage($hostname, $username, $password, $request['file_location']);
+
+        // Check if the download was successful
+        if ($downloadResult["returnCode"] !== '200') {
+          return array("returnCode" => '400', 'message' => "Error: Failed to download the package.");
+        }
+
+        // Extracting additional information from $request
+        $name = isset($request['name']) ? $request['name'] : ''; // Default to empty string if 'name' is not set
+        $fileLocation = $downloadResult['message']; // File location obtained from downloadPackage function
+        $installationFlags = isset($request['install_arguments']) ? $request['install_arguments'] : ''; // Default to empty string if 'install_arguments' is not set
+        $stage = $environment;
+
+        $addResult = addPackage($name, $fileLocation, $installationFlags, $stage);
+
+        // Check the result of adding package information
+        if ($addResult["returnCode"] !== '200') {
+          return array("returnCode" => '400', 'message' => "Error: Failed to add package information to the database.");
+        }
+        
         return array("returnCode" => '0', 'message' => "Request processed.");
     }
 
