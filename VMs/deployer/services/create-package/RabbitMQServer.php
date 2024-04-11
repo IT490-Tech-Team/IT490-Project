@@ -82,13 +82,13 @@ function requestProcessor($request)
         $file = downloadPackage($hostname, $username, $password, $request['file_location']);
 
         // Check if the download was successful
-        if ($downloadResult["returnCode"] !== '200') {
+        if ($file["returnCode"] !== '200') {
           return array("returnCode" => '400', 'message' => "Error: Failed to download the package.");
         }
 
         // Extracting additional information from $request
         $name = isset($request['name']) ? $request['name'] : ''; // Default to empty string if 'name' is not set
-        $fileLocation = $downloadResult['message']; // File location obtained from downloadPackage function
+        $fileLocation = $file['message']; // File location obtained from downloadPackage function
         $installationFlags = isset($request['install_arguments']) ? $request['install_arguments'] : ''; // Default to empty string if 'install_arguments' is not set
         $stage = $environment;
 
