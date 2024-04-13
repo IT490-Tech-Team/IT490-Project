@@ -52,6 +52,9 @@ function deleteDirectory($dir) {
     $files = array_diff(scandir($dir), array('.', '..'));
     foreach ($files as $file) {
         $path = "$dir/$file";
+        if ($file === '.git') {
+            continue; // Skip deleting .git directory
+        }
         if (is_dir($path)) {
             deleteDirectory($path);
         } else {
