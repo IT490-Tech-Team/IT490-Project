@@ -18,10 +18,7 @@ function downloadPackage($remoteHostname, $remoteUsername, $remotePassword, $rem
     $remoteFile = $remoteFilePath;
     // Local file path
     $localFile = $localDirectory . '/' . basename($remoteFile);
-	
-	echo "scp {$remoteUsername}@{$remoteHostname}:{$remoteFile} {$localFile}" . PHP_EOL;
-	echo "scp {$remoteUsername}@{$remoteHostname}:{$remoteFile} {$localFile}" . PHP_EOL;
-	echo "scp {$remoteUsername}@{$remoteHostname}:{$remoteFile} {$localFile}" . PHP_EOL;
+
     // Copy the file from the remote server to the local machine
     if (!ssh2_scp_recv($connection, $remoteFile, $localFile)) {
         return array("returnCode" => '400', 'message' => "Error: Failed to copy the file from the remote server.");
