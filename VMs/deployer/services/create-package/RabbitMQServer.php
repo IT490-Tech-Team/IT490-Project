@@ -59,15 +59,18 @@ function requestProcessor($request)
     if ($request["type"] === "create-package") {
         // Check if 'environment' is set in the request
         if (!isset($request['environment'])) {
-            return "ERROR: 'environment' not provided in request";
+            return array("returnCode" => '400', 'message' => "ERROR: 'environment' not provided in request");
         }
 
         // Retrieve environment details from the $computers array
         $environment = $request['environment'];
         if (!array_key_exists($environment, $computers)) {
-            return "ERROR: Invalid environment provided";
+          return array("returnCode" => '400', 'message' => "ERROR: Invalid environment provided");
         }
-
+        
+        if ($environment !== "dev"){
+          array("returnCode" => '400', 'message' => "Only dev can create packages.");
+        }
         // Extract hostname, username, and password for the given environment
         $hostname = $computers[$environment]['hostname'];
         $username = $computers[$environment]['username'];
@@ -91,6 +94,10 @@ function requestProcessor($request)
         $fileLocation = $file['message']; // File location obtained from downloadPackage function
         $installationFlags = isset($request['install_arguments']) ? $request['install_arguments'] : ''; // Default to empty string if 'install_arguments' is not set
         $stage = $environment;
+
+        if ($environment === "dev"){
+          $tage = "test";
+        }
 
         $addResult = addPackage($name, $fileLocation, $installationFlags, $stage);
 
