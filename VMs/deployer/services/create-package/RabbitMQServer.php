@@ -4,6 +4,7 @@
 require_once ('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
 include_once ("functions/addPackage.php");
+include_once ("functions/sendMessage.php");
 
 function getDatabaseConnection()
 {
@@ -69,7 +70,7 @@ function requestProcessor($request)
         }
         
         if ($environment !== "dev"){
-          array("returnCode" => '400', 'message' => "Only dev can create packages.");
+          return array("returnCode" => '400', 'message' => "Only dev can create packages.");
         }
         // Extract hostname, username, and password for the given environment
         $hostname = $computers[$environment]['hostname'];
@@ -93,11 +94,9 @@ function requestProcessor($request)
         $name = isset($request['name']) ? $request['name'] : ''; // Default to empty string if 'name' is not set
         $fileLocation = $file['message']; // File location obtained from downloadPackage function
         $installationFlags = isset($request['install_arguments']) ? $request['install_arguments'] : ''; // Default to empty string if 'install_arguments' is not set
-        $stage = $environment;
-
-        if ($environment === "dev"){
-          $tage = "test";
-        }
+        
+        
+        $stage = "test";
 
         $addResult = addPackage($name, $fileLocation, $installationFlags, $stage);
 
@@ -105,6 +104,15 @@ function requestProcessor($request)
         if ($addResult["returnCode"] !== '200') {
           return array("returnCode" => '400', 'message' => "Error: Failed to add package information to the database.");
         }
+
+        if ($environment === "dev"){
+          $exchange = "testStackExchange";
+          $queue = "testStackQueue";
+          
+          // Send Install Message to
+          sendMessage($exchange, $queue, $name, $fileLocation, $installationFlags);
+        }
+
         
         return array("returnCode" => '0', 'message' => "Request processed.");
     }
