@@ -68,6 +68,21 @@ done
 if [ "$backend" = true ]; then
     echo "Backend actions:"
     if [ "$flag_a" = true ]; then
+        cd ./VMs/backend/
+		sudo ./dependencies.sh
+		cd ../..
+    fi
+    if [ "$flag_b" = true ]; then
+        cd ./VMs/backend/
+		sudo ./sql.sh
+		cd ../..
+    fi
+    if [ "$flag_c" = true ]; then
+        cd ./VMs/backend/
+		sudo ./rabbitmq.sh
+		cd ../..
+    fi
+    if [ "$flag_d" = true ]; then
         cd tools
 		./serviceManager install search-db-receiver
 		./serviceManager install authentication-receiver
@@ -76,24 +91,9 @@ if [ "$backend" = true ]; then
 		./serviceManager install discussion-receiver
 		cd ..
     fi
-    if [ "$flag_b" = true ]; then
-        cd ./VMs/backend/
-		./sql.sh
-		cd ../..
-    fi
-    if [ "$flag_c" = true ]; then
-        cd ./VMs/backend/
-		./firewall.sh
-		cd ../..
-    fi
-    if [ "$flag_d" = true ]; then
-        cd ./VMs/backend/
-		./rabbitmq.sh
-		cd ../..
-    fi
     if [ "$flag_e" = true ]; then
         cd ./VMs/backend/
-		./dependencies.sh
+		sudo ./firewall.sh
 		cd ../..
     fi
 fi
@@ -102,34 +102,36 @@ if [ "$frontend" = true ]; then
     echo "Frontend actions:"
     if [ "$flag_f" = true ]; then
         cd ./VMs/frontend/
-		./copy_website.sh
+		sudo ./dependencies.sh
 		cd ../..
     fi
     if [ "$flag_g" = true ]; then
         cd ./VMs/frontend/
-		./copy_website.sh -r y
+		sudo ./copy_website.sh
 		cd ../..
     fi
     if [ "$flag_h" = true ]; then
         cd ./VMs/frontend/
-		./dependencies.sh
+		sudo ./copy_website.sh -r y
 		cd ../..
     fi
+
 fi
 
 if [ "$dmz" = true ]; then
     echo "DMZ actions:"
     if [ "$flag_i" = true ]; then
-        cd tools
-		./serviceManager install search-dmz-receiver
-		cd ..
-    fi
-    if [ "$flag_j" = true ]; then
-        echo "Action for flag j"
-    fi
-    if [ "$flag_k" = true ]; then
         cd ./VMs/dmz/
 		./dependencies.sh
 		cd ../..
     fi
+    if [ "$flag_j" = true ]; then
+        cd tools
+		./serviceManager install search-dmz-receiver
+		cd ..
+    fi
+    if [ "$flag_k" = true ]; then
+        echo "Action for flag j"
+    fi
+
 fi
