@@ -31,8 +31,9 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
         return array("returnCode" => '400', 'message' => "Failed to unzip package.");
     }
 
+
     // Run installer with environment and installation flags
-    $command = "cd $projectDirectory && ./installer.sh -$environment $installationFlags";
+    $command = "./installHelper.sh -$environment $installationFlags";
     echo "Running installer script: $command\n";
     exec($command, $output, $returnCode);
 
