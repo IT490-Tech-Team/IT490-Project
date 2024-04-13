@@ -6,12 +6,6 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
 
     echo "Parent directory: $parentDirectory\n";
 
-    // Delete the project directory if it exists
-    if (file_exists($projectDirectory)) {
-        echo "Deleting project directory: $projectDirectory\n";
-        deleteDirectory($projectDirectory);
-    }
-
     // Move the package file to the parent directory
     $packageFileName = basename($packageFilePath);
     $newPackageFilePath = $parentDirectory . '/' . $packageFileName;
@@ -22,8 +16,14 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
         return array("returnCode" => '400', 'message' => "Failed to move package file to parent directory.");
     }
 
+    // Delete the project directory if it exists
+    if (file_exists($projectDirectory)) {
+        echo "Deleting project directory: $projectDirectory\n";
+        deleteDirectory($projectDirectory);
+    }
+
     // Unzip packageFilePath to $projectDirectory
-    $command = "unzip -o $newPackageFilePath -d $projectDirectory";
+    $command = "unzip -o $newPackageFilePath -d $parentDirectory";
     echo "Unzipping package file to project directory: $projectDirectory\n";
     exec($command, $output, $returnCode);
 
