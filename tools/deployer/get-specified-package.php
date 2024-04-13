@@ -3,6 +3,7 @@
 
 require_once('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
+include_once ("functions/installPackage.php");
 
 $connectionConfig = [
     "BROKER_HOST" => "deployer",
@@ -31,7 +32,19 @@ $request = [
 $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
 $response = $client->send_request($request);
 
-downloadPackage("deployer", "ubuntu", "ubuntu", $response["file_location"]);
+$downloadPackageResponse = downloadPackage("deployer", "ubuntu", "ubuntu", $response["file_location"]);
+
+if($downloadPackageResponse["returnCode"] !== "200"){
+    http_response_code($response["returnCode"]);
+    echo json_encode($response);
+    exit(0);
+}
+
+$packagePath = $downloadPackageResponse["message"];
+$projectDirectory= implode("/", array_slice(explode("/",$_SERVER["PWD"]),0,-2));
+echo $projectDirectory . PHP_EOL;
+
+installPackage("dev", $packagePath, $projectDirectory, $response["installation_flags"]);
 
 // Returns response
 http_response_code($response["returnCode"]);
