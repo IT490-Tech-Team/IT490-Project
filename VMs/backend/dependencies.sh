@@ -31,6 +31,6 @@ sudo apt-get install -y mysql-server
 
 # Install PHP CLI, PHP MySQL extension, and PHP AMQP extension
 echo "Installing PHP CLI, PHP MySQL, and PHP AMQP extensions..."
-sudo apt-get install -y php-cli php-mysql php-amqp
+sudo apt-get install -y php-cli php-mysql php-amqp php-ssh2
 
 echo "Setup completed successfully."

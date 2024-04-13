@@ -30,4 +30,3 @@ function downloadPackage($remoteHostname, $remoteUsername, $remotePassword, $rem
 
     return array("returnCode" => '200', 'message' => $localFile);
 }
-?>

@@ -5,6 +5,7 @@ require_once ('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
 include_once ("functions/addPackage.php");
 include_once ("functions/sendMessage.php");
+include_once ("functions/sendPackageInfo.php");
 
 function getDatabaseConnection()
 {
@@ -115,6 +116,9 @@ function requestProcessor($request)
 
         
         return array("returnCode" => '0', 'message' => "Request processed.");
+    }
+    if ($request["type"] === "package-info"){
+      return sendPackageInfo($request["name"]);
     }
 
     // Default return if request type is not recognized
