@@ -16,11 +16,11 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
         return array("returnCode" => '400', 'message' => "Failed to move package file to parent directory.");
     }
 
-    // Delete the project directory if it exists
-    if (file_exists($projectDirectory)) {
-        echo "Deleting project directory: $projectDirectory\n";
-        deleteDirectory($projectDirectory);
-    }
+    // // Delete the project directory if it exists
+    // if (file_exists($projectDirectory)) {
+    //     echo "Deleting project directory: $projectDirectory\n";
+    //     deleteDirectory($projectDirectory);
+    // }
 
     // Unzip packageFilePath to $projectDirectory
     $command = "unzip -o $newPackageFilePath -d $parentDirectory";
@@ -33,7 +33,7 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
 
 
     // Run installer with environment and installation flags
-    $command = "./installHelper.sh -$environment $installationFlags";
+    $command = "/home/ubuntu/IT490-Project/tools/deployer/functions/installHelper.sh";
     echo "Running installer script: $command\n";
     exec($command, $output, $returnCode);
 
