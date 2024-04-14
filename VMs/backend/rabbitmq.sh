@@ -45,16 +45,24 @@ create_exchange_and_queue() {
 check_rabbitmqadmin
 
 # RabbitMQ admin authentication
-echo "Enter RabbitMQ admin username (default: 'guest', press Enter if unchanged): "
-read RABBITMQ_ADMIN_USER
-if [ -z "$RABBITMQ_ADMIN_USER" ]; then
-    RABBITMQ_ADMIN_USER="guest"
+if [ -z "$1" ]; then
+    echo "Enter RabbitMQ admin username (default: 'guest', press Enter if unchanged): "
+    read RABBITMQ_ADMIN_USER
+    if [ -z "$RABBITMQ_ADMIN_USER" ]; then
+        RABBITMQ_ADMIN_USER="guest"
+    fi
+else
+    RABBITMQ_ADMIN_USER="$1"
 fi
 
-echo "Enter RabbitMQ admin password (default: 'guest', press Enter if unchanged): "
-read -s RABBITMQ_ADMIN_PASS
-if [ -z "$RABBITMQ_ADMIN_PASS" ]; then
-    RABBITMQ_ADMIN_PASS="guest"
+if [ -z "$2" ]; then
+    echo "Enter RabbitMQ admin password (default: 'guest', press Enter if unchanged): "
+    read -s RABBITMQ_ADMIN_PASS
+    if [ -z "$RABBITMQ_ADMIN_PASS" ]; then
+        RABBITMQ_ADMIN_PASS="guest"
+    fi
+else
+    RABBITMQ_ADMIN_PASS="$2"
 fi
 
 # RabbitMQ admin host and port

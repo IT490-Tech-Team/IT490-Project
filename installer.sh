@@ -81,7 +81,7 @@ if [ "$backend" = true ]; then
     fi
     if [ "$flag_c" = true ]; then
         cd ./VMs/backend/
-		sudo ./rabbitmq.sh
+		sudo ./rabbitmq.sh guest guest
 		cd ../..
     fi
     if [ "$flag_d" = true ]; then
