@@ -23,10 +23,12 @@ $exchangeQueueConfig = [
 // Fetch arguments
 $packageName = $argv[1];
 $machineType = $argv[2];
+$version = isset($argv[3]) ? $argv[3] : null; // Get version if provided, otherwise null
 
 $request = [
     "type" => "package-info",
-    "name" => $packageName
+    "name" => $packageName,
+    "version" => $version // Add version to the request
 ];
 
 // Sends the message and waits for a response

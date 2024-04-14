@@ -117,9 +117,13 @@ function requestProcessor($request)
         
         return array("returnCode" => '0', 'message' => "Request processed.");
     }
-    if ($request["type"] === "package-info"){
-      return sendPackageInfo($request["name"]);
-    }
+    if ($request["type"] === "package-info") {
+      if (isset($request["version"]) && $request["version"] !== null) {
+          return sendPackageInfoVersion($request["name"], $request["version"]);
+      } else {
+          return sendPackageInfo($request["name"]);
+      }
+  }
 
     // Default return if request type is not recognized
     return array("returnCode" => '0', 'message' => "Request not processed.");
