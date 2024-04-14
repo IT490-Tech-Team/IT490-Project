@@ -16,7 +16,7 @@ TARGET_DIR=$(dirname $(dirname $(dirname "$SCRIPT_DIR")))
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
 # Create a backup directory if it doesn't exist
-PACKAGE_DIR="$TARGET_DIR/IT490-Project/packages/backup"
+PACKAGE_DIR="$TARGET_DIR/IT490-Project/packages/backups"
 mkdir -p "$PACKAGE_DIR"
 
 # Change directory to the target directory

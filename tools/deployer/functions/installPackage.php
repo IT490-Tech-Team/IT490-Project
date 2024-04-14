@@ -1,6 +1,6 @@
 <?php
 
-function installPackage($environment, $packageFilePath, $projectDirectory, $installationFlags){
+function installPackage($machine, $packageFilePath, $projectDirectory, $installationFlags){
     // Get the parent directory of the project directory
     $parentDirectory = dirname($projectDirectory);
 
@@ -32,8 +32,8 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
     }
 
 
-    // Run installer with environment and installation flags
-    $command = "sudo /home/ubuntu/IT490-Project/installer.sh -backend $installationFlags";
+    // Run installer with machine and installation flags
+    $command = "sudo /home/ubuntu/IT490-Project/installer.sh -$machine $installationFlags";
     echo "Running installer script: $command\n";
     exec($command, $output, $returnCode);
 
@@ -69,18 +69,18 @@ function deleteDirectory($dir) {
 if (basename(__FILE__) === basename($_SERVER['PHP_SELF'])) {
     // Check if the correct number of arguments are provided
     if ($argc < 5) {
-        echo "Usage: $argv[0] <environment> <packageFilePath> <projectDirectory> <installationFlags>\n";
+        echo "Usage: $argv[0] <machine> <packageFilePath> <projectDirectory> <installationFlags>\n";
         exit(1);
     }
 
     // Extract command line arguments
-    $environment = $argv[1];
+    $machine = $argv[1];
     $packageFilePath = $argv[2];
     $projectDirectory = $argv[3];
     $installationFlags = $argv[4];
 
     // Call the installPackage function with command line arguments
-    $result = installPackage($environment, $packageFilePath, $projectDirectory, $installationFlags);
+    $result = installPackage($machine, $packageFilePath, $projectDirectory, $installationFlags);
 
     // Output the result
     echo $result['message'] . "\n";

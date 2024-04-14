@@ -22,6 +22,7 @@ $exchangeQueueConfig = [
 
 // Fetch arguments
 $packageName = $argv[1];
+$machineType = $argv[2];
 
 $request = [
     "type" => "package-info",
@@ -42,9 +43,8 @@ if($downloadPackageResponse["returnCode"] !== "200"){
 
 $packagePath = $downloadPackageResponse["message"];
 $projectDirectory= implode("/", array_slice(explode("/",$_SERVER["PWD"]),0,-2));
-echo $projectDirectory . PHP_EOL;
 
-installPackage("dev", $packagePath, $projectDirectory, $response["installation_flags"]);
+installPackage($machineType, $packagePath, $projectDirectory, $response["installation_flags"]);
 
 // Returns response
 http_response_code($response["returnCode"]);
