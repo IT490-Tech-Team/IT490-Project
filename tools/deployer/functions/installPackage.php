@@ -33,7 +33,7 @@ function installPackage($environment, $packageFilePath, $projectDirectory, $inst
 
 
     // Run installer with environment and installation flags
-    $command = "/home/ubuntu/IT490-Project/installer.sh  -backend $installationFlags";
+    $command = "sudo /home/ubuntu/IT490-Project/installer.sh -backend $installationFlags";
     echo "Running installer script: $command\n";
     exec($command, $output, $returnCode);
 
