@@ -68,15 +68,16 @@ $connectionConfig = [
   // Create RabbitMQ server instance
   $server = new rabbitMQServer($connectionConfig, $exchangeQueueConfig);
   
-  $request = [
-    "type" => "install-package",
-    "environment" => "deployer",
-    "name" => "main",
-    "file_location" => "/home/ubuntu/IT490-Project/packages/backups/backup_2024-04-14_02-42-13.zip",
-    "install_arguments" => "-a -b -c -d -e -f -g -h -i -j -k"
-];
+// Lines 72-80 are all testing lines.
+//   $request = [
+//     "type" => "install-package",
+//     "environment" => "deployer",
+//     "name" => "main",
+//     "file_location" => "/home/ubuntu/IT490-Project/packages/backups/backup_2024-04-14_02-42-13.zip",
+//     "install_arguments" => "-a -b -c -d -e -f -g -h -i -j -k"
+// ];
 
-  requestProcessor($request);
+//   requestProcessor($request);
   // Main execution starts here
   echo "testRabbitMQServer BEGIN" . PHP_EOL;
   // Process incoming requests

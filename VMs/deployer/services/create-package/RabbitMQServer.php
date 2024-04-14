@@ -6,6 +6,7 @@ include_once ("functions/downloadPackage.php");
 include_once ("functions/addPackage.php");
 include_once ("functions/sendMessage.php");
 include_once ("functions/sendPackageInfo.php");
+include_once ("functions/managePackage.php");
 
 function getDatabaseConnection()
 {
@@ -95,11 +96,8 @@ function requestProcessor($request)
         $name = isset($request['name']) ? $request['name'] : ''; // Default to empty string if 'name' is not set
         $fileLocation = $file['message']; // File location obtained from downloadPackage function
         $installationFlags = isset($request['install_arguments']) ? $request['install_arguments'] : ''; // Default to empty string if 'install_arguments' is not set
-        
-        
-        $stage = "test";
 
-        $addResult = addPackage($name, $fileLocation, $installationFlags, $stage);
+        $addResult = addPackage($name, $fileLocation, $installationFlags, $environment);
 
         // Check the result of adding package information
         if ($addResult["returnCode"] !== '200') {
@@ -123,7 +121,24 @@ function requestProcessor($request)
       } else {
           return sendPackageInfo($request["name"]);
       }
-  }
+    }
+    if($request["type"] === "manage-package"){
+      $managedPackageResponse = managePackage($request["packageName"], $request["packageVersion"], $request["action"], $request["environment"]);
+
+      if($managedPackageResponse["returnCode"] === "201"){
+        if($request["environment"] === "test"){
+          $exchange = "prodStackExchange";
+          $queue = "prodStackQueue";
+
+          sendMessage($exchange, $queue, $name, $fileLocation, $installationFlags);
+        }
+      }
+      else if ($managedPackageResponse["returnCode"] === "202"){
+        return sendPackageInfo("main");
+      }
+
+      return $managedPackageResponse;
+    }
 
     // Default return if request type is not recognized
     return array("returnCode" => '0', 'message' => "Request not processed.");
