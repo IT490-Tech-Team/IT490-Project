@@ -4,6 +4,8 @@
 
 require_once ('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
+include_once ("functions/installPackage.php");
+
 // Function to process incoming requests
 function requestProcessor($request)
 {
