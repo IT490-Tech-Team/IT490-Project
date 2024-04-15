@@ -64,7 +64,7 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-cd "$HOME/IT490-Project"
+cd "/home/ubuntu/IT490-Project"
 
 # Perform actions based on group flags
 if [ "$backend" = true ]; then
