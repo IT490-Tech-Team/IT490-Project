@@ -5,7 +5,7 @@ require_once ('rabbitMQLib.inc');
 include_once ("functions/downloadPackage.php");
 include_once ("functions/addPackage.php");
 include_once ("functions/sendMessage.php");
-include_once ("functions/sendPackageInfo.php");
+include_once ("functions/sendPackageInfoVersion.php");
 include_once ("functions/managePackage.php");
 
 function getDatabaseConnection()
