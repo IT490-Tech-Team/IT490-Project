@@ -71,11 +71,17 @@ VHOST="bookQuest"
 # Original exchange and queue
 create_exchange_and_queue "createPackageExchange" "topic" "createPackageQueue"
 
-create_exchange_and_queue "devStackExchange" "topic" "devStackQueue"
+create_exchange_and_queue "dev-backend-Exchange" "topic" "dev-backend-Queue"
+create_exchange_and_queue "dev-frontend-Exchange" "topic" "dev-frontend-Queue"
+create_exchange_and_queue "dev-dmz-Exchange" "topic" "dev-dmz-Queue"
 
-create_exchange_and_queue "testStackExchange" "topic" "testStackQueue"
+create_exchange_and_queue "test-backend-Exchange" "topic" "test-backend-Queue"
+create_exchange_and_queue "test-frontend-Exchange" "topic" "test-frontend-Queue"
+create_exchange_and_queue "test-dmz-Exchange" "topic" "test-dmz-Queue"
 
-create_exchange_and_queue "prodStackExchange" "topic" "prodStackQueue"
+create_exchange_and_queue "prod-backend-Exchange" "topic" "prod-backend-Queue"
+create_exchange_and_queue "prod-frontend-Exchange" "topic" "prod-frontend-Queue"
+create_exchange_and_queue "prod-dmz-Exchange" "topic" "prod-dmz-Queue"
 
 
 # Create user

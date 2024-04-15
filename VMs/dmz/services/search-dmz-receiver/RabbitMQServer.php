@@ -5,18 +5,19 @@
 require_once('rabbitMQLib.inc');
 require_once('functions/query.php');
 
-// Get Path of JSON, Read JSON, Decode JSON
-$json_path = implode("/",array_slice(explode("/", $_SERVER["PHP_SELF"]), 1, -1));
-$json_file = 'environment.json';
-$json_data = file_get_contents("/" . $json_path . "/" . $json_file);
-$settings = json_decode($json_data, true);
+// Get the system hostname
+$hostname = gethostname();
 
-// Set the RABBITMQ_HOST variable from the current environment
-if (isset ($settings['currentEnvironment']) && isset ($settings[$settings['currentEnvironment']]['BROKER_HOST'])) {
-  $BROKER_HOST = $settings[$settings['currentEnvironment']]['BROKER_HOST'];
+// Split the hostname into parts using '-' as delimiter
+$parts = explode('-', $hostname);
+
+// Check if the first part of the hostname is 'dev', 'test', or 'prod'
+if (in_array($parts[0], ['dev', 'test', 'prod'])) {
+    // Replace the second part with 'backend'
+    $BROKER_HOST = $parts[0] . '-backend';
 } else {
-  // Set default value if there's an error or if the variable is null
-  $BROKER_HOST = '127.0.0.1';
+    // Set default value if there's an error or if the variable is null
+    $BROKER_HOST = '127.0.0.1';
 }
 
 function getDatabaseConnection()

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../rabbitMQLib.inc";
 
-function sendMessage($exchange, $queue, $name, $file_location, $install_arguments) {
+function sendMessage($stack, $name, $file_location, $install_arguments) {
     // RabbitMQ connection configuration
     $connectionConfig = [
         "BROKER_HOST" => "localhost",
@@ -12,29 +12,42 @@ function sendMessage($exchange, $queue, $name, $file_location, $install_argument
         "VHOST" => "bookQuest",
     ];
 
-    // Exchange and queue configuration
-    $exchangeQueueConfig = [
-        "EXCHANGE_TYPE" => "topic",
-        "AUTO_DELETE" => true,
-        "EXCHANGE" => $exchange,
-        "QUEUE" => $queue
+    // Define the exchanges and queues based on the stack
+    $exchangesQueues = [
+        "dev" => ["frontend", "backend", "dmz"],
+        "test" => ["frontend", "backend", "dmz"],
+        "prod" => ["frontend", "backend", "dmz"]
     ];
 
-    // Create RabbitMQ client
-    $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
+    // Create RabbitMQ client for each exchange and queue
+    foreach ($exchangesQueues[$stack] as $service) {
+        // Exchange and queue names
+        $exchange = "$stack-$service-Exchange";
+        $queue = "$stack-$service-Queue";
 
-    // Define the message payload
-    $message = [
-        "type" => "install-package",
-        "environment" => "deployer",
-        "name" => $name,
-        "file_location" => $file_location,
-        "install_arguments" => $install_arguments
-    ];
+        // Exchange and queue configuration
+        $exchangeQueueConfig = [
+            "EXCHANGE_TYPE" => "topic",
+            "AUTO_DELETE" => true,
+            "EXCHANGE" => $exchange,
+            "QUEUE" => $queue
+        ];
 
-    // Send the message
-    $test = $client->publish($message);
-	echo $test;
+        // Create RabbitMQ client
+        $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
+
+        // Define the message payload
+        $message = [
+            "type" => "install-package",
+            "environment" => "deployer",
+            "name" => $name,
+            "file_location" => $file_location,
+            "install_arguments" => $install_arguments
+        ];
+
+        // Send the message
+        $client->publish($message);
+    }
 }
 
 ?>

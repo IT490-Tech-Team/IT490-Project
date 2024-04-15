@@ -105,11 +105,7 @@ function requestProcessor($request)
         }
 
         if ($environment === "dev"){
-          $exchange = "testStackExchange";
-          $queue = "testStackQueue";
-          
-          // Send Install Message to
-          sendMessage($exchange, $queue, $name, $fileLocation, $installationFlags);
+          sendMessage("test", $name, $fileLocation, $installationFlags);
         }
 
         
@@ -127,10 +123,7 @@ function requestProcessor($request)
 
       if($managedPackageResponse["returnCode"] === "201"){
         if($request["environment"] === "test"){
-          $exchange = "prodStackExchange";
-          $queue = "prodStackQueue";
-
-          sendMessage($exchange, $queue, $name, $fileLocation, $installationFlags);
+          sendMessage("prod", $name, $fileLocation, $installationFlags);
         }
       }
       else if ($managedPackageResponse["returnCode"] === "202"){
