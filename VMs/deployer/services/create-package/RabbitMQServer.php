@@ -128,7 +128,9 @@ function requestProcessor($request)
         }
       }
       else if ($managedPackageResponse["returnCode"] === "202"){
-        return sendPackageInfo("main");
+        $packageResults = sendPackageInfo($request["packageName"]);
+
+        sendMessage($request["environment"], $packageResults["package_name"], $packageResults["file_location"], $packageResults["installation_flags"]);
       }
 
       return $managedPackageResponse;

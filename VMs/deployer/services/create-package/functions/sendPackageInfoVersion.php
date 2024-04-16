@@ -16,7 +16,7 @@ function sendPackageInfoVersion($packageName, $packageVersion)
     }
 
 	// Prepare SQL query to get the latest package with matching name and version
-	$sql = "SELECT * FROM packages WHERE name = ? AND version = ? ORDER BY id DESC LIMIT 1";
+	$sql = "SELECT * FROM packages WHERE name = ? AND version = ? AND status = 'good' ORDER BY id DESC LIMIT 1";
 
 	$stmt = $conn->prepare($sql);
 	if (!$stmt) {

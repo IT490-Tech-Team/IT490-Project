@@ -66,8 +66,8 @@ function managePackage($packageName, $packageVersion, $action, $environment) {
         ));
         
     } elseif ($action === "deny") {
-        // Delete the package entry from the database using prepared statement
-        $sql = "DELETE FROM packages WHERE name = ? AND version = ?";
+        // Update the status of the package entry in the database to 'bad'
+        $sql = "UPDATE packages SET status = 'bad' WHERE name = ? AND version = ?";
         $stmt = $conn->prepare($sql);
         
         if (!$stmt) {
@@ -86,7 +86,7 @@ function managePackage($packageName, $packageVersion, $action, $environment) {
         $stmt->close();
         $conn->close();
         
-        return array("returnCode" => '202', 'message' => "Package information deleted from the database successfully.");
+        return array("returnCode" => '202', 'message' => "Package status updated to 'bad' in the database successfully.");
         
     } else {
         $conn->close();

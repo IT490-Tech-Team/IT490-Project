@@ -15,8 +15,8 @@ function sendPackageInfo($packageName)
         return array("returnCode" => 500, "message" => "Failed to connect to the database.");
     }
 
-    // Prepare SQL query to get the latest package with matching name
-    $sql = "SELECT * FROM packages WHERE name = ? ORDER BY id DESC LIMIT 1";
+    // Prepare SQL query to get the latest package with matching name and status 'good'
+    $sql = "SELECT * FROM packages WHERE name = ? AND status = 'good' ORDER BY id DESC LIMIT 1";
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -37,8 +37,8 @@ function sendPackageInfo($packageName)
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
-        echo "No package found with the name: $packageName\n";
-        return array("returnCode" => 404, "message" => "No package found with the name: $packageName");
+        echo "No package found with the name: $packageName or status 'good'\n";
+        return array("returnCode" => 404, "message" => "No package found with the name: $packageName or status 'good'");
     }
 
     // Fetch the row

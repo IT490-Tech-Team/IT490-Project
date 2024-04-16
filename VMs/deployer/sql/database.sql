@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS packages (
     version VARCHAR(50),
     stage VARCHAR(50) NOT NULL,
     installation_flags TEXT,
-    file_location VARCHAR(255) NOT NULL
+    file_location VARCHAR(255) NOT NULL,
+    status ENUM('good', 'bad') DEFAULT 'good'
 );
