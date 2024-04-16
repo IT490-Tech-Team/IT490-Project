@@ -4,6 +4,8 @@ CREATE DATABASE IF NOT EXISTS bookShelf;
 -- Use the newly created database
 USE bookShelf;
 
+DROP TABLE IF EXISTS packages;
+
 -- Create table packages
 CREATE TABLE IF NOT EXISTS packages (
     id INT AUTO_INCREMENT PRIMARY KEY,
