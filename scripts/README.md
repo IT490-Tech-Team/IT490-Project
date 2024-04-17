@@ -4,32 +4,67 @@ This folder contains general-purpose scripts that are not specific to any partic
 
 ## Contents:
 
-- **startup.sh**: This script automatically sets up a new VM with Zsh, Oh-My-Zsh, Powerlevel10k, Nano, Git, and Tailscale, and also upgrades installed packages.
-- **tailscale_login_[member_name].sh**: Scripts for each member of this group to log into the Tailscale network with their respective Tailscale key.
+- **startup.sh**: File containing common commands after initializing a new VM and cloning the repository.
+- **gh_cli.sh**: Script for setting up GitHub and Git quickly.
+- **tailscale_login.sh**: Script for logging into the Tailscale network.
+- **set_hostname.sh**: Script for changing the machine's hostname.
+- **service_manager.sh**: Script for managing all services related to the project.
+
 
 ### startup.sh
 
-`startup.sh` is a script that automates the setup process for a new virtual machine (VM). It performs the following tasks:
+The `startup.sh` script is designed to automate the initial setup process when setting up a new virtual machine (VM) for the project. It performs essential and optional tasks such as updating package lists, installing Tailscale, setting up Zsh with Oh-My-Zsh and Powerlevel10k theme.
 
-1. Updates package lists and upgrades installed packages using `apt-get update` and `apt-get upgrade`.
-2. Installs Zsh: A powerful shell with additional features compared to the standard Bash shell.
-3. Installs Oh-My-Zsh: A community-driven framework for managing Zsh configurations.
-4. Installs Powerlevel10k theme: A highly customizable Zsh theme that provides useful information and customization options.
-5. Sets Zsh theme to Powerlevel10k.
-6. Changes default shell to Zsh.
-7. Installs Nano: A lightweight text editor that is easy to use and configure.
-8. Installs Git: A version control system for tracking changes in files and collaborating on projects.
-9. Installs Tailscale: A secure network mesh tool for connecting devices, services, and networks securely.
+### gh_cli.sh
 
-To use `startup.sh`, simply run it on a new VM, and it will automate the installation and configuration process for the mentioned packages and settings.
+The `gh_cli.sh` script automates the installation and configuration of GitHub CLI (gh) and Git. It streamlines the setup process, making it easier for users to integrate GitHub and Git into their development workflow.
 
-### tailscale_login_[member_name].sh
+### tailscale_login.sh
 
-There will also be a script for each member of this group to log into the Tailscale network with their respective Tailscale key. **Please ensure that you use your script, as each key has been preconfigured for each member.**
+The `tailscale_login.sh` script simplifies the setup process for connecting to Tailscale VPN, allowing users to specify the environment (prod, test, dev) and component (frontend, backend, dmz) they want to connect to. It sets up Tailscale with the appropriate parameters, facilitating secure access to the specified environment and component.
 
-Replace `[member_name]` with the name or identifier of the group member before running the script.
+#### How to Use:
+1. Run the script by executing the following command:
+    ```bash
+    bash tailscale_login.sh [prod|test|dev] [frontend|backend|dmz]
+    ```
+2. Replace `[prod|test|dev]` with the desired environment (prod, test, dev).
+3. Replace `[frontend|backend|dmz]` with the desired component (frontend, backend, dmz).
+4. The script will prompt you to enter the Tailscale authentication key if required.
+5. Once the script completes, Tailscale will be set up for the specified environment and component.
 
-Feel free to modify the scripts according to your specific requirements or preferences.
+### set_hostname.sh
+
+The `set_hostname.sh` script simplifies the process of setting the hostname of a machine. It takes two arguments and concatenates them with a hyphen to form the new hostname. Then, it sets the hostname using `hostnamectl` and displays the new hostname.
+
+#### How to Use:
+1. Run the script by executing the following command:
+    ```bash
+    bash set_hostname.sh <arg1> <arg2>
+    ```
+2. Replace `<arg1>` with the first part of the desired hostname.
+3. Replace `<arg2>` with the second part of the desired hostname.
+4. After execution, the script will set the hostname to the concatenated value of `<arg1>` and `<arg2>`.
+
+
+### service_manager.sh
+
+The `service_manager.sh` script provides a convenient way to manage services related to the project. It allows users to perform various actions such as installing, starting, stopping, restarting, checking status, and viewing logs for individual services or all services at once.
+
+### How to Use:
+1. Run the script by executing the following command:
+    ```bash
+    bash service_manager.sh [action] [service]
+    ```
+2. Replace `[action]` with one of the following:
+    - `install`: Install a/all service(s).
+    - `start`: Start a/all service(s).
+    - `stop`: Stop a/all service(s).
+    - `restart`: Restart a/all service(s).
+    - `status`: Show the status of a service.
+    - `log`: Show the log for a service.
+3. Replace `[service]` with the name of the service you want to perform the action on. You can specify `all` to perform the action on all services.
+4. After execution, the script will perform the specified action on the specified service(s).
 
 ## Running Scripts
 
@@ -43,13 +78,7 @@ To run the provided scripts, follow these steps:
    cd ~/scripts
    ```
 
-3. **Make the Script Executable**: If the script does not already have executable permissions, you can use the `chmod` command to add them. For example, to make the `startup.sh` script executable, you can run:
-
-   ```bash
-   chmod +x startup.sh
-   ```
-
-4. **Run the Script**: Once the script has executable permissions, you can run it by typing `./` followed by the script name and pressing Enter. For example, to run the `startup.sh` script, you would run:
+3. **Run the Script**: Once the script has executable permissions, you can run it by typing `./` followed by the script name and pressing Enter. For example, to run the `startup.sh` script, you would run:
 
    ```bash
    ./startup.sh
@@ -57,14 +86,6 @@ To run the provided scripts, follow these steps:
 
    If prompted, enter your password to allow the script to make system changes (such as installing packages).
 
-5. **Run Tailscale Login Script**: For Tailscale network login, use the corresponding `tailscale_login_[member_name].sh` script for each member. Replace `[member_name]` with the name or identifier of the group member. For example, to log in as Oscar, run:
-
-   ```bash
-   ./tailscale_login_oscar.sh
-   ```
-
-   Replace `oscar` with the name of the desired member.
-
-6. **Follow On-Screen Instructions**: Some scripts may prompt you for input or display information as they run. Follow any on-screen instructions to complete the process.
+4. **Follow On-Screen Instructions**: Some scripts may prompt you for input or display information as they run. Follow any on-screen instructions to complete the process.
 
 That's it! You've successfully run a script on your system. Repeat these steps for any other scripts you want to run.

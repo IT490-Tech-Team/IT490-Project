@@ -91,7 +91,7 @@ echo "Terminal is ready"
 
 7.  **Test Your Setup**
 
-    After completing the setup steps, test your development environment by accessing localhost in your web browser. This will allow you to verify if you can access the website.
+    After completing the setup steps, test your development environment by accessing `localhost` in your web browser. This will allow you to verify if you can access the website.
 
 8.  **Development Workflow**
 
