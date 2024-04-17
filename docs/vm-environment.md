@@ -58,92 +58,35 @@ echo "Terminal is ready"
     ./startup.sh
     ```
 
-5.  **Initialize Tailscale**
+5.  **(Optional) Initialize Tailscale**
 
-    Tailscale helps us connect with other project computers. Replace [your_name] with your actual first name and run:
-
-    ```bash
-    ./tailscale_login_[your_name].sh
-    ```
-
-6. install VM Requirements
-
-    Now, let's set up the requirements for each virtual machine (VM). Navigate to the /VMs directory within the project repository.
+    Tailscale helps us connect with other project computers.
 
     ```bash
-    cd VMs
+    ./tailscale_login.sh
     ```
 
-   - **Set up RabbitMQ**
+6. Using the Installer
+
+    Now, let's set up the requirements for each virtual machine (VM). Navigate to the project repository.
+
+
+   - **Set up Backend**
    
         ```bash
-        cd rabbitmq
-        ```
-        ```bash
-        ./setup.sh
-        ```
-        ```bash
-        ./rabbitmq.sh
-        ```
-
-   - **Go back to the VMs Folder**
-
-        ```bash
-        cd ..
+        ./installer.sh -backend -a -b -c -d -e -f -g -h -i -j -k
         ```
 
    - **Set up DMZ**
 
         ```bash
-        cd dmz
-        ```
-        ```bash
-        ./setup.sh
-        ```
-        ```bash
-        ./setup_services.sh
-        ```
-
-   - **Go back to the VMs Folder**
-   
-        ```bash
-        cd ..
-        ```
-
-   - **Set up Database**
-
-        ```bash
-        cd database
-        ```
-        ```bash
-        ./setup.sh
-        ```
-        ```bash
-        ./setup_services.sh
-        ```
-
-        This command is optional, but it enables you to look at the database as you make changes:
-
-        ```bash
-        ./phpmyadmin.sh
-        ```
-   
-   - **Go back to the VMs Folder**
-
-        ```bash
-        cd ..
+        ./installer.sh -dmz -a -b -c -d -e -f -g -h -i -j -k
         ```
 
    - **Set up Frontend**
    
         ```bash
-        cd frontend
-        ```
-        ```bash
-        ./setup.sh
-        ```
-        ```bash
-        ./copy_website.sh
+        ./installer.sh -frontend -a -b -c -d -e -f -g -h -i -j -k
         ```
 
 7.  **Test Your Setup**

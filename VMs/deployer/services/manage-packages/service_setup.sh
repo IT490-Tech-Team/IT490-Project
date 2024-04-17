@@ -4,7 +4,7 @@
 target_directory="/opt/$(basename "$(dirname "$0")")"
 
 # Define the service name
-service_name="create-package.service"
+service_name="manage-packages.service"
 
 # If the directory exists, delete it
 if [ -d "$target_directory" ]; then

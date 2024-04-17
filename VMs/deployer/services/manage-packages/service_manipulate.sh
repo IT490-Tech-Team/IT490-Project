@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service_name="create-package.service"
+service_name="manage-packages.service"
 
 function start_service {
     sudo systemctl start "$service_name"

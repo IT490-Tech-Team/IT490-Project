@@ -30,11 +30,11 @@ sudo cp -r ./website/* "$target_dir"
 if [ $? -eq 0 ]; then
     echo "Files copied successfully."
 
-    # Copy file ./bookquest.conf to /etc/apache2/sites-available
-    sudo cp ./bookquest.conf /etc/apache2/sites-available
-
     # Check if the symbolic link exists
     if [ ! -e "/etc/apache2/sites-enabled/bookquest.conf" ]; then
+        # Delete any existing websites in sites-enabled directory
+        sudo rm -f /etc/apache2/sites-enabled/*
+
         # Create symbolic link to enable the site
         sudo ln -s /etc/apache2/sites-available/bookquest.conf /etc/apache2/sites-enabled/
         
