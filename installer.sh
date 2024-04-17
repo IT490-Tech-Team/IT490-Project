@@ -1,5 +1,8 @@
 #!/bin/bash
 
+project_dir="/home/ubuntu/IT490-Project"
+backup_dir="$HOME/IT490-Project"
+
 # Initialize flags
 backend=false
 frontend=false
@@ -64,7 +67,21 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-cd "/home/ubuntu/IT490-Project"
+# Check if the project directory exists
+if [ -d "$project_dir" ]; then
+    cd "$project_dir"
+    echo "Changed directory to $project_dir"
+else
+    # If the project directory doesn't exist, go to the backup directory
+    if [ -d "$backup_dir" ]; then
+        cd "$backup_dir"
+        echo "Changed directory to $backup_dir"
+    else
+        # If neither directory exists, print an error message
+        echo "Neither $project_dir nor $backup_dir exists."
+        exit 1
+    fi
+fi
 
 # Perform actions based on group flags
 if [ "$backend" = true ]; then

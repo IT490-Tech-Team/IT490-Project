@@ -38,7 +38,7 @@ done
 
 # Create the zip file in the backup directory, skipping the 'packages' directory
 ZIP_FILE="$PACKAGE_DIR/backup_$TIMESTAMP.zip"
-zip -r "$ZIP_FILE" IT490-Project -x "IT490-Project/packages/backups/*" -x "IT490-Project/.git/*"
+zip -r "$ZIP_FILE" IT490-Project -x "IT490-Project/packages/backups/backup_*" -x "IT490-Project/.git/*"
 
 echo "Zip file created in $ZIP_FILE"
 
