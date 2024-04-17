@@ -45,24 +45,16 @@ create_exchange_and_queue() {
 check_rabbitmqadmin
 
 # RabbitMQ admin authentication
-if [ -z "$1" ]; then
-    echo "Enter RabbitMQ admin username (default: 'guest', press Enter if unchanged): "
-    read RABBITMQ_ADMIN_USER
-    if [ -z "$RABBITMQ_ADMIN_USER" ]; then
-        RABBITMQ_ADMIN_USER="guest"
-    fi
-else
-    RABBITMQ_ADMIN_USER="$1"
+echo "Enter RabbitMQ admin username (default: 'guest', press Enter if unchanged): "
+read RABBITMQ_ADMIN_USER
+if [ -z "$RABBITMQ_ADMIN_USER" ]; then
+    RABBITMQ_ADMIN_USER="guest"
 fi
 
-if [ -z "$2" ]; then
-    echo "Enter RabbitMQ admin password (default: 'guest', press Enter if unchanged): "
-    read -s RABBITMQ_ADMIN_PASS
-    if [ -z "$RABBITMQ_ADMIN_PASS" ]; then
-        RABBITMQ_ADMIN_PASS="guest"
-    fi
-else
-    RABBITMQ_ADMIN_PASS="$2"
+echo "Enter RabbitMQ admin password (default: 'guest', press Enter if unchanged): "
+read -s RABBITMQ_ADMIN_PASS
+if [ -z "$RABBITMQ_ADMIN_PASS" ]; then
+    RABBITMQ_ADMIN_PASS="guest"
 fi
 
 # RabbitMQ admin host and port
@@ -77,24 +69,20 @@ RABBITMQ_PASS="8bkJ3r4dWSU1lkL6HQT7"
 VHOST="bookQuest"
 
 # Original exchange and queue
-create_exchange_and_queue "authenticationExchange" "topic" "authenticationQueue"
+create_exchange_and_queue "createPackageExchange" "topic" "createPackageQueue"
 
-# Create RabbitMQ resources for searchDatabase exchange and queue
-create_exchange_and_queue "searchDatabaseExchange" "topic" "searchDatabaseQueue"
+create_exchange_and_queue "dev-backend-Exchange" "topic" "dev-backend-Queue"
+create_exchange_and_queue "dev-frontend-Exchange" "topic" "dev-frontend-Queue"
+create_exchange_and_queue "dev-dmz-Exchange" "topic" "dev-dmz-Queue"
 
-# Create RabbitMQ resources for searchDmz exchange and queue
-create_exchange_and_queue "searchDmzExchange" "topic" "searchDmzQueue"
+create_exchange_and_queue "test-backend-Exchange" "topic" "test-backend-Queue"
+create_exchange_and_queue "test-frontend-Exchange" "topic" "test-frontend-Queue"
+create_exchange_and_queue "test-dmz-Exchange" "topic" "test-dmz-Queue"
 
-# Create RabbitMQ resources for searchFrontend exchange and queue
-create_exchange_and_queue "searchFrontendExchange" "topic" "searchFrontendQueue"
+create_exchange_and_queue "prod-backend-Exchange" "topic" "prod-backend-Queue"
+create_exchange_and_queue "prod-frontend-Exchange" "topic" "prod-frontend-Queue"
+create_exchange_and_queue "prod-dmz-Exchange" "topic" "prod-dmz-Queue"
 
-# Create RabbitMQ resources for discussion exchange and queue
-create_exchange_and_queue "discussionExchange" "topic" "discussionQueue"
-
-# Create RabbitMQ resources for reviews exchange and queue
-create_exchange_and_queue "reviewsExchange" "topic" "reviewsQueue"
-
-create_exchange_and_queue "emailExchange" "topic" "emailQueue"
 
 # Create user
 output=$(sudo rabbitmqadmin --host=$RABBITMQ_ADMIN_HOST --port=$RABBITMQ_ADMIN_PORT --username=$RABBITMQ_ADMIN_USER --password=$RABBITMQ_ADMIN_PASS declare user name="$RABBITMQ_USER" password="$RABBITMQ_PASS" tags="" 2>&1)

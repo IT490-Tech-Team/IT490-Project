@@ -33,4 +33,7 @@ sudo apt-get install -y mysql-server
 echo "Installing PHP CLI, PHP MySQL, and PHP AMQP extensions..."
 sudo apt-get install -y php-cli php-mysql php-amqp php-ssh2
 
+echo "Installing Python..."
+sudo apt install python3
+
 echo "Setup completed successfully."

@@ -1,30 +1,21 @@
-# Systems Integration: Online Bookshelf Service
+# BookQuest
 
-This repo holds the source code for **Tech Team's** System Integration project. The goal is to create a service with 4 VMs (Frontend, Database, DMZ, and RabbitMQ), which each VM being hosted by a seperate student. We, the **Tech Team**, have chosen to host an Online Bookshelf service.
+Welcome to BookQuest, the collaborative repository developed as part of the IT490 course at the New Jersey Institute of Technology. This repository serves as the central hub for the BookQuest project, where students can access project resources, contribute code, and participate in the development process.
+
+For additional details, refer to our [proposal.md](./docs/proposal.md).
 
 ## Want to Contribute?
 
-**Interested in contributing to the project? Please check out the guides section below, with a special emphasis on the [Development Environment guide](/docs/vm-environment.md)!**
+Excited to contribute to BookQuest? Check out our [Development Environment guide](/docs/vm-environment.md) to get started on making BookQuest even better!
 
+## More Information
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Project Structure](#project-structure)
-3. [Guides](#guides)
+Explore the inner workings of BookQuest through our detailed README files:
 
-## Project Overview
-
-The Online Bookshelf service allows users to easily find and save books tailored to their interests. Users can search for books, read reviews, leave their own reviews, and access personal bookshelves. Recommendations are provided based on user interests and reading history.
-
-For more details, refer to [proposal.md](./docs/proposal.md).
-
-## Project Structure
-
-The repository is organized into folders corresponding to each VM. Please make sure to read each machine's README to fully understand the contents of each.
-
-| Component    | Description                                                                | README                             |
-| ------------ | -------------------------------------------------------------------------- | ---------------------------------- |
-| **Database** | Contains setup instructions and scripts for setting up the MySQL database. | [README](./VMs/database/README.md) |
-| **DMZ**      | Contains files related to the DMZ (Demilitarized Zone) service.            | [README](./VMs/DMZ/README.md)      |
-| **Frontend** | Contains files and folders related to the frontend service.                | [README](./VMs/frontend/README.md) |
-| **RabbitMQ** | Contains files and scripts related to the RabbitMQ service.                | [README](./VMs/RabbitMQ/README.md) |
+| Folder           | Description                                                                     | Link                              |
+| ---------------- | ------------------------------------------------------------------------------- | --------------------------------- |
+| **Scripts**      | Folder for miscellaneous scripts, e.g., startup, service_manager.               | [README](./scripts/README.md) |
+| **VMs/backend**  | Website's Core, hosting the database, message broker, and most "services".      | [README](./VMs/backend/README.md) |
+| **VMs/dmz**      | Middle ground between API and backend.                                          | [README](./VMs/dmz/README.md) |
+| **VMs/frontend** | Contains files to host website frontend, powered by Apache.                     | [README](./VMs/frontend/README.md) |
+| **VMs/deployer** | Manages VM "packages" and installation logic, simplifying project distribution. | [README](./VMs/deployer/README.md) |
