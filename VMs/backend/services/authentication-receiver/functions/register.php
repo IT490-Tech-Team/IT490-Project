@@ -8,9 +8,12 @@ function doRegister($username, $password, $email)
     }
 
     try {
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         // Prepare SQL statement to prevent SQL injection
         $stmt = $conn->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $password, $email);
+        $stmt->bind_param("sss", $username, $hashed_password, $email);
         $stmt->execute();
 
         return array(
