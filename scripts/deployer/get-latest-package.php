@@ -44,7 +44,7 @@ $environment = $argv[1];
 $machineType = $argv[2];
 
 $connectionConfig = [
-    "BROKER_HOST" => "deployer",
+    "BROKER_HOST" => "website",
     "BROKER_PORT" => 5672,
     "USER" => "bookQuest",
     "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
