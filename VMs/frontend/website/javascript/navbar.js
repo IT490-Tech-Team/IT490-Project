@@ -28,8 +28,6 @@ const addServerChanger = (container) => {
     // If the server cookie is set, then it's safe to show the user the cookie changer.
     // If it isn't set, then they don't need to change servers
     if (currentServer){
-        currentServer = SERVERS[0]
-
         const serverChangerLink = document.createElement("a")
         serverChangerLink.textContent = currentServer
         serverChangerLink.href = ""
