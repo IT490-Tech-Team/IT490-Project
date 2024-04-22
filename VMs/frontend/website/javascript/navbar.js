@@ -33,7 +33,7 @@ const addServerChanger = (container) => {
         const serverChangerLink = document.createElement("a")
         serverChangerLink.textContent = currentServer
         serverChangerLink.href = ""
-        serverChangerLink.addEventListener("click", () => {
+        serverChangerLink.addEventListener("click", (e) => {
             e.preventDefault()
             // It takes the index of currentServer, adds 1, then gets the value at this new index
             // If this is undefined (i.e. new index is too much), it's going to default to the first server on the list.
