@@ -17,13 +17,12 @@ $request = $_POST;
 
 $BROKER_HOST = "127.0.0.1"; // Default
 
-$requestUrlArray = explode("-", $_SERVER["HTTP_HOST"]);
-// checks if the first machine is frontend to set broker dynamically (production/development)
-if($requestUrlArray[1] === "frontend.tortoise")
-{
-    $requestUrlArray[1] = "backend.tortoise";
-    $BROKER_HOST = implode("-",$requestUrlArray);
-}
+// * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
+// * dynamically changes the hostname depending on the server's hostname
+// * i.e. dev-frontend turns into dev-backend 
+$hostname = explode("-", gethostname());
+$hostname[1] = "backend";
+$BROKER_HOST = implode("-",$hostname);
 
 $connectionConfig = [
     "BROKER_HOST" => $BROKER_HOST,
