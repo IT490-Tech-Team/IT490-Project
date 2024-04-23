@@ -1,0 +1,25 @@
+# config.yml
+
+log:
+  level: DEBUG
+
+api:
+  insecure: true
+
+providers:
+  file:
+    filename: "/etc/traefik/dynamic.yml"
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  myresolver:
+    tailscale: {}
+
+labels:
+  - "traefik.enable=true"
