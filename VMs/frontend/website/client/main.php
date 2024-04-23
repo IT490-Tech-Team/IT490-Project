@@ -19,10 +19,15 @@ $BROKER_HOST = "127.0.0.1"; // Default
 
 // * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
 // * dynamically changes the hostname depending on the server's hostname
-// * i.e. dev-frontend turns into dev-backend 
+// * i.e. dev-frontend turns into dev-backend
 $hostname = explode("-", gethostname());
-$hostname[1] = "backend";
-$BROKER_HOST = implode("-",$hostname);
+if($hostname[1] === "frontend" || $hostname[1] === "dmz"){
+    $hostname[1] = "backend";
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST .= ".tortoise-daggertooth.ts.net";
+}
+
 
 $connectionConfig = [
     "BROKER_HOST" => $BROKER_HOST,

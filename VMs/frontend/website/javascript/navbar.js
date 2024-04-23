@@ -38,6 +38,7 @@ const addServerChanger = (container) => {
             const newServer = SERVERS[SERVERS.indexOf(currentServer) + 1] ?? SERVERS[0] 
     
             setCookies(SERVER_COOKIE_NAME, newServer)
+            logOut(e)
         })
         
         container.appendChild(serverChangerLink)
