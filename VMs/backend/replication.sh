@@ -52,7 +52,7 @@ setup_slave() {
   sudo service mysql restart
 
   # Connect Slave to Master
-  sudo mysql -e "CHANGE MASTER TO MASTER_HOST='$master_ip', MASTER_USER='$REPLICATION_USER', MASTER_PASSWORD='$REPLICATION_PASSWORD';"
+  sudo mysql -e "CHANGE MASTER TO MASTER_HOST='$master_domain', MASTER_USER='$REPLICATION_USER', MASTER_PASSWORD='$REPLICATION_PASSWORD';"
 
   # Start Replication
   sudo mysql -e "START SLAVE;"
@@ -97,5 +97,3 @@ else
   echo "Invalid relationship parameter. It should be 'parent' or 'child'."
   exit 1
 fi
-
-
