@@ -6,6 +6,17 @@ REPLICATION_PASSWORD="A5mr0dla2gIl"
 
 # Function to setup master
 setup_master() {
+  local log_bin_path=""
+
+  if [ "$MACHINE_TYPE" == "main" ]; then
+    log_bin_path="/var/log/mysql/mysql-bin-main.log"
+  elif [ "$MACHINE_TYPE" == "backup" ]; then
+    log_bin_path="/var/log/mysql/mysql-bin-backup.log"
+  else
+    echo "Invalid machine type. Use 'main' or 'backup'."
+    exit 1
+  fi
+
   # Enable Binary Logging
   echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
   echo "server-id = 1" | sudo tee -a /etc/mysql/my.cnf
@@ -24,6 +35,15 @@ setup_master() {
 
 # Function to setup slave
 setup_slave() {
+  if [ "$MACHINE_TYPE" == "backup" ]; then
+    log_bin_path="/var/log/mysql/mysql-bin-main.log"
+  elif [ "$MACHINE_TYPE" == "main" ]; then
+    log_bin_path="/var/log/mysql/mysql-bin-backup.log"
+  else
+    echo "Invalid machine type. Use 'main' or 'backup'."
+    exit 1
+  fi
+
   # Enable Binary Logging
   echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
   echo "server-id = 2" | sudo tee -a /etc/mysql/my.cnf
@@ -33,7 +53,7 @@ setup_slave() {
   sudo service mysql restart
 
   # Connect Slave to Master
-  sudo mysql -e "CHANGE MASTER TO MASTER_HOST='$master_domain', MASTER_USER='$REPLICATION_USER', MASTER_PASSWORD='$REPLICATION_PASSWORD';"
+  sudo mysql -e "CHANGE MASTER TO MASTER_HOST='$master_ip', MASTER_USER='$REPLICATION_USER', MASTER_PASSWORD='$REPLICATION_PASSWORD';"
 
   # Start Replication
   sudo mysql -e "START SLAVE;"
@@ -51,17 +71,6 @@ fi
 
 MACHINE_TYPE="$1"
 RELATIONSHIP="$2"
-
-if [ "$MACHINE_TYPE" == "main" ]; then
-  log_bin_path="/var/log/mysql/mysql-bin-main.log"
-  master_domain="prod-backend-backend"
-elif [ "$MACHINE_TYPE" == "backup" ]; then
-  log_bin_path="/var/log/mysql/mysql-bin-backup.log"
-  master_domain="prod-backend"
-else
-  echo "Invalid machine type. Use 'main' or 'backup'."
-  exit 1
-fi
 
 # Check the relationship parameter
 if [ "$RELATIONSHIP" == "parent" ]; then
