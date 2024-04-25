@@ -67,11 +67,7 @@ fi
 if [ "$RELATIONSHIP" == "parent" ]; then
   setup_master
 elif [ "$RELATIONSHIP" == "child" ]; then
-  if [ -z "$3" ]; then
-    echo "Usage: $0 child <parent_ip>"
-    exit 1
-  fi
-  setup_slave "$3"
+  setup_slave
 else
   echo "Invalid relationship parameter. It should be 'parent' or 'child'."
   exit 1
