@@ -24,12 +24,6 @@ setup_master() {
 
 # Function to setup slave
 setup_slave() {
-  # Check if parent_ip parameter is provided
-  if [ -z "$1" ]; then
-    echo "Usage: $0 child <parent_ip>"
-    exit 1
-  fi
-
   # Enable Binary Logging
   echo "[mysqld]" | sudo tee -a /etc/mysql/my.cnf
   echo "server-id = 2" | sudo tee -a /etc/mysql/my.cnf
