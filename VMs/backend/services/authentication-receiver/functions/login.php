@@ -9,13 +9,19 @@ function doLogin($username, $password)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         $row = $result->fetch_assoc();
         if (!$row) {
+            return array("returnCode" => 400, "message" => "Invalid username or password");
+        }
+
+        // Verify the password
+        $hashed_password = $row['password'];
+        if (!password_verify($password, $hashed_password)) {
             return array("returnCode" => 400, "message" => "Invalid username or password");
         }
 
