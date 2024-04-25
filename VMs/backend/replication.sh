@@ -54,10 +54,10 @@ RELATIONSHIP="$2"
 
 if [ "$MACHINE_TYPE" == "main" ]; then
   log_bin_path="/var/log/mysql/mysql-bin-main.log"
-  master_domain="prod-backend"
+  master_domain="prod-backend-backend"
 elif [ "$MACHINE_TYPE" == "backup" ]; then
   log_bin_path="/var/log/mysql/mysql-bin-backup.log"
-  master_domain="prod-backend-backup"
+  master_domain="prod-backend"
 else
   echo "Invalid machine type. Use 'main' or 'backup'."
   exit 1
