@@ -1,9 +1,11 @@
 import { fetchData } from "./_main.js"
+import { addLog } from "./log.js"
 
 const exchange = "authenticationExchange"
 const queue = "authenticationQueue"
 
 export const login = ({ username, password }) => {
+	addLog('Debug', 'Logging in user...', window.location.pathname);
     return fetchData({
         type: "login",
         exchange: exchange,
@@ -16,10 +18,15 @@ export const login = ({ username, password }) => {
             sessionId: data.sessionId,
             expired_at: data.expired_at
         }
+    })
+    .catch(error => {
+        addLog('Error', 'Error logging in user: ' . error.message, window.location.pathname);
+        throw error;
     });
 };
 
 export const register = ({ username, password, email }) => {
+	addLog('Debug', 'Registering user...', window.location.pathname);
     return fetchData({
         type: "register",
         exchange: exchange,
@@ -28,17 +35,26 @@ export const register = ({ username, password, email }) => {
         password: password,
         email: email,
     })
-    .then(data => { return {}});
+    .then(data => { return {}})
+    .catch(error => {
+        addLog('Error', 'Error registering user: ' . error.message, window.location.pathname);
+        throw error;
+    });
 }
 
 export const validateSession = ({ sessionId }) => {
+	addLog('Debug', 'Validating user...');
     return fetchData({
         type: "validate_session",
         exchange: exchange,
         queue: queue,
         sessionId: sessionId
     })
-    .then(data => { return {}});
+    .then(data => { return {}})
+    .catch(error => {
+        addLog('Error', 'Error validating user: ' . error.message, window.location.pathname);
+        throw error;
+    });
 }
 
 export const getUser = ({sessionId}) => {
@@ -54,14 +70,26 @@ export const getUser = ({sessionId}) => {
             userLibrary: data.userLibrary
         }
     })
+    .catch(error => {
+        addLog('Error', 'Error fetching user data: ' . error.message, window.location.pathname);
+        throw error;
+    });
 }
 
 export const getUserDetails = ({ sessionId }) => {
     return getUser({sessionId})
     .then(data => data.userDetails)
+    .catch(error => {
+        addLog('Error', 'Error getting user details: ' . error.message, window.location.pathname);
+        throw error;
+    });
 }
 
 export const getUserLibrary = ({ sessionId }) => {
     return getUser({sessionId})
     .then(data => data.userLibrary)
+    .catch(error => {
+        addLog('Error', 'Error getting user library: ' . error.message, window.location.pathname);
+        throw error;
+    });
 }
