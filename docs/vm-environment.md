@@ -4,17 +4,19 @@ This guide is designed to help contributors, especially those new to working wit
 
 ## Introduction
 
-This guide provides step-by-step instructions to set up the Database, DMZ, Frontend, and RabbitMQ components of the project. We recommend performing these setup steps within a virtual machine to prevent any changes to your personal computer.
+This guide provides step-by-step instructions to set up the Backend, Frontend, and DMZ components of the project. We recommend performing these setup steps within a virtual machine to prevent any changes to your personal computer.
 
-> **Important**: While we aim to cover various scenarios, this guide may not address all potential errors. If you encounter issues, pay attention to your terminal's output and utilize online resources, such as search engines, to resolve them promptly.
+> **Important**: While we aim to cover various scenarios, this guide may not address all potential errors. If you encounter issues, pay attention to your terminal's output and utilize online resources to resolve them promptly.
 
 ## Before you Begin
 
-Before diving into the setup process, ensure that you have a terminal emulator installed on your system. If you're unsure, you can check by searching for a terminal application in your VM and running the following command:
+Before diving into the setup process, ensure that you have a terminal installed on your system/virtual machine. If you're unsure, you can check by searching for a terminal application and running the following command inside of it:
 
 ```bash
 echo "Terminal is ready"
 ```
+
+Still unsure about what a command even is? Don't fret and go to this [README](/docs/terminal.md) to learn more!
 
 ## Step-by-Step Setup
 
@@ -23,7 +25,7 @@ echo "Terminal is ready"
    Begin by updating your package lists. Run the following command in your terminal:
 
     ```bash
-    sudo apt-get update
+    sudo apt-get update && sudo apt-get upgrade -y
     ```
 
 2. **Install Git**
@@ -52,7 +54,7 @@ echo "Terminal is ready"
     cd IT490-Project/scripts
     ```
 
-    Then run the startup script:
+    Then run the startup script and follow the directions on the terminal:
 
     ```bash
     ./startup.sh

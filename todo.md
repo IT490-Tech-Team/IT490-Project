@@ -1,5 +1,7 @@
-- [ ] copy over environment
-- [ ] make the php my admin stuff do the website stuff
-- [ ] DMZ Clean
-- [ ] Frontend Clean
-- [ ] Test deploying into clean VMs
+- [ ] full project setup readme
+- [ ] update scripts
+- [ ] update backend
+- [ ] update frontend
+- [ ] update dmz
+- [ ] update deployer
+- [ ] make a load balancer readme

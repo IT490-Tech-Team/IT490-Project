@@ -1,0 +1,64 @@
+http:
+  routers:
+    prod_router:
+      entryPoints:
+        - web
+      service: app
+      rule: "PathPrefix(`/`)"
+
+
+    prod_router_https:
+      entryPoints:
+        - websecure
+      service: app
+      rule: "PathPrefix(`/`)"
+      tls:
+        certResolver: myresolver
+        domains:
+          - main: website.tortoise-daggertooth.ts.net
+
+    test_router:
+      entryPoints:
+        - web
+        - websecure
+      service: test_frontend
+      rule: "HeaderRegexp(`Cookie`, `server=test`)"
+
+    dev_router:
+      entryPoints:
+        - web
+        - websecure
+      service: dev_frontend
+      rule: "HeaderRegexp(`Cookie`, `server=dev`)"
+
+  services:
+    app:
+      failover:
+        service: prod_frontend
+        fallback: prod_frontend_backup
+
+    prod_frontend:
+      loadBalancer:
+        servers:
+          - url: "http://prod-frontend/"
+        healthCheck:
+          path: "/"
+        passHostHeader: true
+
+    prod_frontend_backup:
+      loadBalancer:
+        servers:
+          - url: "http://prod-frontend-backup/"
+        passHostHeader: true
+
+    test_frontend:
+      loadBalancer:
+        servers:
+          - url: "http://test-frontend/"
+        passHostHeader: true
+
+    dev_frontend:
+      loadBalancer:
+        servers:
+          - url: "http://dev-frontend/"
+        passHostHeader: true

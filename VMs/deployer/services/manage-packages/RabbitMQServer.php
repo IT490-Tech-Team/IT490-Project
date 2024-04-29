@@ -124,7 +124,7 @@ function requestProcessor($request)
 
       if($managedPackageResponse["returnCode"] === "201"){
         if($request["environment"] === "test"){
-          sendMessage("prod", $name, $fileLocation, $installationFlags);
+          sendMessage("prod", $managedPackageResponse["package_name"], $managedPackageResponse["file_location"], $managedPackageResponse["installation_flags"]);
         }
       }
       else if ($managedPackageResponse["returnCode"] === "202"){
