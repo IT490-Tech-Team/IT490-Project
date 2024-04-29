@@ -133,4 +133,4 @@ Congratulations! You've successfully set up your development environment for the
 
 Now that you have the website set up on your VM, you are free to work on it however you'd like. If you don't have a particular way you prefer, we recommended you follow the following video:
 
- ![Recommended Workflow Guide](/docs/recommended-workflow.mp4)
+[![Watch the video](https://drive.google.com/thumbnail?id=1yyaTkbtWKjgzzIPolAcR1FByjrJd9AAC)](https://drive.google.com/file/d/1yyaTkbtWKjgzzIPolAcR1FByjrJd9AAC/view?usp=share_link)
