@@ -1,3 +1,7 @@
+- [ ] update VM environment
+- [ ] MacOS guide
+- [ ] Windows/Linux Guide
+- [ ] Startup Script
 - [ ] full project setup readme
 - [ ] update scripts
 - [ ] update backend

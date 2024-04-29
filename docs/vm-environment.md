@@ -1,22 +1,28 @@
 # Development Environment
 
-This guide is designed to help contributors, especially those new to working with terminals, set up all the necessary components of the project on their machines.
+This guide is designed to help contributors set up all the necessary components of the project on their machines. It provides step-by-step instructions to set up the Backend, Frontend, and DMZ components of the project into a singular machine.
 
-## Introduction
-
-This guide provides step-by-step instructions to set up the Backend, Frontend, and DMZ components of the project. We recommend performing these setup steps within a virtual machine to prevent any changes to your personal computer.
-
-> **Important**: While we aim to cover various scenarios, this guide may not address all potential errors. If you encounter issues, pay attention to your terminal's output and utilize online resources to resolve them promptly.
+> **Important:** While we aim to cover various scenarios, this guide may not address all potential errors. If you encounter issues, pay attention to your terminal's output and utilize online resources to resolve them promptly.
 
 ## Before you Begin
 
-Before diving into the setup process, ensure that you have a terminal installed on your system/virtual machine. If you're unsure, you can check by searching for a terminal application and running the following command inside of it:
+Before diving into the setup process, ensure you have the necessary requirements to carry on. While one could set this project up directly on their machines it is recommended to use a VM (virtual machine) to keep your personal computer clean of project files. This project has been developed with Linux, with all contributors using Ubuntu Desktop or Ubuntu Server.
 
-```bash
-echo "Terminal is ready"
-```
+### Virtual Machine
+ 
+Since we recommend hosting the project on a virtual machine, one must use virtualization software to install their VM on their system. If you're unsure of how to do this, please follow the guides below based on your system:
 
-Still unsure about what a command even is? Don't fret and go to this [README](/docs/terminal.md) to learn more!
+* [MacOS Guide](/docs/vm-macos.md)
+* [Windows / Linux Guide](/docs/vm-windows-linux.md)
+
+### Terminal
+Before diving into the setup process, ensure that you have a terminal installed on your system/virtual machine. If you're unsure, search how to open a terminal for the operating system of your virtual machine. Ubuntu Desktop has a "terminal" application you can search for, but Ubuntu Server opens into the terminal by default.
+
+Your terminal application should look something like this.
+
+![Terminal example with an echo "terminal is ready"](./resources/vm-environment/00%20terminal%20example.png)
+
+> **Important:** Still unsure about what a command even is? Don't fret and go to this [guide](/docs/terminal.md) to learn more!
 
 ## Step-by-Step Setup
 
@@ -28,6 +34,12 @@ Still unsure about what a command even is? Don't fret and go to this [README](/d
     sudo apt-get update && sudo apt-get upgrade -y
     ```
 
+    > **Important:** To execute a command you must enter the command into your terminal and press enter.
+    > **Important:** If you're asked "which services should be restarted?" just click enter.
+
+    ![gif with step by step of doing the update and upgrade](./resources/vm-environment/01%20update%20and%20upgrade.gif)
+
+
 2. **Install Git**
     
     This project is set up to use Git and GitHub as a centralized location for all the project code. To install Git, run the following:
@@ -35,6 +47,8 @@ Still unsure about what a command even is? Don't fret and go to this [README](/d
     ```bash
     sudo apt-get install git -y
     ```
+
+    ![terminal with the command above](./resources/vm-environment/02%20install%20git.png)
 
 3. **Clone the Repository**
    
@@ -44,9 +58,11 @@ Still unsure about what a command even is? Don't fret and go to this [README](/d
     git clone https://github.com/IT490-Tech-Team/IT490-Project
     ```
 
+    ![terminal with the command above](./resources/vm-environment/03%20clone%20repo.gif)
+
 4. **Run Startup Script**
    
-   This script guides you through running essential and optional commands to set up the environment, the most crucial step is installing Tailscale.
+   This script guides you through running essential and optional commands to set up the environment, the most crucial step is installing Tailscale. If you'd like to learn more about what each step in the startup script does, go to the [startup explanation](/docs/startup-script.md).
    
    Navigate to `/IT490-Project/scripts`.
    
@@ -59,6 +75,10 @@ Still unsure about what a command even is? Don't fret and go to this [README](/d
     ```bash
     ./startup.sh
     ```
+
+    > **important:** If you decide to install ZSH, Oh My ZSH!, and powerlevel10k, you will need to logout and log back in for the terminal to change
+
+    ![terminal with the commands above](./resources/vm-environment/04%20startup%20script.gif)
 
 5.  **(Optional) Initialize Tailscale**
 
