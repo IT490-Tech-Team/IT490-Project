@@ -1,0 +1,7 @@
+- [ ] full project setup readme
+- [ ] update scripts
+- [ ] update backend
+- [ ] update frontend
+- [ ] update dmz
+- [ ] update deployer
+- [ ] make a load balancer readme

@@ -10,7 +10,7 @@ This guide provides step-by-step instructions to set up the Backend, Frontend, a
 
 ## Before you Begin
 
-Before diving into the setup process, ensure that you have a terminal installed on your system/virtual machine. If you're unsure, you can check by searching for a terminal application and running the following command:
+Before diving into the setup process, ensure that you have a terminal installed on your system/virtual machine. If you're unsure, you can check by searching for a terminal application and running the following command inside of it:
 
 ```bash
 echo "Terminal is ready"
@@ -54,7 +54,7 @@ Still unsure about what a command even is? Don't fret and go to this [README](/d
     cd IT490-Project/scripts
     ```
 
-    Then run the startup script:
+    Then run the startup script and follow the directions on the terminal:
 
     ```bash
     ./startup.sh

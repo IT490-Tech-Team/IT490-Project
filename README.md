@@ -6,7 +6,7 @@ If you want to learn more about BookQuest itself, refer to our [proposal](./docs
 
 ## Want to Contribute?
 
-Ready to contribute to BookQuest? Explore our [Development Environment guide](/docs/vm-environment.md) for a hassle-free setup. This guide helps you create a VM that combines all website parts (Frontend, Backend, DMZ) into one, so you can focus on contributing without worrying details such as the "website environment".
+Ready to contribute to BookQuest? Explore our [Development Environment guide](/docs/vm-environment.md) for a hassle-free setup. This guide helps you set up a machine that combines all website parts (Frontend, Backend, DMZ) into one, so you can focus on contributing without worrying about details such as the "website environment".
 
 ## Want to replicate the project?
 
