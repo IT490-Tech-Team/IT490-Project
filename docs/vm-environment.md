@@ -20,7 +20,7 @@ Before diving into the setup process, ensure that you have a terminal installed 
 
 Your terminal application should look something like this.
 
-![Terminal example with an echo "terminal is ready"](./resources/vm-environment/00 terminal example.png)
+![Terminal example with an echo "terminal is ready"](./resources/vm-environment/00-terminal-example.png)
 
 > **Important:** Still unsure about what a command even is? Don't fret and go to this [guide](/docs/terminal.md) to learn more!
 
@@ -38,7 +38,7 @@ Your terminal application should look something like this.
 
     > **Note:** If you're asked "which services should be restarted?" just click enter.
 
-    ![gif with step by step of doing the update and upgrade](./resources/vm-environment/01 update and upgrade.gif)
+    ![gif with step by step of doing the update and upgrade](./resources/vm-environment/01-update-and-upgrade.gif)
 
 
 2. **Install Git**
@@ -49,7 +49,7 @@ Your terminal application should look something like this.
     sudo apt-get install git -y
     ```
 
-    ![terminal with the command above](./resources/vm-environment/02 install git.png)
+    ![terminal with the command above](./resources/vm-environment/02-install-git.png)
 
 3. **Clone the Repository**
    
@@ -59,7 +59,7 @@ Your terminal application should look something like this.
     git clone https://github.com/IT490-Tech-Team/IT490-Project
     ```
 
-    ![terminal with the command above](./resources/vm-environment/03 clone repo.gif)
+    ![terminal with the command above](./resources/vm-environment/03-clone-repo.gif)
 
 4. **Run Startup Script**
    
@@ -79,7 +79,7 @@ Your terminal application should look something like this.
 
     > **important:** If you decide to install ZSH, Oh My ZSH!, and powerlevel10k, you will need to logout and log back in for the changes to apply.
 
-    ![terminal with the commands above](./resources/vm-environment/04 startup script.gif)
+    ![terminal with the commands above](./resources/vm-environment/04-startup-script.gif)
 
 5.  **(Optional) Initialize Tailscale**
 
@@ -89,7 +89,7 @@ Your terminal application should look something like this.
     ./tailscale_login.sh
     ```
 
-    ![terminal with the commands above](./resources/vm-environment/05 tailscale.png)
+    ![terminal with the commands above](./resources/vm-environment/05-tailscale.png)
 
 6. Using the Installer
 
@@ -101,7 +101,7 @@ Your terminal application should look something like this.
         ./installer.sh -backend -a -b -c -d -e -f -g -h -i -j -k
         ```
 
-    ![terminal with the commands above](./resources/vm-environment/06-01 installer backend.png)
+    ![terminal with the commands above](./resources/vm-environment/06-01-installer-backend.png)
 
    - **Set up DMZ**
 
@@ -109,7 +109,7 @@ Your terminal application should look something like this.
         ./installer.sh -dmz -a -b -c -d -e -f -g -h -i -j -k
         ```
 
-    ![terminal with the commands above](./resources/vm-environment/06-02 installer dmz.png)
+    ![terminal with the commands above](./resources/vm-environment/06-02-installer-dmz.png)
 
 
    - **Set up Frontend**
@@ -118,14 +118,14 @@ Your terminal application should look something like this.
         ./installer.sh -frontend -a -b -c -d -e -f -g -h -i -j -k
         ```
 
-    ![terminal with the commands above](./resources/vm-environment/06-03 installer frontend.png)
+    ![terminal with the commands above](./resources/vm-environment/06-03-installer-frontend.png)
 
 
 7.  **Test Your Setup**
 
     After completing the setup steps, test your development environment by accessing `localhost` in your web browser. This will allow you to verify if you can access the website.
 
-    ![image showcasing the website running on firefox inside of the VM](./resources/vm-environment/07 test.png)
+    ![image showcasing the website running on firefox inside of the VM](./resources/vm-environment/07-test.png)
 
 Congratulations! You've successfully set up your development environment for the Online Bookshelf project. Happy developing!
 
