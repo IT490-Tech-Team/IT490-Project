@@ -1,14 +1,13 @@
-
 .popup {
     position: sticky;
     height: 100%;
     width: 100%;
     bottom: 0;
     display: flex;
-
-    justify-content: center;
-    backdrop-filter: blur(10px); /* Apply the blur effect */
-    -webkit-backdrop-filter: blur(10px); /* WebKit-specific backdrop filter */
+    flex-direction: column; /* Change flex direction to column */
+    align-items: center; /* Center the content vertically */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     background-color: rgba(230, 230, 230, 0.55);
 }
 
@@ -28,6 +27,13 @@
     width: 100%;
 } 
 
-.book-content #discussion > div{
+.book-content #discussion > div {
     border-bottom: 1px solid black;
+}
+
+/* Adjust AddToAny container */
+.a2a_kit {
+    margin-top: 1rem; /* Add some space above the AddToAny buttons */
+	display: block;
+
 }
