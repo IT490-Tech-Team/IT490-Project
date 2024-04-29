@@ -65,7 +65,7 @@ $connectionConfig = [
 ];
 
 $exchangeQueueConfig = [
-    "EXCHANGE_TYPE" => "topic",
+    "EXCHANGE_TYPE" => "fanout",
     "AUTO_DELETE" => true,
     "EXCHANGE" => "logExchange",
     "QUEUE" => "logQueue",

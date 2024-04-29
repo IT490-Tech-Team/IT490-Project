@@ -1,0 +1,26 @@
+This is a cross-system log file that contans all relevant events that occur across all connected systems.
+Log types are listed with most critical first: Error, Info, Debug
+Ignoring log types: []
+
+Date                   Type    Source                                            Message
+2024-04-28 23:35:33    Info    frontend/website/api/search_db.js                 Searching database for books
+This is a cross-system log file that contans all relevant events that occur across all connected systems.
+Log types are listed with most critical first: Error, Info, Debug
+Ignoring log types: []
+
+Date                   Type    Source                                            Message
+2024-04-28 23:35:33    Info    frontend/website/api/search_db.js                 Searching database for books
+This is a cross-system log file that contans all relevant events that occur across all connected systems.
+Log types are listed with most critical first: Error, Info, Debug
+Ignoring log types: []
+
+Date                   Type    Source                                            Message
+2024-04-28 23:35:35    Info    frontend/website/api/search_db.js                 Adding 10 books to database
+This is a cross-system log file that contans all relevant events that occur across all connected systems.
+Log types are listed with most critical first: Error, Info, Debug
+Ignoring log types: []
+
+Date                   Type    Source                                            Message
+2024-04-28 23:35:35    Info    frontend/website/api/search_db.js                 Adding 10 books to database
+2024-04-28 23:37:33    Info    frontend/website/api/search_dmz.js                Searching dmz for "di"
+2024-04-28 23:37:33    Info    frontend/website/api/search_dmz.js                Searching dmz for "di"
