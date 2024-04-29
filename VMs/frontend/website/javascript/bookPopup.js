@@ -1,69 +1,88 @@
 import { addDiscussionComment, getDiscussionByBookId, getDiscussionByCommentId } from "/api/discussion.js"
 import { addReview, getReviewbyBookId } from "/api/reviews.js"
 
+const shareToTwitter = (book) => {
+    const message = `Check out "${book.title}" by ${book.authors} on BookQuest!`;
+    const url = window.location.href;
+    const encodedMessage = encodeURIComponent(message);
+    const encodedUrl = encodeURIComponent(url);
+
+    const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${encodedUrl}`;
+
+    window.open(twitterShareUrl);
+}
+
 export const bookPopUp = (book, user) => {
-	const container = document.createElement("div")
-	container.classList.add("popup")
+    const container = document.createElement("div")
+    container.classList.add("popup")
 
     container.addEventListener("click", (e) => {
         if(e.target.className == container.className){
             container.remove()
         }
     })
+    const imageUrl = book.cover_image_url
+    const title = book.title
+    let authors = book.authors
+    if(typeof authors == "string"){
+        authors = JSON.parse(authors)
+    }
+    if(typeof authors == "object"){
+        authors = authors.join(", ")
+    }
+    const description = book.description
+    let genre = book.genres
+    if(typeof genre == "string"){
+        genre = JSON.parse(genre)
+    }
+    if(typeof genre == "object"){
+        genre = genre.join(", ")
+    }
+    const language = book.language
 
-	const imageUrl = book.cover_image_url
-	const title = book.title
-	let authors = book.authors
-	if(typeof authors == "string"){
-		authors = JSON.parse(authors)
-	}
-	if(typeof authors == "object"){
-		authors = authors.join(", ")
-	}
-	const description = book.description
-	let genre = book.genres
-	if(typeof genre == "string"){
-		genre = JSON.parse(genre)
-	}
-	if(typeof genre == "object"){
-		genre = genre.join(", ")
-	}
-	const language = book.language
+    container.innerHTML = `
+        <div class="book-content">
+            <img src="${imageUrl}" alt="">
+            <h1>${title}</h1>
+            <h2>Authors</h2>
+            <p>${authors}</p>
+            <h2>Description</h2>
+            <p>${description}</p>
+            <h2>Genre</h2>
+            <p>${genre}</p>
+	   
+           <h2>Share this book </h2>
+           <button id="share-twitter-button">Share to Twitter</button>
 
+            <h1>Reviews</h1>
+            <div>
+                <textarea id="review-input"></textarea>
+                <input type="number" id="review-number" max=5 min=1 value=0>
+                <button id="review-submit">Send</button>
+            </div>
+            <div id="reviews-container"></div>
+            <h1>Discussion</h1>
+            <div>
+                <div id="replying-to"></div>
+                <textarea id="discussion-input"></textarea>
+                <button id="discussion-submit">Send</button>
+            </div>
+            <div id="discussion-container"></div>
+        </div>
+    `;
 
-	container.innerHTML = 
-	`
-	<div class="book-content">
-		<img src="${imageUrl}" alt="">
-		<h1>${title}</h1>
-		<h2>Authors</h2>
-		<p>${authors}</p>
-		<h2>Description</h2>
-		<p>${description}</p>
-		<h2>Genre</h2>
-		<p>${genre}</p>
-		<h1>Reviews</h1>
-		<div>
-			<textarea id="review-input"></textarea>
-			<input type="number" id="review-number" max=5 min=1 value=0>
-			<button id="review-submit">Send</button>
-		</div>
-		<div id="reviews-container"></div>
-		<h1>Discussion</h1>
-		<div>
-			<div id="replying-to"></div>
-			<textarea id="discussion-input"></textarea>
-			<button id="discussion-submit">Send</button>
-		</div>
-		<div id="discussion-container"></div>
-	</div>
-	`
+// Inside the bookPopUp function
+const shareButton = container.querySelector("#share-twitter-button");
 
-	reviews(container, book.id, user.id, user.username)
-	discussion(container, book.id, user.id, user.username)
+// Add click event listener to the button
+shareButton.addEventListener("click", () => shareToTwitter(book));
 
-	return container
+    reviews(container, book.id, user.id, user.username)
+    discussion(container, book.id, user.id, user.username)
+
+    return container;
 }
+
 
 const reviews = (parent, bookId, userId, username) => {
 	const reviewsContainer = parent.querySelector("#reviews-container")
