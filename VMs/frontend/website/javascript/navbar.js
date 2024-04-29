@@ -16,7 +16,9 @@ const addPath = (title, path, parent) => {
 }
 
 const logOut = (e) => {
-    e.preventDefault()
+    if(e){
+        e.preventDefault()
+    }
 
     setCookies(SESSION_ID_COOKIE_NAME, "", new Date())
     location.reload()
@@ -38,12 +40,11 @@ const addServerChanger = (container) => {
             const newServer = SERVERS[SERVERS.indexOf(currentServer) + 1] ?? SERVERS[0] 
     
             setCookies(SERVER_COOKIE_NAME, newServer)
-            logOut(e)
+            logOut()
         })
         
         container.appendChild(serverChangerLink)
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {

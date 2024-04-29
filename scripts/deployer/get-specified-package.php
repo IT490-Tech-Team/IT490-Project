@@ -6,7 +6,7 @@ include_once ("functions/downloadPackage.php");
 include_once ("functions/installPackage.php");
 
 $connectionConfig = [
-    "BROKER_HOST" => "website",
+    "BROKER_HOST" => "deployer",
     "BROKER_PORT" => 5672,
     "USER" => "bookQuest",
     "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",

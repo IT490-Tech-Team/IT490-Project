@@ -1,4 +1,4 @@
-# Project Idea: Online Bookshelf
+# BookQuest
 
 An online bookshelf management tool that allows users to easily find and save books tailored to their interests. After making an account, users can read reviews and leave their own in-depth reviews and ratings on books. Registered users can also access their own personal bookshelf, where they can save books and sort them as they please. Based on reviews and reading history, the website will also recommend books to the user.
 
@@ -11,7 +11,6 @@ An online bookshelf management tool that allows users to easily find and save bo
 - **Recommendations**: Books are recommended to users based on their interests and reviews on books.
 - **Forum**: An online forum for users to discuss books.
 
-## Possible APIs
+## API
 
 - [Google Books API](https://developers.google.com/books/docs/overview#books_api_v1)
-- [OpenLibrary API](https://openlibrary.org/dev/docs/api/search)
