@@ -9,6 +9,25 @@ $json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
 $json_data = file_get_contents($json_file);
 $settings = json_decode($json_data, true);
 
+function getDatabaseConnection()
+{
+    $host = 'localhost';
+    $username = 'bookQuest';
+    $password = '3394dzwHi0HJimrA13JO';
+    $database = 'bookShelf';
+
+    // Create connection
+    $conn = new mysqli($host, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        // Log error or handle as needed
+        return null;
+    }
+
+    return $conn;
+}
+
 // Function to process incoming requests
 function requestProcessor($request)
 {
@@ -20,18 +39,17 @@ function requestProcessor($request)
     if (!isset($request['type'])) {
         return "ERROR: unsupported message type";
     }
-    
+
     // Determine request type and call corresponding function
     if ($request['type'] === "add_log") {
-
-		// Extract parameters from the request
-		$message = $request["message"];
-		$message_type = $request["message_type"];
-		$source = $request["source"];
-		// date is handled in createLog()
+        // Extract parameters from the request
+        $message_type = $request["message_type"];
+        $message = $request["message"];
+        $source = $request["source"];
+        // date handled later
         
-   	    // Call createLog function to add the comment
-        return createLog($message, $message_type, $source);
+        // Call addReview function to add log
+        return createLog($message_type, $message, $source);
     }
 
     // Default return if request type is not recognized

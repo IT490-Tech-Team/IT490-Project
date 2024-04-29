@@ -1,5 +1,5 @@
 [Unit]
-Description=RabbitMQ File Log
+Description=RabbitMQ Log Receiver Service for Logs
 After=network.target
 
 [Service]
