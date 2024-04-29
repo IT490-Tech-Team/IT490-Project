@@ -12,6 +12,29 @@ const shareToTwitter = (book) => {
     window.open(twitterShareUrl);
 }
 
+const shareToPinterest = (book) => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const imageUrl = encodeURIComponent(book.cover_image_url);
+    const bookUrl = encodeURIComponent(baseUrl);
+    const isVideo = 'false'; 
+    const description = encodeURIComponent(`Check out "${book.title}" by ${book.authors} on BookQuest!`);
+
+    const pinterestShareUrl = `https://pinterest.com/pin/create/bookmarklet/?media=${imageUrl}&url=${bookUrl}&is_video=${isVideo}&description=${description}`;
+
+    window.open(pinterestShareUrl);
+}
+
+const shareToLinkedIn = (book) => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const bookUrl = encodeURIComponent(baseUrl);
+    const title = encodeURIComponent(`Check out "${book.title}" by ${book.authors} on BookQuest!`);
+
+    const linkedInShareUrl = `https://www.linkedin.com/shareArticle?url=${bookUrl}&title=${title}`;
+
+    window.open(linkedInShareUrl);
+}
+
+
 export const bookPopUp = (book, user) => {
     const container = document.createElement("div")
     container.classList.add("popup")
@@ -53,6 +76,8 @@ export const bookPopUp = (book, user) => {
 	   
            <h2>Share this book </h2>
            <button id="share-twitter-button">Share to Twitter</button>
+	   <button id="share-pinterest-button">Share to Pinterest</button>
+	   <button id="share-linkedin-button">Share to LinkedIn</button>
 
             <h1>Reviews</h1>
             <div>
@@ -71,11 +96,13 @@ export const bookPopUp = (book, user) => {
         </div>
     `;
 
-// Inside the bookPopUp function
-const shareButton = container.querySelector("#share-twitter-button");
+    const shareButton = container.querySelector("#share-twitter-button");
+    const sharePinterestButton = container.querySelector("#share-pinterest-button");
+    const shareLinkedInButton = container.querySelector("#share-linkedin-button");
 
-// Add click event listener to the button
-shareButton.addEventListener("click", () => shareToTwitter(book));
+    shareButton.addEventListener("click", () => shareToTwitter(book));
+    sharePinterestButton.addEventListener("click", () => shareToPinterest(book));
+    shareLinkedInButton.addEventListener("click", () => shareToLinkedIn(book));
 
     reviews(container, book.id, user.id, user.username)
     discussion(container, book.id, user.id, user.username)
