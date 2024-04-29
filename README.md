@@ -2,11 +2,11 @@
 
 Welcome to BookQuest, the collaborative repository developed as part of the IT490 course at the New Jersey Institute of Technology. This repository serves as the central hub for the BookQuest project, where students can access project resources, contribute code, and participate in the development process.
 
-For additional details, refer to our [proposal](./docs/proposal.md).
+If you want to learn more about BookQuest itself, refer to our [proposal](./docs/proposal.md).
 
 ## Want to Contribute?
 
-Excited to contribute to BookQuest? Check out our [Development Environment guide](/docs/vm-environment.md) to get started on making BookQuest even better!
+Ready to contribute to BookQuest? Explore our [Development Environment guide](/docs/vm-environment.md) for a hassle-free setup. This guide helps you create a VM that combines all website parts (Frontend, Backend, DMZ) into one, so you can focus on contributing without worrying details such as the "website environment".
 
 ## Want to replicate the project?
 
