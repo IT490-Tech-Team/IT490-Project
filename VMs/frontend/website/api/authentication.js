@@ -5,7 +5,7 @@ const exchange = "authenticationExchange"
 const queue = "authenticationQueue"
 
 export const login = ({ username, password }) => {
-	addLog('Debug', 'Logging in user...', window.location.pathname);
+	addLog('Info', 'Logging in '+username, "frontend/website/api/authentication.js");
     return fetchData({
         type: "login",
         exchange: exchange,
@@ -20,13 +20,13 @@ export const login = ({ username, password }) => {
         }
     })
     .catch(error => {
-        addLog('Error', 'Error logging in user: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error logging in '+username+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 };
 
 export const register = ({ username, password, email }) => {
-	addLog('Debug', 'Registering user...', window.location.pathname);
+	addLog('Info', 'Registering '+username, "frontend/website/api/authentication.js");
     return fetchData({
         type: "register",
         exchange: exchange,
@@ -37,13 +37,13 @@ export const register = ({ username, password, email }) => {
     })
     .then(data => { return {}})
     .catch(error => {
-        addLog('Error', 'Error registering user: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error registering '+username+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 }
 
 export const validateSession = ({ sessionId }) => {
-	addLog('Debug', 'Validating user...');
+	addLog('Info', 'Validating '+username, "frontend/website/api/authentication.js");
     return fetchData({
         type: "validate_session",
         exchange: exchange,
@@ -52,7 +52,7 @@ export const validateSession = ({ sessionId }) => {
     })
     .then(data => { return {}})
     .catch(error => {
-        addLog('Error', 'Error validating user: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error validating '+username+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 }
@@ -71,7 +71,7 @@ export const getUser = ({sessionId}) => {
         }
     })
     .catch(error => {
-        addLog('Error', 'Error fetching user data: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error fetching user data with sessionId='+sessionId+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 }
@@ -80,7 +80,7 @@ export const getUserDetails = ({ sessionId }) => {
     return getUser({sessionId})
     .then(data => data.userDetails)
     .catch(error => {
-        addLog('Error', 'Error getting user details: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error getting user details with sessionId='+sessionId+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 }
@@ -89,7 +89,7 @@ export const getUserLibrary = ({ sessionId }) => {
     return getUser({sessionId})
     .then(data => data.userLibrary)
     .catch(error => {
-        addLog('Error', 'Error getting user library: ' . error.message, window.location.pathname);
+        addLog('Error', 'Error getting user library with sessionId='+sessionId+': '+error.message, "frontend/website/api/authentication.js");
         throw error;
     });
 }

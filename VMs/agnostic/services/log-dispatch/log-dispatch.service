@@ -1,12 +1,12 @@
 [Unit]
-Description=RabbitMQ Log Receiver Service for Logs
+Description=RabbitMQ Log Dispatcher Service for Logs
 After=network.target
 
 [Service]
 Type=simple
 User=root
 Group=root
-ExecStart=/usr/bin/php /opt/log-receiver/RabbitMQServer.php
+ExecStart=/usr/bin/php /opt/log-dispatch/RabbitMQServer.php
 Restart=always
 RestartSec=30
 

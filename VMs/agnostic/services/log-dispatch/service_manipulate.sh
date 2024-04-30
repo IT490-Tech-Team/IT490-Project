@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service_name="log-receiver"
+service_name="log-dispatch.service"
 
 function start_service {
     sudo systemctl start "$service_name"
