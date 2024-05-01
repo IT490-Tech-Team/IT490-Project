@@ -10,10 +10,7 @@ Before diving into the setup process, ensure you have the necessary requirements
 
 ### Virtual Machine
  
-Since we recommend hosting the project on a virtual machine, one must use virtualization software to install their VM on their system. If you're unsure of how to do this, please follow the guides below based on your system:
-
-* [Windows / Linux Guide](/docs/vm-windows-linux.md)
-* [MacOS Guide](/docs/vm-macos.md)
+Since we recommend hosting the project on a virtual machine, one must use virtualization software to install their VM on their system. We recommend you use VirtualBox for linux and windows, and use UTM for MacOS, with both products being free online.
 
 ### Terminal
 Before diving into the setup process, ensure that you have a terminal installed on your VM. If you're unsure, search how to open a terminal for the operating system of your VM. Ubuntu Desktop has a "terminal" application you can search for, but Ubuntu Server opens into the terminal by default.
