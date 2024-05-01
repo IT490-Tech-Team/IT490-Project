@@ -17,6 +17,9 @@ sudo cp -r "$(dirname "$0")" "$target_directory"
 # Copy Service
 sudo cp "$target_directory/$service_name" "/etc/systemd/system/$service_name"
 
+# add perms
+sudo chmod 777 -R "$target_directory"
+
 # Start Service and enable for reboot
 sudo systemctl daemon-reload
 sudo systemctl start "$service_name"
