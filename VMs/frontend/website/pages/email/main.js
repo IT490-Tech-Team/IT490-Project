@@ -3,12 +3,13 @@ import { emailSignUp } from "/api/email_signup.js"
 import { SESSION_ID_COOKIE_NAME } from "/javascript/defaults.js"
 import { getCookies } from "/javascript/helpers.js"
 
+const main = async () => {
 const form = document.querySelector("form")
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault()
 
-    const userDetails = await getUserDetails({
+    const userDetails = await getUser({
         sessionId: getCookies(SESSION_ID_COOKIE_NAME)
     })
 
@@ -23,3 +24,5 @@ form.addEventListener("submit", async (event) => {
         console.log(data)
     })
 })
+}
+main()

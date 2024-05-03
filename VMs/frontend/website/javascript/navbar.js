@@ -15,6 +15,8 @@ const addPath = (title, path, parent) => {
     return element
 }
 
+
+
 const logOut = (e) => {
     if(e){
         e.preventDefault()
@@ -62,18 +64,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adds Set Paths
     addPath("BookQuest","/",left)
-    
-    addPath("Login","/login",right)
-    addPath("Register","/register",right)
+
     
     if(getCookies(SESSION_ID_COOKIE_NAME)){
         addPath("Search","/search",center)
         addPath("Library","/library",center)
         addPath("Recommendations", "/recommendations", center)
         addPath("Email", "/email", center)
+       
 
         const logout = addPath("Log Out", "/logout", right)
         logout.addEventListener("click", (e) => {  logOut(e) })
+    } else {
+        addPath("Login","/login",right)
+        addPath("Register","/register",right)
     }
 
     addServerChanger(right)
