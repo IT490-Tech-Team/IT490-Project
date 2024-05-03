@@ -12,13 +12,13 @@
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    background-color: #454449;
+    color: rgb(255, 255, 255);
+    padding: 10px 15px;
+    border-radius: 10px;
     transition: background-color 0.3s ease;
     
 }
 input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #272927;
   }
