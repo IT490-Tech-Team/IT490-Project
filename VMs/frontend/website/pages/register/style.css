@@ -3,7 +3,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    margin: 0 auto;
+    background: rgb(185, 185, 207);
+    width: 500px;
+    height: 500px;
+    transform: translate(0vh, 10vh);
+    border-radius: 50px;
 }
 
 #registration {
