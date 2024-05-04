@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check if rabbitmqadmin is installed
+if ! command -v rabbitmqadmin &> /dev/null; then
+    echo "Error: rabbitmqadmin not found. Please make sure rabbitmqadmin is installed and in your PATH."
+    exit 1
+fi
+
+# Get total number of messages from RabbitMQ overview
+TOTAL_MESSAGES=$(rabbitmqadmin show overview | awk 'NR==4 {print $6}')
+
+# Print total number of messages
+echo "Total Messages: $TOTAL_MESSAGES|"
+
+# Fetch queue information
+QUEUE_INFO=$(rabbitmqadmin list queues name messages_ready messages_unacknowledged)
+
+# Check if rabbitmqadmin command was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to retrieve queue information from RabbitMQ server."
+    exit 1
+fi
+
+# Loop through each line of queue information and print
+while read -r QUEUE_LINE; do
+    QUEUE_NAME=$(echo "$QUEUE_LINE" | awk '{print $2}')
+    MESSAGES_READY=$(echo "$QUEUE_LINE" | awk '{print $4}')
+    MESSAGES_UNACK=$(echo "$QUEUE_LINE" | awk '{print $5}')
+    # Replace empty fields with "0"
+    MESSAGES_READY=${MESSAGES_READY:-0}
+    MESSAGES_UNACK=${MESSAGES_UNACK:-0}
+    echo "$QUEUE_NAME: [$MESSAGES_READY, $MESSAGES_UNACK], "
+done <<< "$(echo "$QUEUE_INFO" | tail -n +4)"

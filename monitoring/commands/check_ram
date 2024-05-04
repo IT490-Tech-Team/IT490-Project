@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Get RAM usage
+RAM_TOTAL=$(free -m | awk '/^Mem:/{print $2}')
+RAM_USED=$(free -m | awk '/^Mem:/{print $3}')
+RAM_PERCENTAGE=$((RAM_USED * 100 / RAM_TOTAL))
+
+# Print result
+echo "RAM usage: ${RAM_PERCENTAGE}% | ram_usage=${RAM_PERCENTAGE}%;80;90"
