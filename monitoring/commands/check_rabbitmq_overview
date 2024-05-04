@@ -16,7 +16,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Extract the information from the first row of the table and format it
-INFO_LINE=$(echo "$OVERVIEW_INFO" | awk 'NR==4 {print "rabbitmq_version: " $2 ", cluster_name: " $4 "')
+INFO_LINE=$(echo "$OVERVIEW_INFO" | awk 'NR==4 {print "rabbitmq_version: " $2 ", cluster_name: " $4}')
 
 # Print the extracted information
 echo "$INFO_LINE"
