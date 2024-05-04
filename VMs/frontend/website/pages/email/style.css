@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 0 auto;
+    margin: auto;
     background: rgb(185, 185, 207);
     width: 500px;
     height: 500px;
@@ -15,10 +15,10 @@ input[type="submit"] {
     background-color: #454449;
     color: rgb(255, 255, 255);
     padding: 10px 15px;
-    border-radius: 10px;
     transition: background-color 0.3s ease;
-    
+    margin-left:30%;
 }
+
 input[type="submit"]:hover {
     background-color: #272927;
   }

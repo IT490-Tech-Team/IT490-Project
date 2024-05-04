@@ -18,8 +18,28 @@ thead * {
 form {
     display: flex;
     gap: 1rem;
+    background-color: gray;
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 body {
     position: relative;
 }
+
+
+input {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 5px;
+    border-radius: 5px;
+ }
+
+ select {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 5px;
+    border-radius: 5px;
+ }
