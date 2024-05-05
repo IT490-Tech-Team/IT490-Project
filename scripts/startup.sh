@@ -23,6 +23,11 @@ if confirm "[ESSENTIAL] Do you want to update package lists and upgrade installe
     echo
 fi
 
+# Install PHP and Zip
+if confirm "[ESSENTIAL] Do you want to install PHP, Zip, and other essential packages?"; then
+    sudo apt-get install -y php-cli php-amqp php-ssh2 zip
+    echo
+fi
 
 
 # Install Tailscale
@@ -30,8 +35,6 @@ if confirm "[ESSENTIAL] Do you want to install Tailscale?"; then
     curl -fsSL https://tailscale.com/install.sh | sh
     echo
 fi
-
-
 
 # Install Zsh
 if confirm "[OPTIONAL] Do you want to install Zsh?"; then

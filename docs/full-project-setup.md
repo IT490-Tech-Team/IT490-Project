@@ -13,6 +13,16 @@ It's important to note that there's no need to specify specific users for the VM
 
 Each VM in the `/VMs` folder contains a dependencies script that automatically installs all necessary software for that machine. This dependencies script is triggered by the installer script, simplifying the setup process.
 
+If you'd like to learn more about each virtual machine, please refer to this table to navigate to their respective READMEs.
+
+| Folder                | Link                                   |
+| --------------------- | ---------------------------------------|
+| **VMs/backend**       | [README](/VMs/backend/README.md)       |
+| **VMs/dmz**           | [README](/VMs/dmz/README.md)           |
+| **VMs/frontend**      | [README](/VMs/frontend/README.md)      |
+| **VMs/deployer**      | [README](/VMs/deployer/README.md)      |
+| **VMs/load-balancer** | [README](/VMs/load-balancer/README.md) |
+
 ## Deployer
 
 Set up the deployer machine to manage package deployment and orchestrate setup across the project environment.

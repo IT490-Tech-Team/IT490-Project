@@ -3,8 +3,6 @@
 # Update package index
 sudo apt-get update
 
-sudo apt install -y zip
-
 # Install RabbitMQ
 echo "Installing RabbitMQ..."
 sudo apt-get install -y rabbitmq-server
@@ -32,8 +30,5 @@ sudo apt-get install -y mysql-server
 # Install PHP CLI, PHP MySQL extension, and PHP AMQP extension
 echo "Installing PHP CLI, PHP MySQL, and PHP AMQP extensions..."
 sudo apt-get install -y php-cli php-mysql php-amqp php-ssh2
-
-echo "Installing Python..."
-sudo apt install python3
 
 echo "Setup completed successfully."

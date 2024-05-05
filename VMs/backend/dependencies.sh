@@ -3,8 +3,6 @@
 # Update package index
 sudo apt-get update
 
-sudo apt install -y zip
-
 # Install RabbitMQ
 echo "Installing RabbitMQ..."
 sudo apt-get install -y rabbitmq-server
