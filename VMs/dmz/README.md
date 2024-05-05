@@ -2,6 +2,8 @@
 
 Welcome to the DMZ VM folder! This directory contains scripts and files related to setting up the DMZ (Demilitarized Zone) services for the project.
 
+The DMZ only uses PHP with some additional extensions.
+
 ## Folder Structure:
 
 - **jobs**: Contains cronjobs that run periodically.
