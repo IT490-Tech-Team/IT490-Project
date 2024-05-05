@@ -210,6 +210,18 @@ Set up the load balancer to distribute traffic across multiple servers for impro
 5. Run the `docker.sh` script located inside the folder to install Docker. After running the script, exit or logout and log back in to apply the changes.
 6. After logging back in, navigate to the `/containers/traefik/` folder.
 7. Run `docker-compose up -d` to start the Traefik container in detached mode.
+8. navigate to the `/containers/nagios/` folder.
+9. Run `docker-compose up -d` to start the Traefik container in detached mode.
+
+## Setting Up NagiOS clients
+
+> **Note:** All 12 VMs (dev cluster, test cluster, prod cluster, and prod-backup cluster) are automatically added to NagiOS, so you'd either have to remove the hosts you don't intend to track or follow the steps below for all VMs.
+
+To set up Nagios clients for monitoring, follow these steps on each VM you want to monitor:
+
+1. Go to the `/monitoring` directory.
+2. Run the `setup.sh` script to configure the Nagios client: `./setup.sh`
+3. After setting up NRPE, run the `copy_commands.sh` script to copy the necessary commands to the NRPE configuration directory: `./copy_commands.sh`
 
 ## Accessing the Production Website
 

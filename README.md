@@ -24,13 +24,10 @@ If you'd like to set up the entire environment, including the deployment system 
 
 Explore the inner workings of BookQuest through our detailed README files:
 
-| Folder                | Description                                                                                                          | Link                                    |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| **Scripts**           | Folder for miscellaneous scripts, e.g. startup, service_manager.                                                     | [README](./scripts/README.md)           |
-| **VMs/backend**       | Website's Core, hosting the database, message broker, and most "services".                                           | [README](./VMs/backend/README.md)       |
-| **VMs/dmz**           | Middle ground between API and backend.                                                                               | [README](./VMs/dmz/README.md)           |
-| **VMs/frontend**      | Contains files to host website frontend, powered by Apache.                                                          | [README](./VMs/frontend/README.md)      |
-| **VMs/deployer**      | Manages VM "packages" and installation logic, simplifying project distribution.                                      | [README](./VMs/deployer/README.md)      |
-| **VMs/load-balancer** | Glues the frontends of each environment, enabling access to each cluster (dev, test, or prod) from a singular point. | [README](./VMs/load-balancer/README.md) |
-
-
+| Folder           | Description                                                                                                          | Link                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Scripts**      | Folder for miscellaneous scripts, e.g., startup, service_manager.                                                    | [README](./scripts/README.md)           |
+| **VMs/backend**  | Website's Core, hosting the database, message broker, and most "services".                                           | [README](./VMs/backend/README.md)       |
+| **VMs/dmz**      | Middle ground between API and backend.                                                                               | [README](./VMs/dmz/README.md)           |
+| **VMs/frontend** | Contains files to host website frontend, powered by Apache.                                                          | [README](./VMs/frontend/README.md)      |
+| **VMs/manager**  | Manages VM "packages" and installation logic, simplifying project distribution and handling load balancing.         | [README](./VMs/manager/README.md)       |
