@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Get swap usage
+SWAP_TOTAL=$(free -m | awk '/^Swap:/{print $2}')
+SWAP_USED=$(free -m | awk '/^Swap:/{print $3}')
+SWAP_PERCENTAGE=$((SWAP_USED * 100 / SWAP_TOTAL))
+
+# Print result
+echo "Swap usage: ${SWAP_PERCENTAGE}% | swap_usage=${SWAP_PERCENTAGE}%;80;90"
