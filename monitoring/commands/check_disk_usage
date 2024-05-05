@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Define thresholds (in percentage)
+WARNING_THRESHOLD=80
+CRITICAL_THRESHOLD=90
+
+# Get disk usage
+DISK_USAGE=$(df -h --output=pcent / | awk 'NR==2{print substr($1, 1, length($1)-1)}')
+
+# Check disk usage against thresholds
+if [ $DISK_USAGE -ge $CRITICAL_THRESHOLD ]; then
+    echo "CRITICAL - Disk usage: ${DISK_USAGE}% | disk_usage=${DISK_USAGE}%;${WARNING_THRESHOLD};${CRITICAL_THRESHOLD}"
+    exit 2
+elif [ $DISK_USAGE -ge $WARNING_THRESHOLD ]; then
+    echo "WARNING - Disk usage: ${DISK_USAGE}% | disk_usage=${DISK_USAGE}%;${WARNING_THRESHOLD};${CRITICAL_THRESHOLD}"
+    exit 1
+else
+    echo "OK - Disk usage: ${DISK_USAGE}% | disk_usage=${DISK_USAGE}%;${WARNING_THRESHOLD};${CRITICAL_THRESHOLD}"
+    exit 0
+fi
