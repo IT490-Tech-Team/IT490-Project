@@ -149,8 +149,4 @@ if [ "$dmz" = true ]; then
 		./service_manager.sh install search-dmz-receiver
 		cd ..
     fi
-    if [ "$flag_k" = true ]; then
-        echo "Action for flag j"
-    fi
-
 fi

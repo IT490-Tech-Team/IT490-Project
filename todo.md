@@ -1,7 +1,12 @@
-- [ ] full project setup readme
+- [ ] Development FAQ
+- [ ] update VM environment
+- [ ] MacOS guide
+- [ ] Windows/Linux Guide
+- [ ] Startup Script
+- [ ] full project setup
 - [ ] update scripts
 - [ ] update backend
 - [ ] update frontend
 - [ ] update dmz
 - [ ] update deployer
-- [ ] make a load balancer readme
+- [ ] make a load balancer

@@ -2,6 +2,8 @@
 
 Welcome to the Deployer VM folder! This directory contains scripts and files related to managing package deployment for the project.
 
+This VM uses RabbitMQ, MySQL, and php.
+
 ## Folder Structure:
 
 - **sql**: Houses SQL scripts for database setup and credentials.

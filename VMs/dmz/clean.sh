@@ -1,3 +1,3 @@
 cd $HOME/IT490-Project
 cd tools
-./serviceManager stop search-dmz-receiver
+./service_manager.sh stop search-dmz-receiver
