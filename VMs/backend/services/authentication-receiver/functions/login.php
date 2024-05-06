@@ -14,11 +14,10 @@ function doLogin($username, $password)
     }
 
     try {
-        // Prepare SQL statement to prevent SQL injection
         /* log */
         createLog("Info", "Authenticating user where username=".$username." and password=".$password, $log_path);
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
