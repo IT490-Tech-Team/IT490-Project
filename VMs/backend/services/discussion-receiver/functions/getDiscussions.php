@@ -55,7 +55,7 @@ function getDiscussionByBookId($book_id)
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error fetching discussions where book_id=".$book_id, $log_path);
+        /* log */ createLog("Error", "Error fetching discussions where book_id=".$book_id.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error fetching discussions: " . $e->getMessage());
     }
 }

@@ -43,7 +43,7 @@ function doLogin($username, $password)
         $stmt->bind_param("sis", $sessionId, $userId, $expiryDate);
         $stmt->execute();
 
-		/* log */ createLog("Info", "Login successful by".$username, $log_path);
+		/* log */ createLog("Info", "Login successful by ".$username, $log_path);
         return array(
             "returnCode" => 200,
             "sessionId" => $sessionId,
@@ -52,7 +52,7 @@ function doLogin($username, $password)
         );
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error retrieving user ".$username." with password=".$password, $log_path);
+        /* log */ createLog("Error", "Error retrieving user ".$username." with password=".$password.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error executing query: " . $e->getMessage());
     }
 }

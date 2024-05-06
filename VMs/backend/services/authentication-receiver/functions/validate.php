@@ -44,7 +44,7 @@ function doValidate($sessionId)
         );
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error retrieving valid session where sessionId=".$sessionId, $log_path);
+        /* log */ createLog("Error", "Error retrieving valid session where sessionId=".$sessionId.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error executing query: " . $e->getMessage());
     }
 }

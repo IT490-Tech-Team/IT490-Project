@@ -28,7 +28,7 @@ function doRegister($username, $password, $email)
         );
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error registering user ".$username, $log_path);
+        /* log */ createLog("Error", "Error registering user ".$username.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 400, "message" => "Error registering user: " . $e->getMessage());
     }
 }

@@ -46,15 +46,15 @@ function addToLibrary($userId, $bookId)
             // Close database connection
             $conn->close();
 
-			/* log */ createLog("Info", "Successfully added book to user library where where bookId=".$bookId." and userId=".$userId, $log_path);
+			/* log */ createLog("Info", "Successfully added book to user library where bookId=".$bookId." and userId=".$userId, $log_path);
             return array("returnCode" => 200, "message" => "Book added to user library successfully");
         } else {
-            /* log */ createLog("Error", "Error adding book to user library where where bookId=".$bookId." and userId=".$userId, $log_path);
+            /* log */ createLog("Error", "Error adding book to user library where bookId=".$bookId." and userId=".$userId, $log_path);
             return array("returnCode" => 500, "message" => "Error adding book to user library");
         }
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error adding book to user library where where bookId=".$bookId." and userId=".$userId, $log_path);
+        /* log */ createLog("Error", "Error adding book to user library where bookId=".$bookId." and userId=".$userId.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error adding book to user library: " . $e->getMessage());
     }
 }

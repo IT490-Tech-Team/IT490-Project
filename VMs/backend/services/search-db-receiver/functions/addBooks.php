@@ -4,7 +4,7 @@ require_once("createLog.php");
 
 function addBooks($books)
 {
-	/* log data */ $bcount = count($books)
+	/* log data */ $bcount = count($books);
 	/* log data */ $log_path = "backend/services/search-db-receiver/functions/addBooks.php";
 	/* log */ createLog("Info", "Requesting database connection", $log_path);
 	
@@ -59,7 +59,7 @@ function addBooks($books)
             
         } catch (Exception $e) {
             // Log error or handle as needed
-            /* log */ createLog("Error", "Error inserting ".$bcount." books into the database", $log_path);
+            /* log */ createLog("Error", "Error inserting ".$bcount." books into the database: ".$e->getMessage(), $log_path);
             return array("returnCode" => 500, "books" => "Error inserting book: " . $e->getMessage());
         }
     }

@@ -8,9 +8,9 @@ function getReviewsByBookId($book_id)
 	/* log */ createLog("Info", "Requesting database connection", $log_path);
 	
     // Connect to the database
-	/* log */ createLog("Error", "Error connecting to the database", $log_path);
     $conn = getDatabaseConnection();
     if (!$conn) {
+	/* log */ createLog("Error", "Error connecting to the database", $log_path);
         return array("returnCode" => 500, "message" => "Error connecting to the database");
     }
 
@@ -58,7 +58,7 @@ function getReviewsByBookId($book_id)
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-	    /* log */ createLog("Error", "Error fetching reviews where book_id=".$book_id, $log_path);
+	    /* log */ createLog("Error", "Error fetching reviews where book_id=".$book_id.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error fetching reviews: " . $e->getMessage());
     }
 }

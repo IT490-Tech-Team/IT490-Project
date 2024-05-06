@@ -52,7 +52,7 @@ function getAllUpdates()
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error fetching email updates", $log_path);
+        /* log */ createLog("Error", "Error fetching email updates: ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error fetching updates: " . $e->getMessage());
     }
 }

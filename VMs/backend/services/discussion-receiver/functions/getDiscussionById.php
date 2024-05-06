@@ -58,7 +58,7 @@ function getDiscussionByDiscussionId($discussionId)
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error fetching discussion where discussionId=".$discussionId, $log_path);
+        /* log */ createLog("Error", "Error fetching discussion where discussionId=".$discussionId.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error fetching discussion: " . $e->getMessage());
     }
 }

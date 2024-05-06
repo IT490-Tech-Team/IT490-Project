@@ -32,7 +32,7 @@ function addReview($book_id, $user_id, $username, $rating, $comment)
             $conn->close();
 
             // Return success message
-        	/* log */ createLog("Info", "Successfully added review by ".$user_email." where book_id=".$book_id, $log_path);
+        	/* log */ createLog("Info", "Successfully added review by ".$username." where book_id=".$book_id, $log_path);
             return array("returnCode" => 200, "message" => "Review added successfully");
         } else {
             // Close the statement
@@ -42,12 +42,12 @@ function addReview($book_id, $user_id, $username, $rating, $comment)
             $conn->close();
 
             // Return error message
-        	/* log */ createLog("Error", "Error inserting review by ".$user_email." where book_id=".$book_id, $log_path);
+        	/* log */ createLog("Error", "Error inserting review by ".$username." where book_id=".$book_id, $log_path);
             return array("returnCode" => 500, "message" => "Error inserting review");
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error inserting review by ".$user_email." where book_id=".$book_id, $log_path);
+        /* log */ createLog("Error", "Error inserting review by ".$username." where book_id=".$book_id.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error inserting review: " . $e->getMessage());
     }
 }

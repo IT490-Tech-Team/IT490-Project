@@ -1,16 +1,25 @@
 <?php
 
+require_once("createLog.php");
+
 function searchBooks($title, $author, $genre, $language, $year)
 {
+	/* log data */ $log_path = "backend/services/search-db-receiver/functions/searchBooks.php";
+	/* log */ createLog("Info", "Requesting database connection", $log_path);
+	
     // Connect to the database
     $conn = getDatabaseConnection();
     if (!$conn) {
+    	/* log */ createLog("Error", "Error connecting to the database", $log_path);
         return array("returnCode" => 500, "message" => "Error connecting to the database");
     }
 
     // Initialize array to hold search parameters
     $params = array();
     $sortingConditions = array();
+    
+    
+    /* log */ createLog("Info", "Seaching for books: ".$title.", ".$author.", ".$genre.", ".$language.", ".$year, $log_path);
 
     // Prepare base SQL statement
     $sql = "SELECT * FROM books WHERE 1=1";
@@ -73,6 +82,7 @@ function searchBooks($title, $author, $genre, $language, $year)
         $stmt->close();
         // Close database connection
         $conn->close();
+    	/* log */ createLog("Info", "Found and returning ".$result->num_rows." books", $log_path);
         return array("returnCode" => 200, "books" => $books);
     } else {
         // No results found
@@ -80,6 +90,7 @@ function searchBooks($title, $author, $genre, $language, $year)
         $stmt->close();
         // Close database connection
         $conn->close();
+        /* log */ createLog("Error", "No books found", $log_path);
         return array("returnCode" => 200, "books" => []);
     }
 }

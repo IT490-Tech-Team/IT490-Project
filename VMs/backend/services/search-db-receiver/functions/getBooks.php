@@ -2,7 +2,7 @@
 
 require_once("createLog.php");
 
-function getBooks($bookIds)
+function getBooks($bookIds);
 {
 	/* log data */ $bcount = count($bookIds)
 	/* log data */ $log_path = "backend/services/search-db-receiver/functions/getBooks.php";
@@ -48,7 +48,7 @@ function getBooks($bookIds)
         }
     } catch (mysqli_sql_exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error retrieving books", $log_path);
+        /* log */ createLog("Error", "Error retrieving books: ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error retrieving books: " . $e->getMessage());
     }
 }

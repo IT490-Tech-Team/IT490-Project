@@ -51,7 +51,7 @@ function addDiscussion($book_id, $user_id, $username, $comment, $reply_to_id = n
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-        /* log */ createLog("Error", "Error inserting discussion by ".$username." into database", $log_path);
+        /* log */ createLog("Error", "Error inserting discussion by ".$username." into database: ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error inserting discussion: " . $e->getMessage());
     }
 }

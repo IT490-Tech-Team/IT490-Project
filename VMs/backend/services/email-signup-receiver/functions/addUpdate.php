@@ -46,7 +46,7 @@ function addUpdate($user_email, $type, $query)
         }
     } catch (Exception $e) {
         // Log error or handle as needed
-       	/* log */ createLog("Error", "Error inserting update to ".$user_email, $log_path);
+       	/* log */ createLog("Error", "Error inserting update to ".$user_email.": ".$e->getMessage(), $log_path);
         return array("returnCode" => 500, "message" => "Error inserting update: " . $e->getMessage());
     }
 }
