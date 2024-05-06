@@ -25,3 +25,4 @@ sudo systemctl enable "$service_name"
 
 # Display installation message
 echo "$service_name has been installed."
+
