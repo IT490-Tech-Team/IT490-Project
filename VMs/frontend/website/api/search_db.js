@@ -109,10 +109,17 @@ export const removeBookFromUserLibrary = ({book_id, user_id}) => {
         user_id: user_id, 
         book_id: book_id 
     })
-    .then(data => { return })
-    .catch(error => {
-        addLog('Error', 'Error removing books from database: '+error.message, "frontend/website/api/search_db.js");
-        console.log(error)
-        throw error;
-    });
+    .then(data => { return {}});
+}
+
+export const AddCategoryToUserLibrary = ({book_id, user_id, categoryName}) => {
+    return fetchData({
+        type: "add_category_to_user_library",
+        exchange: "searchDatabaseExchange",
+        queue: "searchDatabaseQueue",
+        user_id: user_id,
+        book_id: book_id,
+        categoryName: categoryName
+    })
+    .then(data => {console.log(data)})
 }

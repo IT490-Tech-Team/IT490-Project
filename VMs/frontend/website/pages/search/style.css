@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    color:white;
 }
 
 table {
@@ -12,13 +13,56 @@ table {
 thead * {
     width: fit-content;
     padding: 1rem;
+    display: none;
+}
+
+tbody {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+tbody tr {
+    display: grid;
+    padding: 1rem;
 }
 
 form {
     display: flex;
     gap: 1rem;
+    background-color: rgb(120, 122, 156);
+    padding: 1rem;
+    border-radius: 5px;
+    flex-wrap: wrap;
 }
 
 body {
     position: relative;
+}
+
+.cover {
+    height: 200px;
+    width: 300px;
+}
+
+input {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 5px;
+    border-radius: 5px;
+ }
+
+ 
+
+select {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+
+#search-results {
+    padding: 1rem;
 }
