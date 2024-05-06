@@ -78,3 +78,15 @@ export const removeBookFromUserLibrary = ({book_id, user_id}) => {
     })
     .then(data => { return {}});
 }
+
+export const AddCategoryToUserLibrary = ({book_id, user_id, categoryName}) => {
+    return fetchData({
+        type: "add_category_to_user_library",
+        exchange: "searchDatabaseExchange",
+        queue: "searchDatabaseQueue",
+        user_id: user_id,
+        book_id: book_id,
+        categoryName: categoryName
+    })
+    .then(data => {console.log(data)})
+}
