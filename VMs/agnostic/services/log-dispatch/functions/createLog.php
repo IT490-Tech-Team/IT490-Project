@@ -12,8 +12,8 @@ function createLog($message_type, $message, $source)
     $file_path = "./logs.txt";
 
     // File description and headers
-    $file_desc = "This is a cross-system log file that contains all relevant events that occur across all connected systems." . PHP_EOL . "Log types: Error, Info, Debug" . PHP_EOL . "Ignoring log types: [" . implode(", ", $ignored_types) . "]" . PHP_EOL . PHP_EOL;
-    $file_headers = str_pad("Date", 23) . str_pad("Type", 8) . str_pad("Source", 50) . "Message" . PHP_EOL;
+    $file_desc = "This is a cross-system log file that contains all relevant events that occur across all connected systems." . PHP_EOL . "Log types: Error, Alert, Info, Debug" . PHP_EOL . "Ignoring log types: [" . implode(", ", $ignored_types) . "]" . PHP_EOL . PHP_EOL;
+    $file_headers = str_pad("Date", 23) . str_pad("Type", 8) . str_pad("Message", 70) . "Source" . PHP_EOL;
 
     // Current date and time
     $date = date("Y-m-d H:i:s");
@@ -21,15 +21,15 @@ function createLog($message_type, $message, $source)
     // Pad the data for each column
     $padded_date = str_pad($date, 23);
     $padded_type = str_pad($message_type, 8);
-    $padded_message = str_pad($message, 1000);
-    $padded_source = str_pad($source, 50);
+    $padded_message = str_pad($message, 70);
+    $padded_source = str_pad($source, 100);
 
     // Construct the log entry with the padded data
-    $log_entry = $padded_date . $padded_type . $padded_source . $message . PHP_EOL;
+    $log_entry = $padded_date . $padded_type. $padded_message . $padded_source . PHP_EOL;
     
     // check if file is empty
     if (filesize($file_path) == 0) {
-    	$log_entry = $file_desc . $file_headers . $log_entry;
+    	//$log_entry = $file_desc . $file_headers . $log_entry;
     }
     var_dump(filesize($file_path));
         

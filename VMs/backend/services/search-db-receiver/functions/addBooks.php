@@ -1,12 +1,22 @@
 <?php
 
+require_once("createLog.php");
+
 function addBooks($books)
 {
+	/* log data */ $bcount = count($books)
+	/* log data */ $log_path = "backend/services/search-db-receiver/functions/addBooks.php";
+	/* log */ createLog("Info", "Requesting database connection", $log_path);
+	
     // Connect to the database
     $conn = getDatabaseConnection();
     if (!$conn) {
+    	/* log */ createLog("Error", "Error connecting to the database", $log_path);
         return array("returnCode" => 500, "message" => "Error connecting to the database");
     }
+    
+    
+    /* log */ createLog("Info", "Inserting ".$bcount." books into the database", $log_path);
 
     // Array to store the IDs of inserted books along with their cover image URLs
     $insertedBooks = array();
@@ -45,8 +55,11 @@ function addBooks($books)
                     "cover_image_url" => $cover_image_url
                 );
             }
+            /* log */ createLog("Info", "Inserted '".$title."' into the database", $log_path);
+            
         } catch (Exception $e) {
             // Log error or handle as needed
+            /* log */ createLog("Error", "Error inserting ".$bcount." books into the database", $log_path);
             return array("returnCode" => 500, "books" => "Error inserting book: " . $e->getMessage());
         }
     }
@@ -55,6 +68,7 @@ function addBooks($books)
     $conn->close();
 
     // Return array containing IDs of inserted books along with their cover image URLs
+     /* log */ createLog("Error", "Successfully inserted ".$bcount." books", $log_path);
     return array("returnCode" => 200, "books" => $insertedBooks);
 
 }
