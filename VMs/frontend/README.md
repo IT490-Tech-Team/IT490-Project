@@ -2,6 +2,8 @@
 
 Welcome to the Frontend VM folder! This directory contains scripts and files related to setting up the frontend services for the project.
 
+The frontend only uses Apache and Php.
+
 ## Folder Structure:
 
 - **website**: Houses all files for the website.

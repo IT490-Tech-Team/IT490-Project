@@ -1,33 +1,47 @@
-
 .popup {
     position: sticky;
     height: 100%;
     width: 100%;
     bottom: 0;
     display: flex;
-
-    justify-content: center;
-    backdrop-filter: blur(10px); /* Apply the blur effect */
-    -webkit-backdrop-filter: blur(10px); /* WebKit-specific backdrop filter */
-    background-color: rgba(230, 230, 230, 0.55);
+    flex-direction: column; /* Change flex direction to column */
+    align-items: center; /* Center the content vertically */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgb(120, 122, 156, 0.5);
 }
 
 .book-content {
     width: 60%;
     padding: 1rem;
-    background-color: white;
+    background-color: rgb(120, 122, 156);
     border-radius: 2rem;
     overflow: scroll;
     margin: 1rem;
 }
 
 .book-content textarea {
-    border-color: black;
+    border-color: rgb(255, 255, 255);
     border-width: 1px;
     border-style: solid;
     width: 100%;
 } 
 
-.book-content #discussion > div{
-    border-bottom: 1px solid black;
+.book-content #discussion > div {
+    border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+/* Adjust AddToAny container */
+.a2a_kit {
+    margin-top: 1rem; /* Add some space above the AddToAny buttons */
+	display: block;
+
+}
+
+input, button {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 8px 8px;
+    border-radius: 8px;
 }

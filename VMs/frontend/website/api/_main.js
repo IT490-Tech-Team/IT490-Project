@@ -1,5 +1,7 @@
+import { addLog } from "./log.js"
+
 export const fetchData = async (data) => {
-    const options = {
+	const options = {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -11,6 +13,7 @@ export const fetchData = async (data) => {
     const [ok, responseData] = await Promise.all([response.ok, response.json()]);
 
     if (!ok) {
+	    // do not call addLog(). will create an endless loop
         throw new Error(responseData.message || "An error occurred while processing your request.");
     }
 

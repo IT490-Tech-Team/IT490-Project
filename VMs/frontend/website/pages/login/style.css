@@ -3,7 +3,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    margin:auto;
+    background: rgb(185, 185, 207);
+    width: 500px;
+    height: 500px;
+    transform: translate(0vh, 15vh);
+    border-radius: 50px;
+    color:black;
+
 }
 
 #login {

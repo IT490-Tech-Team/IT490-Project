@@ -1,5 +1,8 @@
 
-
+h1{
+    display: flex; 
+    color:white;
+}
 .section {
     display: flex;
     gap: 3rem;

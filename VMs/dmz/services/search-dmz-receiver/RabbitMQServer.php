@@ -5,19 +5,17 @@
 require_once('rabbitMQLib.inc');
 require_once('functions/query.php');
 
-// Get the system hostname
-$hostname = gethostname();
+$BROKER_HOST = "127.0.0.1"; // Default
 
-// Split the hostname into parts using '-' as delimiter
-$parts = explode('-', $hostname);
-
-// Check if the first part of the hostname is 'dev', 'test', or 'prod'
-if (in_array($parts[0], ['dev', 'test', 'prod'])) {
-    // Replace the second part with 'backend'
-    $BROKER_HOST = $parts[0] . '-backend';
-} else {
-    // Set default value if there's an error or if the variable is null
-    $BROKER_HOST = '127.0.0.1';
+// * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
+// * dynamically changes the hostname depending on the server's hostname
+// * i.e. dev-frontend turns into dev-backend
+$hostname = explode("-", gethostname());
+if($hostname[1] === "frontend" || $hostname[1] === "dmz"){
+    $hostname[1] = "backend";
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST .= ".tortoise-daggertooth.ts.net";
 }
 
 function getDatabaseConnection()

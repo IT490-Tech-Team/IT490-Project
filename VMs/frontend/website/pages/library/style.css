@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    color:white;
 }
 
 table {
@@ -12,4 +13,25 @@ table {
 thead * {
     width: fit-content;
     padding: 1rem;
+}
+
+thead * {
+    width: fit-content;
+    padding: 1rem;
+    display: none;
+}
+
+tbody {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+tbody tr {
+    display: grid;
+    padding: 1rem;
+}
+
+.cover {
+    height: 200px;
+    width: 300px;
 }

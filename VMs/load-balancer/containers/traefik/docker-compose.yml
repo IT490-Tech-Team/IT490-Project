@@ -1,0 +1,18 @@
+version: "3.3"
+# https://doc.traefik.io/traefik/master/
+services:
+  traefik:
+    image: "traefik:3.0"
+    container_name: "traefik"
+    restart: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock
+      - ./config:/etc/traefik
+    network_mode: "host"
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - '443:443'
+    command:
+      - "--configFile=/etc/traefik/config.yml"

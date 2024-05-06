@@ -1,9 +1,14 @@
 #!/usr/bin/php
 <?php
 
+require_once("createLog.php");
+
 // Function to handle the query and retrieve book information from Google Books API
 function handleQuery($title)
 {
+	/* log data */ $log_path = "dmz/services/search-dmz-receiver/functions/query.php";
+	/* log */ createLog("Info", "Querying api data for title '".$title."'", $log_path);	
+	
     // Construct the URL
     $url = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($title);
 
@@ -26,6 +31,7 @@ function handleQuery($title)
     // Check for errors
     if ($response === false) {
         $error = curl_error($curl);
+		/* log */ createLog("Error", "A curl erorr occured while querying for api data: ".$error, $log_path);	
         return ["returnCode" => 500, 'message' => "Curl Error: " . $error];
     }
 
@@ -65,6 +71,8 @@ function handleQuery($title)
         // Add book to the result array
         $databaseBooks[] = $book;
     }
+    
+	/* log */ createLog("Info", "Retreived ".count($book)." books from api", $log_path);	
 
     // Return array of book information
     return array("returnCode" => 200, "books" => $databaseBooks);

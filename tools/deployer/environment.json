@@ -1,0 +1,14 @@
+{
+	"prod": {
+		"EXCHANGE": "prodStackExchange",
+		"QUEUE": "prodStackQueue"
+	},
+	"test": {
+		"EXCHANGE": "testStackExchange",
+		"QUEUE": "testStackQueue"
+	},
+	"dev": {
+		"EXCHANGE": "devStackExchange",
+		"QUEUE": "devStackQueue"
+	}
+}

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  nagios:
+    image: manios/nagios:latest
+    container_name: nagios
+    network_mode: host
+    volumes:
+      - ./etc:/opt/nagios/etc
+      - ./var:/opt/nagios/var
+      - ./apache2:/etc/apache2
+      # - ./ssmtp.conf:/etc/ssmtp/ssmtp.conf
+      - ./plugins:/opt/Custom-Nagios-Plugins
+    environment:
+      - NAGIOSADMIN_USER=guest
+      - NAGIOSADMIN_PASS=guest
+    command: ["/bin/bash", "-c", "apk add --no-cache sshpass && /usr/local/bin/start_nagios"]

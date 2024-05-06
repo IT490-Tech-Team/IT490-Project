@@ -1,10 +1,25 @@
 #content {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-
     align-items: center;
     justify-content: center;
-    
+    flex-direction: column;
+    margin: auto;
+    background: rgb(185, 185, 207);
+    width: 500px;
+    height: 500px;
+    transform: translate(0vh, 15vh);
+    border-radius: 50px;
+    color: black;
 }
+
+input[type="submit"] {
+    background-color: #454449;
+    color: rgb(255, 255, 255);
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+    margin-left:30%;
+}
+
+input[type="submit"]:hover {
+    background-color: #272927;
+  }
