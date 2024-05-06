@@ -33,7 +33,7 @@ function sendMessage($message_type, $message, $source) {
         $client = new rabbitMQClient($connectionConfig, $exchangeQueueConfig);
 
         // Define the message payload
-        $message = [
+        $sent_message = [
             "type" => "add_log",
             "message" => $message,
             "message_type" => $message_type,
@@ -41,7 +41,7 @@ function sendMessage($message_type, $message, $source) {
         ];
 
         // Send the message
-        $client->publish($message);
+        $client->publish($sent_message);
     }
 }
 
