@@ -98,7 +98,10 @@ create_exchange_and_queue "emailExchange" "topic" "emailQueue"
 
 # Create RabbitMQ resources for log exchange and queue
 # fanout to send to all machines
-create_exchange_and_queue "logExchange" "fanout" "logQueue"
+create_exchange_and_queue "logExchange" "topic" "logQueue"
+create_exchange_and_queue "frontend-logExchange" "topic" "frontend-logQueue"
+create_exchange_and_queue "backend-logExchange" "topic" "backend-logQueue"
+create_exchange_and_queue "dmz-logExchange" "topic" "dmz-logQueue"
 
 # Create user
 output=$(sudo rabbitmqadmin --host=$RABBITMQ_ADMIN_HOST --port=$RABBITMQ_ADMIN_PORT --username=$RABBITMQ_ADMIN_USER --password=$RABBITMQ_ADMIN_PASS declare user name="$RABBITMQ_USER" password="$RABBITMQ_PASS" tags="" 2>&1)

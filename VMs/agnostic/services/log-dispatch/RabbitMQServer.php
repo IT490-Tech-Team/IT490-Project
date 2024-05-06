@@ -5,9 +5,20 @@ require_once('rabbitMQLib.inc');
 include_once("functions/createLog.php");
 
 // Get Path of JSON, Read JSON, Decode JSON
-$json_file = $_SERVER['HOME'] . '/IT490-Project/environment.json';
-$json_data = file_get_contents($json_file);
-$settings = json_decode($json_data, true);
+
+$BROKER_HOST = "127.0.0.1"; // Default
+$rabbitMQQueueExchange = ""
+// * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
+// * dynamically changes the hostname depending on the server's hostname
+// * i.e. dev-frontend turns into dev-backend
+$hostname = explode("-", gethostname());
+if($hostname[1] === "frontend" || $hostname[1] === "dmz"){
+    $hostname[1] = "backend";
+    $rabbitMQQueueExchange = $hostname[2];
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST = implode("-",$hostname);
+    $BROKER_HOST .= ".tortoise-daggertooth.ts.net";
+}
 
 function getDatabaseConnection()
 {
@@ -57,7 +68,7 @@ function requestProcessor($request)
 }
 
 $connectionConfig = [
-    "BROKER_HOST" => "localhost",
+    "BROKER_HOST" => $BROKER_HOST,
     "BROKER_PORT" => 5672,
     "USER" => "bookQuest",
     "PASSWORD" => "8bkJ3r4dWSU1lkL6HQT7",
@@ -67,8 +78,8 @@ $connectionConfig = [
 $exchangeQueueConfig = [
     "EXCHANGE_TYPE" => "fanout",
     "AUTO_DELETE" => true,
-    "EXCHANGE" => "logExchange",
-    "QUEUE" => "logQueue",
+    "EXCHANGE" => "$rabbitMQQueueExchange-logExchange",
+    "QUEUE" => "$rabbitMQQueueExchange-logQueue",
 ];
 
 // Create RabbitMQ server instance
