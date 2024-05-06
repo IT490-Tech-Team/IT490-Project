@@ -2,4 +2,15 @@ input {
     border-width: 1px;
     border-color: black;
     border-style: solid;
-}
+    padding: 5px 5px;
+    border-radius: 5px;
+ }
+
+ select {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 5px 5px;
+    border-radius: 5px;
+ }
+        

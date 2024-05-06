@@ -4,10 +4,15 @@ import { addBookToUserLibrary, removeBookFromUserLibrary } from "/api/search_db.
 
 export const bookToTableRow = (book, userDetails, userLibrary) => {
     // Arrays to coordinate the column with the data object
-    const columnNames = ["cover", "title", "authors", "genres", "languages", "year published"]
-    const bookKeys = ["cover_image_url", "title", "authors", "genres", "languages", "year_published"]
+    const columnNames = ["cover", "title", "authors"]
+    const bookKeys = ["cover_image_url", "title", "authors"]
 
     const row = document.createElement("tr")
+
+    row.addEventListener("click", async () => {
+        const bookPopUpElement = bookPopUp(book, userDetails, userLibrary)
+        document.querySelector("body").appendChild(bookPopUpElement)
+    })
 
     // iterates through name and index
     // uses index to get the corresponding book data
@@ -23,17 +28,16 @@ export const bookToTableRow = (book, userDetails, userLibrary) => {
 
     console.log(userLibrary, userLibraryBookIds)
     // If book no in library, create a "add to library" button
-    if (userLibrary && !userLibraryBookIds.includes(book.id)){
-        row.appendChild(
-            bookDataToTableCell("add button", null, book, userDetails)
-        )
-    }
-    else {
-        console.log("")
-        row.appendChild(
-            bookDataToTableCell("remove button", null, book, userDetails)
-        )
-    }
+    // if (userLibrary && !userLibraryBookIds.includes(book.id)){
+    //     row.appendChild(
+    //         bookDataToTableCell("add button", null, book, userDetails)
+    //     )
+    // }
+    // else {
+    //     row.appendChild(
+    //         bookDataToTableCell("remove button", null, book, userDetails)
+    //     )
+    // }
 
     return row
 }
@@ -41,6 +45,7 @@ export const bookToTableRow = (book, userDetails, userLibrary) => {
 const bookDataToTableCell = (name, data, bookData, userData) => {
 
     const cell = document.createElement("td")
+    cell.className = name
 
     switch (name) {
         case "add button":
@@ -77,17 +82,6 @@ const bookDataToTableCell = (name, data, bookData, userData) => {
                 cell.textContent = data.join(" and ")
             }
             break;
-
-        case "title":
-            cell.textContent = data
-            cell.addEventListener("click", async () => {
-				console.log(bookData)
-				const book = bookPopUp(bookData, userData)
-                document.querySelector("body").appendChild(book)
-
-            })
-            break;
-
         default:
             cell.textContent = data
             break;

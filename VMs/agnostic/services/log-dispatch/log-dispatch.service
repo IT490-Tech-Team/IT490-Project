@@ -1,0 +1,15 @@
+[Unit]
+Description=RabbitMQ Log Dispatcher Service for Logs
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/log-dispatch
+ExecStart=sudo /usr/bin/php /opt/log-dispatch/RabbitMQServer.php
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

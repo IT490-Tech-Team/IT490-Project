@@ -1,5 +1,6 @@
 import { addDiscussionComment, getDiscussionByBookId, getDiscussionByCommentId } from "/api/discussion.js"
 import { addReview, getReviewbyBookId } from "/api/reviews.js"
+import { AddCategoryToUserLibrary, addBookToUserLibrary, removeBookFromUserLibrary } from "/api/search_db.js";
 
 const shareToTwitter = (book) => {
     const message = `Check out "${book.title}" by ${book.authors} on BookQuest!`;
@@ -35,7 +36,7 @@ const shareToLinkedIn = (book) => {
 }
 
 
-export const bookPopUp = (book, user) => {
+export const bookPopUp = (book, user, userLibrary) => {
     const container = document.createElement("div")
     container.classList.add("popup")
 
@@ -73,11 +74,18 @@ export const bookPopUp = (book, user) => {
             <p>${description}</p>
             <h2>Genre</h2>
             <p>${genre}</p>
-	   
-           <h2>Share this book </h2>
-           <button id="share-twitter-button">Share to Twitter</button>
-	   <button id="share-pinterest-button">Share to Pinterest</button>
-	   <button id="share-linkedin-button">Share to LinkedIn</button>
+
+            <h2>User Library</h2>
+            <div id='userLibrary'>
+                <div>
+                    <input type="text" id="category-input" name="category_name" placeholder="category">
+                    <button id="category-submit">Submit</button>
+                </div>
+            </div>
+            <h2>Share this book </h2>
+            <button id="share-twitter-button">Share to Twitter</button>
+	        <button id="share-pinterest-button">Share to Pinterest</button>
+	        <button id="share-linkedin-button">Share to LinkedIn</button>
 
             <h1>Reviews</h1>
             <div>
@@ -104,12 +112,54 @@ export const bookPopUp = (book, user) => {
     sharePinterestButton.addEventListener("click", () => shareToPinterest(book));
     shareLinkedInButton.addEventListener("click", () => shareToLinkedIn(book));
 
+    const userLibraryContainer = container.querySelector("#userLibrary")
+    const submitCategoryButton = container.querySelector("#category-submit")
+    const categoryInput = container.querySelector("#category-input")
+    
+    submitCategoryButton.addEventListener("click", () => {
+        AddCategoryToUserLibrary({
+            book_id: book.id,
+            user_id: user.id,
+            categoryName: categoryInput.value
+        })
+    })
+    console.log(submitCategoryButton)
+
+    library(userLibraryContainer, book, user, userLibrary)
     reviews(container, book.id, user.id, user.username)
     discussion(container, book.id, user.id, user.username)
 
     return container;
 }
 
+const library = (parent, book, user, userLibrary) => {
+    console.log(book, user, userLibrary)
+    const userLibraryBookIds = userLibrary.map(library => library.book_id)
+    const button = document.createElement("button")
+
+    if (userLibrary && !userLibraryBookIds.includes(book.id)){
+        button.textContent = "Add To Library"
+        button.addEventListener("click", () => {
+            addToLibrary(book.id, user.id)
+            .then(() => {
+                location.reload();
+            })
+
+        })
+    }
+    else {
+        button.textContent = "Remove From Library"
+        button.addEventListener("click", () => {
+            removeFromLibrary(book.id, user.id)
+            .then(() => {
+                location.reload();
+            })
+        })
+    }
+
+    parent.appendChild(button)
+
+}
 
 const reviews = (parent, bookId, userId, username) => {
 	const reviewsContainer = parent.querySelector("#reviews-container")
@@ -205,4 +255,12 @@ const fillDiscussion = (discussionContainer, replyingToTextElement, discussionSu
 			discussionContainer.appendChild(commentElement)
 		})
 	})
+}
+
+const addToLibrary = async (book_id, user_id) => {
+    addBookToUserLibrary({book_id, user_id})
+}
+
+const removeFromLibrary = async (book_id, user_id) => {
+    removeBookFromUserLibrary({book_id, user_id})
 }

@@ -51,11 +51,11 @@ const fillRecommendations = async (container, userDetails, userLibrary) => {
 	});
 
 	genres.forEach(genre => {
-		genreRecommendations(container, genre, userDetails)
+		genreRecommendations(container, genre, userDetails, userLibrary)
 	})
 }
 
-const genreRecommendations = async (parent, genre, userDetails) => {
+const genreRecommendations = async (parent, genre, userDetails, userLibrary) => {
 	const container = document.createElement("div")
     
     const text = document.createElement("h2")
@@ -67,7 +67,7 @@ const genreRecommendations = async (parent, genre, userDetails) => {
 	const books = searchDatabaseBooks({genre: genre})
 	.then(book => {
 		book.forEach((data) => {
-            addBookToSection(section, data, userDetails)
+            addBookToSection(section, data, userDetails, userLibrary)
         })
     })
 
@@ -77,7 +77,7 @@ const genreRecommendations = async (parent, genre, userDetails) => {
     parent.appendChild(container)
 }
 
-const addBookToSection = (parent, data, userDetails) => {
+const addBookToSection = (parent, data, userDetails, userLibrary) => {
     const book = document.createElement("div")
     book.classList.add("book")
 
@@ -90,10 +90,17 @@ const addBookToSection = (parent, data, userDetails) => {
     const authorElement = document.createElement("p")
     authorElement.textContent = data.authors ?? ""
 
+	if (typeof data === "string"){
+		authorElement.textContent = data.authors ?? ""
+	}
+	else if(data) {
+		authorElement.textContent = JSON.parse(data.authors).join(" and ")
+	}
+
     console.log(data.id)
     console.log(userDetails)
     book.addEventListener("click", () => {
-        document.querySelector("body").appendChild(bookPopUp(data, userDetails))
+        document.querySelector("body").appendChild(bookPopUp(data, userDetails, userLibrary))
     })
 
     book.appendChild(imageElement)

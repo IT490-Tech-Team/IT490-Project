@@ -1,6 +1,8 @@
 # Backend VM
 
-Welcome to the Backend VM folder! This directory contains scripts and files related to setting up the backend services for the project.
+Welcome to the Backend VM folder! This directory contains scripts and files related to setting up the backend services for the project. 
+
+This VM utilizes MySQL for database management and RabbitMQ for message queuing.
 
 ## Folder Structure:
 
@@ -18,6 +20,7 @@ Welcome to the Backend VM folder! This directory contains scripts and files rela
 - **phpmyadmin.sh**: Script to install and configure phpMyAdmin for database management.
 - **rabbitmq.sh**: Script to set up RabbitMQ exchanges and queues.
 - **sql.sh**: Script to set up the database using the provided SQL scripts.
+- **clean.sh**: uninstalls rabbitmq and mysql from the system.
 
 ## Services:
 
@@ -62,5 +65,9 @@ The `rabbitmq.sh` script sets up RabbitMQ exchanges and queues, facilitating mes
 ### sql.sh
 
 The `sql.sh` script automates the setup of the MySQL database using the SQL scripts provided in the `sql` folder. It creates the necessary tables and populates them with initial data.
+
+### clean.sh
+
+The `clean.sh` script attempts to clean RabbitMQ and MySQL from the machine by removing their packages and configurations. It is useful for performing cleanup tasks before reinstalling or removing these services.
 
 Feel free to explore each script and folder to understand their functionalities and configurations better.

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if rabbitmqadmin is installed
+if ! command -v rabbitmqadmin &> /dev/null; then
+    echo "Error: rabbitmqadmin not found. Please make sure rabbitmqadmin is installed and in your PATH."
+    exit 1
+fi
+
+# Get RabbitMQ overview information
+OVERVIEW_INFO=$(rabbitmqadmin show overview)
+
+# Check if rabbitmqadmin command was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to retrieve overview information from RabbitMQ server."
+    exit 1
+fi
+
+# Extract the information from the first row of the table and format it
+INFO_LINE=$(echo "$OVERVIEW_INFO" | awk 'NR==4 {print "rabbitmq_version: " $2 ", cluster_name: " $4}')
+
+# Print the extracted information
+echo "$INFO_LINE"
