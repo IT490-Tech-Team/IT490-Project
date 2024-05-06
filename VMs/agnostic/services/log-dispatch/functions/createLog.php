@@ -25,7 +25,13 @@ function createLog($message_type, $message, $source)
     $padded_source = str_pad($source, 50);
 
     // Construct the log entry with the padded data
-    $log_entry = $file_desc . $file_headers . $padded_date . $padded_type . $padded_source . $message . PHP_EOL;
+    $log_entry = $padded_date . $padded_type . $padded_source . $message . PHP_EOL;
+    
+    // check if file is empty
+    if (filesize($file_path) == 0) {
+    	$log_entry = $file_desc . $file_headers . $log_entry;
+    }
+    var_dump(filesize($file_path));
         
     // Open and append to file
     try {
