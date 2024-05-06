@@ -1,0 +1,14 @@
+[Unit]
+Description=RabbitMQ Authentication Receiver Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/php /opt/create-package/RabbitMQServer.php
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

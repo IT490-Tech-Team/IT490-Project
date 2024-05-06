@@ -10,7 +10,7 @@ function getBooks($bookIds)
 
     try {
         // Prepare SQL statement
-        $sql = "SELECT * FROM books WHERE id IN (" . implode(",", $bookIds) . ")";
+        $sql = "SELECT * FROM books WHERE id IN (" . implode(",", $bookIds) . ");";
         $stmt = $conn->prepare($sql);
 
         // Execute the query

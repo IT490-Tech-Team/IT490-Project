@@ -1,0 +1,5 @@
+This is a cross-system log file that contains all relevant events that occur across all connected systems.
+Log types: Error, Info, Debug
+Ignoring log types: []
+
+Date                   Type    Message                                                               Source

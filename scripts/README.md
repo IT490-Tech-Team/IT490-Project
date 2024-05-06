@@ -21,17 +21,7 @@ The `gh_cli.sh` script automates the installation and configuration of GitHub CL
 
 ### tailscale_login.sh
 
-The `tailscale_login.sh` script simplifies the setup process for connecting to Tailscale VPN, allowing users to specify the environment (prod, test, dev) and component (frontend, backend, dmz) they want to connect to. It sets up Tailscale with the appropriate parameters, facilitating secure access to the specified environment and component.
-
-#### How to Use:
-1. Run the script by executing the following command:
-    ```bash
-    bash tailscale_login.sh [prod|test|dev] [frontend|backend|dmz]
-    ```
-2. Replace `[prod|test|dev]` with the desired environment (prod, test, dev).
-3. Replace `[frontend|backend|dmz]` with the desired component (frontend, backend, dmz).
-4. The script will prompt you to enter the Tailscale authentication key if required.
-5. Once the script completes, Tailscale will be set up for the specified environment and component.
+The `tailscale_login.sh` script simplifies the setup process for connecting to Tailscale VPN for all the VMs to interconnect. 
 
 ### set_hostname.sh
 
@@ -40,11 +30,12 @@ The `set_hostname.sh` script simplifies the process of setting the hostname of a
 #### How to Use:
 1. Run the script by executing the following command:
     ```bash
-    bash set_hostname.sh <arg1> <arg2>
+    bash set_hostname.sh <arg1> [<arg2>] [<arg3>]
     ```
 2. Replace `<arg1>` with the first part of the desired hostname.
-3. Replace `<arg2>` with the second part of the desired hostname.
-4. After execution, the script will set the hostname to the concatenated value of `<arg1>` and `<arg2>`.
+3. Optionally, replace `<arg2>` with the second part of the desired hostname.
+4. Optionally, replace `<arg3>` with the third part of the desired hostname.
+5. After execution, the script will set the hostname to the concatenated value of `<arg1>`, `<arg2>`, and `<arg3>`.
 
 
 ### service_manager.sh

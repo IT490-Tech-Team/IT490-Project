@@ -1,4 +1,5 @@
 import { fetchData } from "./_main.js"
+import { addLog } from "./log.js"
 
 const exchange= "reviewsExchange"
 const queue= "reviewsQueue"
@@ -10,9 +11,14 @@ export const getReviewbyBookId = ({bookId}) => {
 		queue: queue,
 		book_id: bookId
 	})
+    .catch(error => {
+        addLog('Error', 'Error getting review where bookId='+bookId+': '+error.message, "frontend/website/api/reviews.js");
+        throw error;
+    });
 }
 
 export const addReview = ({bookId, userId, username, rating, comment})  => {
+	addLog('Info', 'Adding review by '+username+' where bookId='+bookId, "frontend/website/api/reviews.js");
 	return fetchData({
 		type: "add_review",
 		exchange: exchange,
@@ -23,4 +29,8 @@ export const addReview = ({bookId, userId, username, rating, comment})  => {
 		rating: rating, 
 		comment: comment
 	})
+    .catch(error => {
+        addLog('Error', 'Error adding review by '+username+' where bookId='+bookId, "frontend/website/api/reviews.js");
+        throw error;
+    });
 }

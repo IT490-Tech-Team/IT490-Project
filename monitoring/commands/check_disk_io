@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Get disk I/O statistics
+DISK_STATS=$(cat /proc/diskstats | grep -E '\bsd[a-z]+\s' | awk '{print $3, $7}')
+
+# Extract read and write values
+READ=$(echo $DISK_STATS | awk '{print $1}')
+WRITE=$(echo $DISK_STATS | awk '{print $2}')
+
+# Convert to KB/s (assuming 1 block = 512 bytes)
+BLOCK_SIZE=512
+READ_KB=$((READ * BLOCK_SIZE / 1024))
+WRITE_KB=$((WRITE * BLOCK_SIZE / 1024))
+
+# Print result
+echo "Disk I/O - Read: ${READ_KB} KB/s, Write: ${WRITE_KB} KB/s"

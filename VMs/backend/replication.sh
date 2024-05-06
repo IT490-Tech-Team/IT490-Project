@@ -92,7 +92,6 @@ if [ "$RELATIONSHIP" == "parent" ]; then
   setup_master
 elif [ "$RELATIONSHIP" == "child" ]; then
   setup_slave
-  setup_slave
 else
   echo "Invalid relationship parameter. It should be 'parent' or 'child'."
   exit 1

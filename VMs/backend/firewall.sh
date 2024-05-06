@@ -17,6 +17,9 @@ sudo ufw allow 22/tcp
 sudo ufw allow 41641/udp
 sudo ufw allow 41642/udp
 
+# Allow NRPE for Nagios
+sudo ufw allow 5666/tcp
+
 # Enable UFW
 sudo ufw enable
 
