@@ -7,14 +7,13 @@ include_once("functions/createLog.php");
 // Get Path of JSON, Read JSON, Decode JSON
 
 $BROKER_HOST = "127.0.0.1"; // Default
-$rabbitMQQueueExchange = "";
 // * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
 // * dynamically changes the hostname depending on the server's hostname
 // * i.e. dev-frontend turns into dev-backend
 $hostname = explode("-", gethostname());
+$rabbitMQQueueExchange = $hostname[1];
 if($hostname[1] === "frontend" || $hostname[1] === "dmz"){
     $hostname[1] = "backend";
-    $rabbitMQQueueExchange = $hostname[2];
     $BROKER_HOST = implode("-",$hostname);
     $BROKER_HOST = implode("-",$hostname);
     $BROKER_HOST .= ".tortoise-daggertooth.ts.net";
@@ -78,8 +77,8 @@ $connectionConfig = [
 $exchangeQueueConfig = [
     "EXCHANGE_TYPE" => "fanout",
     "AUTO_DELETE" => true,
-    "EXCHANGE" => "$rabbitMQQueueExchange-logExchange",
-    "QUEUE" => "$rabbitMQQueueExchange-logQueue",
+    "EXCHANGE" => $rabbitMQQueueExchange . "-logExchange",
+    "QUEUE" => $rabbitMQQueueExchange . "-logQueue",
 ];
 
 // Create RabbitMQ server instance
