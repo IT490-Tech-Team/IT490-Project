@@ -2,10 +2,7 @@
 <?php
 // Include required files
 require_once ('rabbitMQLib.inc');
-include_once ('functions/register.php');
-include_once ('functions/login.php');
-include_once ('functions/validate.php');
-include_once ('functions/getUser.php');
+include_once ('functions/sendMessage.php');
 
 function getDatabaseConnection()
 {
@@ -40,25 +37,15 @@ function requestProcessor($request)
 
   // Determine request type and call corresponding function
   if ($request['type'] === "add_log") {
-    $username = $request['username'];
-    $password = $request['password'];
-
-    return doLogin($username, $password);
-  } elseif ($request['type'] === "register") {
-    $username = $request['username'];
-    $password = $request['password'];
-    $email = $request['email'];
-
-    return doRegister($username, $password, $email);
-  } elseif ($request['type'] === "validate_session") {
-    $sessionId = $request['sessionId'];
-
-    return doValidate($sessionId);
-  } elseif ($request['type'] === "get_user") {
-    $sessionId = $request['sessionId'];
-
-    return getUser($sessionId);
-  }
+    // Extract parameters from the request
+    $message_type = $request["message_type"];
+    $message = $request["message"];
+    $source = $request["source"];
+    // date handled later
+    
+    // Call addReview function to add log
+    return sendMessage($message_type, $message, $source);
+}
 
   // Default return if request type is not recognized
   return array("returnCode" => '0', 'message' => "Request not processed.");

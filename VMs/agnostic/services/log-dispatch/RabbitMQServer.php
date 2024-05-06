@@ -7,7 +7,7 @@ include_once("functions/createLog.php");
 // Get Path of JSON, Read JSON, Decode JSON
 
 $BROKER_HOST = "127.0.0.1"; // Default
-$rabbitMQQueueExchange = ""
+$rabbitMQQueueExchange = "";
 // * hostnames are: <Environment>-<MachineType> i.e. dev-frontend
 // * dynamically changes the hostname depending on the server's hostname
 // * i.e. dev-frontend turns into dev-backend
