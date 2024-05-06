@@ -15,7 +15,8 @@ function doLogin($username, $password)
 
     try {
         // Prepare SQL statement to prevent SQL injection
-        /* log */ createLog("Info", "Authenticating user where username=".$username." and password=".$password, $log_path);
+        /* log */
+        createLog("Info", "Authenticating user where username=".$username." and password=".$password, $log_path);
         $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
@@ -24,6 +25,12 @@ function doLogin($username, $password)
         $row = $result->fetch_assoc();
         if (!$row) {
         	/* log */ createLog("Alert", "Invalid authenticating where username=".$username." and password=".$password, $log_path);
+            return array("returnCode" => 400, "message" => "Invalid username or password");
+        }
+
+        // Verify the password
+        $hashed_password = $row['password'];
+        if (!password_verify($password, $hashed_password)) {
             return array("returnCode" => 400, "message" => "Invalid username or password");
         }
 

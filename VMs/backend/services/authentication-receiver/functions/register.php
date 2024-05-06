@@ -15,10 +15,13 @@ function doRegister($username, $password, $email)
     }
 
     try {
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         // Prepare SQL statement to prevent SQL injection
         /* log */ createLog("Info", "Registering user where username=".$username.", password=".$password." nad email=".$email, $log_path);
         $stmt = $conn->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $password, $email);
+        $stmt->bind_param("sss", $username, $hashed_password, $email);
         $stmt->execute();
 
 		/* log */ createLog("Info", "Successfully registered ".$username, $log_path);

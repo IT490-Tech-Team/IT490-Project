@@ -102,12 +102,12 @@ if [ "$backend" = true ]; then
 		cd ../..
     fi
     if [ "$flag_d" = true ]; then
-        cd tools
-		./serviceManager install search-db-receiver
-		./serviceManager install authentication-receiver
-		./serviceManager install email-signup-receiver
-		./serviceManager install reviews-receiver
-		./serviceManager install discussion-receiver
+        cd scripts
+		./service_manager.sh install search-db-receiver
+		./service_manager.sh install authentication-receiver
+		./service_manager.sh install email-signup-receiver
+		./service_manager.sh install reviews-receiver
+		./service_manager.sh install discussion-receiver
 		cd ..
     fi
     if [ "$flag_e" = true ]; then
@@ -145,12 +145,8 @@ if [ "$dmz" = true ]; then
 		cd ../..
     fi
     if [ "$flag_j" = true ]; then
-        cd tools
-		./serviceManager install search-dmz-receiver
+        cd scripts
+		./service_manager.sh install search-dmz-receiver
 		cd ..
     fi
-    if [ "$flag_k" = true ]; then
-        echo "Action for flag j"
-    fi
-
 fi

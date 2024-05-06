@@ -1,5 +1,12 @@
-- [ ] copy over environment
-- [ ] make the php my admin stuff do the website stuff
-- [ ] DMZ Clean
-- [ ] Frontend Clean
-- [ ] Test deploying into clean VMs
+- [ ] Development FAQ
+- [ ] update VM environment
+- [ ] MacOS guide
+- [ ] Windows/Linux Guide
+- [ ] Startup Script
+- [ ] full project setup
+- [ ] update scripts
+- [ ] update backend
+- [ ] update frontend
+- [ ] update dmz
+- [ ] update deployer
+- [ ] make a load balancer
